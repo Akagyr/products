@@ -11,13 +11,13 @@ export default function SidebarCategory({
   setCurrentCategories: React.Dispatch<React.SetStateAction<string[]>>;
 }) {
   const isChecked = currentCategories.includes(category.name);
-  
-  const handleChange = (categoryInput: string) => {
+
+  const handleChange = async (categoryInput: string) => {
     if(categoryInput === ''){
       setCurrentCategories(prev => prev.filter(cat => cat !== category.name));
     } else {
       setCurrentCategories(prev => [...prev, categoryInput]);
-    }
+    }   
   };
 
   return (

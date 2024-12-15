@@ -1,0 +1,23 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Products {
+  id        Int    @id @default(autoincrement())
+  name      String
+  category  String
+  imageUrl  String
+  price     Float
+  createdAt Int
+}
+
+model Categories {
+  id   Int    @id @default(autoincrement())
+  name String
+}

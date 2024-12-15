@@ -1,53 +1,64 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SidebarCategory from './SidebarCategory';
 import { Category, Product } from '../types';
 
 export default function Sidebar({
   categories,
   products,
-  filterProducts,
+  localProducts,
+  sortedProducts,
+  setFilteredProducts,
+  setLocalProducts,
 }: {
   categories: Category[];
   products: Product[];
-  filterProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  localProducts: Product[];
+  sortedProducts: Product[];
+  setFilteredProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  setLocalProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }) {
   const [currentCategories, setCurrentCategories] = useState<string[]>([]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  useEffect(() => {
     if (currentCategories.length === 0) {
-      filterProducts(products);
-      return;
+      if (sortedProducts.length !== 0) {
+        setLocalProducts(sortedProducts);
+        setFilteredProducts(sortedProducts);
+      } else {
+        setLocalProducts(products);
+        setFilteredProducts([]);
+      }
+    } else {
+      let filteredProducts: Product[] = [];
+      if (sortedProducts.length !== 0) {
+        filteredProducts = sortedProducts.filter((product) =>
+          currentCategories.includes(product.category)
+        );
+      } else {
+        filteredProducts = products.filter((product) =>
+          currentCategories.includes(product.category)
+        );
+      }
+      setLocalProducts(filteredProducts);
+      setFilteredProducts(filteredProducts);
     }
-
-    const filteredProducts = products.filter((product) =>
-      currentCategories.includes(product.category)
-    );
-
-    filterProducts(filteredProducts);
-  };
-
-  const categorisArr = categories.map((category) => (
-    <SidebarCategory
-      key={category.id}
-      category={category}
-      currentCategories={currentCategories}
-      setCurrentCategories={setCurrentCategories}
-    />
-  ));
+  }, [currentCategories, products, localProducts]);
 
   return (
     <aside className='hidden lg:block min-w-[250px]'>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-[10px]'>
-        <h3 className='font-semibold'>Фильтр:</h3>
-        <div className='flex flex-col gap-[10px]'>{categorisArr}</div>
-        <button type='submit' className='px-[10px] py-[5px] bg-green-600 rounded-lg w-fit'>
-          Пошук
-        </button>
-      </form>
+      <h3 className='font-semibold mb-[10px]'>Фильтр:</h3>
+      <div className='flex flex-col gap-[10px]'>
+        {categories.map((category) => (
+          <SidebarCategory
+            key={category.id}
+            category={category}
+            currentCategories={currentCategories}
+            setCurrentCategories={setCurrentCategories}
+          />
+        ))}
+      </div>
     </aside>
   );
 }
