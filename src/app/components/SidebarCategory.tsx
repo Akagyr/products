@@ -13,11 +13,11 @@ export default function SidebarCategory({
   const isChecked = currentCategories.includes(category.name);
 
   const handleChange = async (categoryInput: string) => {
-    if(categoryInput === ''){
-      setCurrentCategories(prev => prev.filter(cat => cat !== category.name));
+    if (categoryInput === '') {
+      setCurrentCategories((prev) => prev.filter((cat) => cat !== category.name));
     } else {
-      setCurrentCategories(prev => [...prev, categoryInput]);
-    }   
+      setCurrentCategories((prev) => [...prev, categoryInput]);
+    }
   };
 
   return (

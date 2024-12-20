@@ -47,7 +47,7 @@ export default function Sidebar({
   }, [currentCategories, products, localProducts]);
 
   return (
-    <aside className='hidden lg:block min-w-[250px]'>
+    <aside className='hidden lg:block min-w-[220px]'>
       <h3 className='font-semibold mb-[10px]'>Фильтр:</h3>
       <div className='flex flex-col gap-[10px]'>
         {categories.map((category) => (
