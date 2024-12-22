@@ -1,18 +1,13 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 import './globals.css';
 import Header from './components/Header';
 import { CartProvider } from './context/cartContext';
+import { Montserrat } from 'next/font/google';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
+const montserrat = Montserrat({
+  subsets: ['cyrillic'],
+  variable: '--font-montserrat',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -27,10 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ua'>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${montserrat.variable} font-montserrat antialiased relative`}>
         <CartProvider>
           <Header />
-          <main className='px-[50px]'>{children}</main>
+          <main className='lg:px-[20px] xl:px-[50px]'>{children}</main>
         </CartProvider>
       </body>
     </html>

@@ -9,6 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {},
+      screens: {
+        '3xl': '1920px',
+      },
+      fontFamily: {
+        montserrat: ['var(--font-montserrat)'],
+      },
     },
   },
   plugins: [],

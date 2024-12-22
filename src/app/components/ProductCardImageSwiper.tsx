@@ -11,7 +11,7 @@ import { FreeMode, Navigation } from 'swiper/modules';
 export default function ({ productImage }: { productImage: string }) {
   return (
     <Swiper
-      className='w-full rounded-t-lg'
+      className='w-full rounded-t-3xl'
       loop={true}
       navigation={true}
       modules={[FreeMode, Navigation]}

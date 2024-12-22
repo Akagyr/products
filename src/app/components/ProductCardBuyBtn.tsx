@@ -7,10 +7,10 @@ export default function ProductCardBuyBtn({ product }: { product: Product }) {
 
   return (
     <button
-      className='px-[15px] py-[8px] rounded-lg bg-[#c78bf6] hover:bg-[#a93efc] w-fit transition-colors'
+      className='px-[30px] py-[8px] rounded-full bg-[#b85aff] hover:bg-[#7c24c0] text-white w-fit hover:transition-colors hover:duration-500'
       onClick={() => addToCart(product)}
     >
-      Купити
+      Додати до кошика
     </button>
   );
 }

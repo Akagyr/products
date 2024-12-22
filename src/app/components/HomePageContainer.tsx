@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import ProductList from './ProductList';
+import ProductsList from './ProductsList';
 import Sidebar from './Sidebar';
 import Sort from './Sort';
 import { Category, Product } from '../types';
@@ -18,7 +18,7 @@ export default function HomePageContainer({
   const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
 
   return (
-    <div className='flex py-[20px]'>
+    <div className='flex py-[40px]'>
       <Sidebar
         categories={categories}
         products={products}
@@ -27,7 +27,7 @@ export default function HomePageContainer({
         setFilteredProducts={setFilteredProducts}
         setLocalProducts={setLocalProducts}
       />
-      <div>
+      <div className='w-full'>
         <div className='flex items-center justify-between'>
           <div>Знайдено: {localProducts.length}</div>
           <Sort
@@ -37,7 +37,7 @@ export default function HomePageContainer({
             setLocalProducts={setLocalProducts}
           />
         </div>
-        <ProductList products={localProducts} />
+        <ProductsList products={localProducts} />
       </div>
     </div>
   );

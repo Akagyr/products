@@ -54,9 +54,9 @@ export default function Sort({
   }, [currentOption]);
 
   return (
-    <div className='flex items-center justify-end gap-[20px] mb-[20px]'>
-      <label>Сортування:</label>
-      <select name='sort' onChange={(e) => setCurrentOption(e.target.value)}>
+    <div className='flex items-center justify-center gap-[20px] mb-[20px]'>
+      <label className='font-medium'>Сортування:</label>
+      <select name='sort' onChange={(e) => setCurrentOption(e.target.value)} className='cursor-pointer border-b pb-[5px]'>
         <option value=''>по замовченню</option>
         <option value='nameBottom'>по назві (А - Я)</option>
         <option value='nameTop'>по назві (Я - А)</option>
