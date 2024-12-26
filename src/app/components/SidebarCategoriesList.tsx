@@ -1,51 +1,16 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import SidebarCategory from './SidebarCategory';
-import { Category, Product } from '../types';
+import { Category } from '../types';
 
 export default function SidebarCategoriesList({
   categories,
-  products,
-  localProducts,
-  sortedProducts,
-  setFilteredProducts,
-  setLocalProducts,
+  currentCategories,
+  setCurrentCategories,
 }: {
   categories: Category[];
-  products: Product[];
-  localProducts: Product[];
-  sortedProducts: Product[];
-  setFilteredProducts: React.Dispatch<React.SetStateAction<Product[]>>;
-  setLocalProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  currentCategories: string[];
+  setCurrentCategories: React.Dispatch<React.SetStateAction<string[]>>;
 }) {
-  const [currentCategories, setCurrentCategories] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (currentCategories.length === 0) {
-      if (sortedProducts.length !== 0) {
-        setLocalProducts(sortedProducts);
-        setFilteredProducts(sortedProducts);
-      } else {
-        setLocalProducts(products);
-        setFilteredProducts([]);
-      }
-    } else {
-      let filteredProducts: Product[] = [];
-      if (sortedProducts.length !== 0) {
-        filteredProducts = sortedProducts.filter((product) =>
-          currentCategories.includes(product.category)
-        );
-      } else {
-        filteredProducts = products.filter((product) =>
-          currentCategories.includes(product.category)
-        );
-      }
-      setLocalProducts(filteredProducts);
-      setFilteredProducts(filteredProducts);
-    }
-  }, [currentCategories, products, localProducts]);
-
   return (
     <div className='flex flex-col gap-[10px]'>
       {categories.map((category) => (

@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={`${montserrat.variable} font-montserrat antialiased relative`}>
         <CartProvider>
           <Header />
-          <main className='lg:px-[20px] xl:px-[50px]'>{children}</main>
+          <main className='px-[20px] lg:px-[50px]'>{children}</main>
         </CartProvider>
       </body>
     </html>

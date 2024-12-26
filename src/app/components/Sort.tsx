@@ -5,69 +5,56 @@ import { Product } from '../types';
 
 export default function Sort({
   products,
-  filteredProducts,
+  sortedProducts,
   setSortedProducts,
   setLocalProducts,
 }: {
   products: Product[];
-  filteredProducts: Product[];
+  sortedProducts: Product[];
   setSortedProducts: React.Dispatch<React.SetStateAction<Product[]>>;
   setLocalProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }) {
   const [currentOption, setCurrentOption] = useState<string>('');
 
   useEffect(() => {
-    let sortedProducts = [...products];
+    let productsToSort = [...(sortedProducts.length ? sortedProducts : products)];
 
     switch (currentOption) {
-      case '':
-        sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
+      case 'default':
+        productsToSort.sort((a, b) => b.category.localeCompare(a.name));
         break;
       case 'nameBottom':
-        sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+        productsToSort.sort((a, b) => a.category.localeCompare(b.name));
         break;
       case 'nameTop':
-        sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
+        productsToSort.sort((a, b) => b.category.localeCompare(a.name));
         break;
       case 'priceTop':
-        sortedProducts.sort((a, b) => a.price - b.price);
+        productsToSort.sort((a, b) => a.price - b.price);
         break;
       case 'priceBottom':
-        sortedProducts.sort((a, b) => b.price - a.price);
-        break;
-      // case 'rateBottom':
-      //   sortedProducts.sort((a, b) => b.rating - a.rating);
-      //   break;
-      // case 'rateTop':
-      //   sortedProducts.sort((a, b) => a.rating - b.rating);
-      //   break;
-      default:
-        if (filteredProducts.length !== 0) {
-          sortedProducts = filteredProducts;
-        } else {
-          sortedProducts = products;
-        }
+        productsToSort.sort((a, b) => b.price - a.price);
         break;
     }
-    setSortedProducts(sortedProducts);
-    setLocalProducts(sortedProducts);
-  }, [currentOption]);
+
+    setSortedProducts(productsToSort);
+    setLocalProducts(productsToSort);
+  }, [currentOption, products, sortedProducts, setSortedProducts, setLocalProducts]);
 
   return (
-    <div className='flex items-center justify-center gap-[20px] mb-[20px]'>
+    <div className='flex items-center gap-[20px] my-[20px] lg:my-0'>
       <label className='font-medium'>Сортування:</label>
-      <select name='sort' onChange={(e) => setCurrentOption(e.target.value)} className='cursor-pointer border-b pb-[5px]'>
-        <option value=''>по замовченню</option>
+      <select
+        name='sort'
+        value={currentOption}
+        onChange={(e) => setCurrentOption(e.target.value)}
+        className='cursor-pointer border-b pb-[5px]'
+      >
+        <option value='default'>по замовченню</option>
         <option value='nameBottom'>по назві (А - Я)</option>
         <option value='nameTop'>по назві (Я - А)</option>
         <option value='priceTop'>по ціні (низька {'>'} висока)</option>
         <option value='priceBottom'>по ціні (висока {'>'} низька)</option>
-        <option value='rateBottom' disabled>
-          по рейтингу (високий)
-        </option>
-        <option value='rateTop' disabled>
-          по рейтингу (низький)
-        </option>
       </select>
     </div>
   );

@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Product } from '../types';
 
-type CartItem = {
+export type CartItem = {
   product: Product;
   quantity: number;
 };

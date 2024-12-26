@@ -4,30 +4,21 @@ import SidebarCategoriesList from './SidebarCategoriesList';
 
 export default function Sidebar({
   categories,
-  products,
-  localProducts,
-  sortedProducts,
-  setFilteredProducts,
-  setLocalProducts,
+  currentCategories,
+  setCurrentCategories,
 }: {
   categories: Category[];
-  products: Product[];
-  localProducts: Product[];
-  sortedProducts: Product[];
-  setFilteredProducts: React.Dispatch<React.SetStateAction<Product[]>>;
-  setLocalProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  currentCategories: string[];
+  setCurrentCategories: React.Dispatch<React.SetStateAction<string[]>>;
 }) {
   return (
-    <aside className='hidden lg:block min-w-[200px] xl:min-w-[240px]'>
-      <h3 className='font-medium'>Фильтр:</h3>
-      <hr className='w-[80%] my-[10px]' />
+    <aside className='hidden lg:block lg:min-w-[180px] xl:min-w-[200px]'>
+      <h2 className='font-medium'>Фильтр:</h2>
+      <hr className='my-[10px]' />
       <SidebarCategoriesList
         categories={categories}
-        products={products}
-        localProducts={localProducts}
-        sortedProducts={sortedProducts}
-        setFilteredProducts={setFilteredProducts}
-        setLocalProducts={setLocalProducts}
+        currentCategories={currentCategories}
+        setCurrentCategories={setCurrentCategories}
       />
     </aside>
   );
