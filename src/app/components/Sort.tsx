@@ -21,13 +21,13 @@ export default function Sort({
 
     switch (currentOption) {
       case 'default':
-        productsToSort.sort((a, b) => b.category.localeCompare(a.name));
+        productsToSort.sort((a, b) => a.id - b.id);
         break;
       case 'nameBottom':
-        productsToSort.sort((a, b) => a.category.localeCompare(b.name));
+        productsToSort.sort((a, b) => a.category.localeCompare(b.category));
         break;
       case 'nameTop':
-        productsToSort.sort((a, b) => b.category.localeCompare(a.name));
+        productsToSort.sort((a, b) => b.category.localeCompare(a.category));
         break;
       case 'priceTop':
         productsToSort.sort((a, b) => a.price - b.price);
