@@ -39,7 +39,7 @@ export default function Sort({
 
     setSortedProducts(productsToSort);
     setLocalProducts(productsToSort);
-  }, [currentOption, products, sortedProducts, setSortedProducts, setLocalProducts]);
+  }, [currentOption]);
 
   return (
     <div className='flex items-center gap-[20px] my-[20px] lg:my-0'>

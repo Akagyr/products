@@ -5,7 +5,7 @@ import { useCart } from '../context/cartContext';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function Cart() {
+export default function HeaderCart() {
   const { getCartSubtotal } = useCart();
 
   return (

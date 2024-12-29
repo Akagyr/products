@@ -1,12 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState } from 'react';
-import { Product } from '../types';
-
-export type CartItem = {
-  product: Product;
-  quantity: number;
-};
+import { CartItem, Product } from '../types';
 
 type CartContextType = {
   cartItems: CartItem[];
@@ -15,6 +10,7 @@ type CartContextType = {
   getCartTotal: () => number;
   getCartSubtotal: () => number;
   updateCartProductQuantity: (productId: number, quantity: number) => void;
+  getCart: () => void;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -60,6 +56,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0);
   };
 
+  const getCart = () => {
+    return cartItems;
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -69,6 +69,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         getCartTotal,
         getCartSubtotal,
         updateCartProductQuantity,
+        getCart,
       }}
     >
       {children}

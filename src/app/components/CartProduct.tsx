@@ -1,19 +1,19 @@
 import React from 'react';
-import { CartItem, useCart } from '../context/cartContext';
+import { useCart } from '../context/cartContext';
+import { CartItem } from '../types';
 
 export default function CartProduct({ item }: { item: CartItem }) {
   const { removeFromCart, updateCartProductQuantity } = useCart();
 
   return (
     <>
-      <div className='hidden lg:grid grid-cols-[80px_1fr_1fr_1fr_1fr_1fr_120px] gap-[10px] items-center w-full py-[15px] border-b'>
+      <div className='hidden lg:grid grid-cols-[80px_1fr_1fr_1fr_1fr_120px] gap-[10px] items-center w-full py-[15px] border-b'>
         <img
           src={item.product.imageUrl}
           alt={item.product.name}
           className='object-cover rounded size-full'
         />
-        <p className='text-center'>{item.product.name}</p>
-        <p className='text-center'>{item.product.category}</p>
+        <p className='text-center'>{item.product.name} {item.product.category}</p>
         <p className='text-center'>{item.product.price.toFixed(2)} грн</p>
         <div className='flex items-center gap-[10px] justify-center'>
           <button

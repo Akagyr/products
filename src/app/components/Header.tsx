@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import HeaderLink from './HeaderLink';
 import Link from 'next/link';
-import Cart from './Cart';
+import HeaderCart from './HeaderCart';
 
 export default function Header() {
   return (
@@ -16,7 +16,7 @@ export default function Header() {
         <HeaderLink path='/#delivery' text='Доставка' />
         <HeaderLink path='/#contactus' text='Контакти' />
       </menu>
-      <Cart />
+      <HeaderCart />
     </header>
   );
 }
