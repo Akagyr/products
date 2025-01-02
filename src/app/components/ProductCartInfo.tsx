@@ -14,14 +14,7 @@ export default function ProductCartInfo({ product }: { product: Product }) {
       </div>
       <div className='flex flex-col gap-[5px]'>
         <div className='flex flex-col gap-[10px]'>
-          {product.price < 300 ? (
-            <p className='text-sm md:text-base'>{product.price} грн</p>
-          ) : (
-            <div className='flex gap-[10px] items-center justify-center'>
-              <p className='line-through text-sm md:text-base'>{product.price} грн</p>
-              <p className='text-[#cf0000] text-sm md:text-base'>{product.price - product.price * 0.2} грн</p>
-            </div>
-          )}
+          <p className='text-sm md:text-base'>{product.price} грн</p>
         </div>
         <p className='text-green-600 text-xs md:text-sm'>Є в наявності</p>
       </div>

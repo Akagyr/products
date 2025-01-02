@@ -7,46 +7,31 @@ import { redirect } from 'next/navigation';
 export default function CheckoutProductList() {
   const { cartItems, getCartSubtotal } = useCart();
 
-  if(cartItems.length === 0) {
+  if (cartItems.length === 0) {
     redirect('/');
   }
 
   return (
-    <div>
+    <div className='border px-[20px] pb-[20px] rounded-lg h-fit w-full lg:w-[550px] md:mx-auto'>
+      <h2 className='lg:text-xl font-semibold py-[15px] border-b'>Замовлення № {1}</h2>
       {cartItems.map((item) => (
         <div key={item.product.id}>
-          <div className='hidden lg:grid grid-cols-[50px_200px_1fr_1fr] gap-[10px] items-center w-full py-[15px] border-b'>
+          <div className='grid grid-cols-[15%_44%_10%_25%] sm:grid-cols-[12%_47%_10%_25%] md:grid-cols-[12%_47%_10%_25%] gap-[2%] md:gap-[2%] items-center text-center w-full py-[15px] border-b text-sm sm:text-base'>
             <img
               src={item.product.imageUrl}
               alt={item.product.name}
               className='object-cover rounded size-full'
             />
-            <p className='text-center'>
+            <p>
               {item.product.name} {item.product.category}
             </p>
-            <p className='text-center'>{item.quantity} од</p>
-            <span className='text-center'>
-              {(item.product.price * item.quantity).toFixed(2)} грн
-            </span>
-          </div>
-          <div className='grid lg:hidden grid-cols-[80px_1fr] gap-[40px] py-[15px] border-b'>
-            <img
-              src={item.product.imageUrl}
-              alt={item.product.name}
-              className='object-cover rounded w-full'
-            />
-            <div className='flex flex-col gap-[5px]'>
-              <p className='text-sm lg:text-base'>
-                {item.product.name} {item.product.category}
-              </p>
-              <p className='text-sm'>{item.quantity} од</p>
-              <p className='text-sm'>{(item.product.price * item.quantity).toFixed(2)} грн</p>
-            </div>
+            <p>{item.quantity} од</p>
+            <span>{(item.product.price * item.quantity).toFixed(2)} грн</span>
           </div>
         </div>
       ))}
-      <div className='mt-[20px] text-center lg:text-right'>
-        <div className='lg:text-xl font-semibold'>
+      <div className='mt-[20px] text-right'>
+        <div className='sm:text-lg md:text-xl font-semibold'>
           До оплати: {getCartSubtotal().toFixed(2)} грн
         </div>
       </div>
