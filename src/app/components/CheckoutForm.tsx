@@ -19,16 +19,21 @@ export default function CheckoutForm() {
     }\nНомер телефона: ${e.target.phone.value}\n\nТовари:\n${checkoutProductArr
       .map((el) => `${el.product.name + ' ' + el.product.category} - ${el.quantity} од.`)
       .join('\n')}\n\nСума ${getCartSubtotal().toFixed(2)} грн.`;
-    console.log(message);
 
-    // const templateParams = {
-    //   to_email: 'product.order.2024@gmail.com',
-    //   from_name: e.target.name.value,
-    //   from_email: e.target.email.value,
-    //   subject: `Замовлення від ${e.target.name.value}`,
-    //   message: message,
-    // };
-    // emailjs.send('service_mzwdlqh', 'template_9iya8wn', templateParams, 'ojBoTbNUh-9ltG-Fl');
+    const templateParams = {
+      to_email: 'product.order.2024@gmail.com',
+      from_name: e.target.name.value,
+      from_email: e.target.email.value,
+      subject: `Замовлення від ${e.target.name.value}`,
+      message: message,
+    };
+
+    emailjs.send(
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+      templateParams,
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+    );
 
     navigate.replace('/');
   };
