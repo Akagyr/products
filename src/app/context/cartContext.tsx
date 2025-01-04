@@ -8,8 +8,6 @@ type CartContextType = {
   addToCart: (product: Product) => void;
   removeFromCart: (productId: number) => void;
   getCartTotal: () => number;
-  getCartSubtotal: () => number;
-  updateCartProductQuantity: (productId: number, quantity: number) => void;
   getCart: () => void;
 };
 
@@ -36,23 +34,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setCartItems((prevItems) => prevItems.filter((item) => item.product.id !== productId));
   };
 
-  const updateCartProductQuantity = (productId: number, quantity: number) => {
-    if (quantity === 0) {
-      setCartItems((prevItems) => prevItems.filter((item) => item.product.id !== productId));
-    } else {
-      setCartItems((prevItems) =>
-        prevItems.map((item) =>
-          item.product.id === productId ? { ...item, quantity: quantity } : item
-        )
-      );
-    }
-  };
-
   const getCartTotal = () => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
-  };
-
-  const getCartSubtotal = () => {
     return cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0);
   };
 
@@ -67,8 +49,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         addToCart,
         removeFromCart,
         getCartTotal,
-        getCartSubtotal,
-        updateCartProductQuantity,
         getCart,
       }}
     >

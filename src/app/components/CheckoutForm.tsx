@@ -8,7 +8,7 @@ import { CartItem } from '@/app/types';
 
 export default function CheckoutForm() {
   const navigate = useRouter();
-  const { getCart, getCartSubtotal } = useCart();
+  const { getCart, getCartTotal } = useCart();
   const checkoutProductArr = getCart()! as CartItem[];
 
   const handleSubmit = (e: any) => {
@@ -18,7 +18,7 @@ export default function CheckoutForm() {
       e.target.email.value
     }\nНомер телефона: ${e.target.phone.value}\n\nТовари:\n${checkoutProductArr
       .map((el) => `${el.product.name + ' ' + el.product.category} - ${el.quantity} од.`)
-      .join('\n')}\n\nСума ${getCartSubtotal().toFixed(2)} грн.`;
+      .join('\n')}\n\nСума ${getCartTotal().toFixed(2)} грн.`;
 
     const templateParams = {
       to_email: 'product.order.2024@gmail.com',

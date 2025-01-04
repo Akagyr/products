@@ -22,10 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ua'>
-      <body className={`${montserrat.variable} font-montserrat antialiased relative`}>
+      <body className={`${montserrat.variable} font-montserrat antialiased relative min-h-screen flex flex-col`}>
         <CartProvider>
           <Header />
-          <main className='px-[20px] lg:px-[50px]'>{children}</main>
+          <main className='flex-1 flex flex-col px-[20px] lg:px-[50px]'>{children}</main>
         </CartProvider>
       </body>
     </html>

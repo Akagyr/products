@@ -29,7 +29,7 @@ export default function HomePageContainer({
   }, [currentCategories, sortedProducts, products]);
 
   return (
-    <div className='flex gap-[50px] py-[20px] md:py-[30px]'>
+    <div className='flex gap-[50px] xl:gap-[100px] py-[20px] md:py-[30px]'>
       <Sidebar
         categories={categories}
         currentCategories={currentCategories}

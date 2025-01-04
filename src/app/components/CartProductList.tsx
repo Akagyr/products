@@ -7,7 +7,7 @@ import CartEmpty from '@/app/components/CartEmpty';
 import { useCart } from '@/app/context/cartContext';
 
 export default function CartProductList() {
-  const { cartItems, getCartSubtotal } = useCart();
+  const { cartItems, getCartTotal } = useCart();
 
   return (
     <div>
@@ -20,7 +20,7 @@ export default function CartProductList() {
           ))}
           <div className='mt-[20px] text-center sm:text-right'>
             <div className='sm:text-lg lg:text-xl font-semibold'>
-              До оплати: {getCartSubtotal().toFixed(2)} грн
+              До оплати: {getCartTotal().toFixed(2)} грн
             </div>
             <div className='flex flex-col sm:flex-row gap-[20px] items-center mt-[20px] justify-end'>
               <Link

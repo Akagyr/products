@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function HeaderCart() {
-  const { getCartSubtotal } = useCart();
+  const { getCartTotal } = useCart();
 
   return (
     <Link
@@ -15,7 +15,7 @@ export default function HeaderCart() {
     >
       <Image src='/cart.svg' width={25} height={25} alt='cart icon' />
       <span>/</span>
-      <p>{getCartSubtotal().toFixed(2)} грн</p>
+      <p>{getCartTotal().toFixed(2)} грн</p>
     </Link>
   );
 }

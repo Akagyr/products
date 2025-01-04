@@ -5,7 +5,7 @@ import { useCart } from '../context/cartContext';
 import { redirect } from 'next/navigation';
 
 export default function CheckoutProductList() {
-  const { cartItems, getCartSubtotal } = useCart();
+  const { cartItems, getCartTotal } = useCart();
 
   if (cartItems.length === 0) {
     redirect('/');
@@ -32,7 +32,7 @@ export default function CheckoutProductList() {
       ))}
       <div className='mt-[20px] text-right'>
         <div className='sm:text-lg md:text-xl font-semibold'>
-          До оплати: {getCartSubtotal().toFixed(2)} грн
+          До оплати: {getCartTotal().toFixed(2)} грн
         </div>
       </div>
     </div>
