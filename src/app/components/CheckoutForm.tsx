@@ -39,7 +39,7 @@ export default function CheckoutForm() {
   };
 
   return (
-    <div className='w-full lg:w-[550px] md:mx-auto'>
+    <div className='w-full'>
       <h2 className='text-xl md:text-2xl font-bold py-[15px] border-b'>
         Дані для відправки замовлення
       </h2>

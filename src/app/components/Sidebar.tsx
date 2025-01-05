@@ -12,7 +12,7 @@ export default function Sidebar({
   setCurrentCategories: React.Dispatch<React.SetStateAction<string[]>>;
 }) {
   return (
-    <aside className='hidden lg:block lg:min-w-[180px] xl:min-w-[250px]'>
+    <aside className='hidden lg:block lg:min-w-[180px] xl:min-w-[220px] 3xl:min-w-[250px]'>
       <h2 className='font-medium'>Фильтр:</h2>
       <hr className='my-[10px]' />
       <SidebarCategoriesList

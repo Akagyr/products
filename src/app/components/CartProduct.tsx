@@ -7,13 +7,13 @@ export default function CartProduct({ item }: { item: CartItem }) {
 
   return (
     <>
-      <div className='hidden lg:grid grid-cols-[60px_1fr_1fr_120px] gap-[10px] items-center w-full py-[15px] border-b'>
+      <div className='hidden lg:grid grid-cols-[80px_1fr_1fr_120px] gap-[30px] items-center w-full py-[15px] border-b'>
         <img
           src={item.product.imageUrl}
           alt={item.product.name}
-          className='object-cover rounded-full w-[60px] h-[60px]'
+          className='object-cover rounded-full w-[80px] h-[80px]'
         />
-        <p className='text-center'>{item.product.name} {item.product.category}</p>
+        <p>{item.product.name} {item.product.category}</p>
         <p className='text-center'>{item.product.price.toFixed(2)} грн</p>
         <button
           onClick={() => removeFromCart(item.product.id)}
