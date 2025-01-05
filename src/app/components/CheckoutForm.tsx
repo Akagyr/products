@@ -78,7 +78,7 @@ export default function CheckoutForm() {
         <div className='mt-[20px] text-right'>
           <button
             type='submit'
-            className='px-[10px] md:px-[20px] py-[8px] text-sm md:text-base text-center rounded-full bg-green-400 lg:hover:bg-green-500 w-fit transition-colors'
+            className='px-[10px] md:px-[20px] py-[8px] text-sm md:text-base text-center rounded-full bg-[#b85aff] lg:hover:bg-[#7c24c0] text-white w-fit transition-colors'
           >
             Оформити замовлення
           </button>

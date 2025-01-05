@@ -31,7 +31,7 @@ export default function CartProductList() {
               </Link>
               <Link
                 href='/checkout'
-                className='px-[10px] md:px-[20px] py-[8px] text-sm md:text-base text-center rounded-full bg-green-400 lg:hover:bg-green-500 w-fit transition-colors'
+                className='px-[10px] md:px-[20px] py-[8px] text-sm md:text-base text-center rounded-full bg-[#b85aff] lg:hover:bg-[#7c24c0] text-white w-fit transition-colors'
               >
                 Перейти до оформлення
               </Link>

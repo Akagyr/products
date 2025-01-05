@@ -31,7 +31,7 @@ export default function Mainpage() {
 
   return (
     <div className='lg:flex-1 lg:flex lg:items-center lg:justify-center py-[30px]'>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-[10px] w-full xl:max-w-[800px] 3xl:max-w-[1100px] mx-auto'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-[10px] w-full xl:max-w-[900px] 3xl:max-w-[1100px] mx-auto'>
         {categoriesArr.map((el, idx) => (
           <Link key={idx} href={`/products?category=${el.name}`} className='relative cursor-pointer'>
             <img
