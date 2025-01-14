@@ -20,41 +20,44 @@ export default function ProductImageGallery({ productImage }: { productImage: st
   };
 
   return (
-    <div className='grid grid-cols-[50px_1fr] gap-[30px]'>
-      <div className='flex flex-col gap-[10px]'>
-        {images.map((image, index) => (
-          <img
-            key={index}
-            className={`w-full object-cover aspect-square rounded-xl cursor-pointer transition-opacity hover:opacity-80 duration-300 ${
-              activeIndex === index ? 'ring-2 ring-[#b85aff]' : ''
-            }`}
-            src={image}
-            onClick={() => setActiveIndex(index)}
-            alt={`Product thumbnail ${index + 1}`}
-          />
-        ))}
-      </div>
-
+    <div className=''>
       <div className='relative group'>
         <img
-          className='w-full h-full object-cover aspect-square rounded-3xl'
+          className='size-full object-cover aspect-square rounded-3xl'
           src={images[activeIndex]}
           alt='Main product image'
         />
         <button
           onClick={handlePrevious}
-          className='absolute left-[15px] top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white px-[10px] py-[5px] rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity rotate-180'
+          className='absolute left-[15px] top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white px-[10px] py-[5px] rounded-full shadow-lg rotate-180'
           aria-label='Previous image'
         >
           ➜
         </button>
         <button
           onClick={handleNext}
-          className='absolute right-[15px] top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white px-[10px] py-[5px] rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity'
+          className='absolute right-[15px] top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white px-[10px] py-[5px] rounded-full shadow-lg transition-colors'
           aria-label='Next image'
         >
           ➜
         </button>
+      </div>
+      <div className='flex gap-[10px] mt-[10px] justify-center'>
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`flex-1 max-w-[80px] aspect-square rounded-xl overflow-hidden cursor-pointer transition-opacity hover:opacity-80 duration-300 ${
+              activeIndex === index ? 'ring-2 ring-[#b85aff]' : ''
+            }`}
+            onClick={() => setActiveIndex(index)}
+          >
+            <img
+              className='w-full h-full object-cover'
+              src={image}
+              alt={`Product thumbnail ${index + 1}`}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
