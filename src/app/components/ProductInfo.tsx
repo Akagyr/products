@@ -8,27 +8,27 @@ export default function ProductInfo({ product }: { product: Product }) {
       <div className='lg:grid grid-cols-[54%_40%] gap-[6%]'>
         <div>
           <div className='grid grid-cols-2 gap-x-[20px] bg-gray-100 p-[20px] items-center rounded-full'>
-            <p>Назва</p>
+            <p className='font-semibold'>Назва</p>
             <p>{product.category}</p>
           </div>
           <div className='grid grid-cols-2 gap-[20px] p-[20px] items-center'>
-            <p>Тип доставки</p>
+            <p className='font-semibold'>Тип доставки</p>
             <p>{'Рослина поставляється в горщику для вирощування'}</p>
           </div>
           <div className='grid grid-cols-2 gap-x-[20px] bg-gray-100 p-[20px] items-center rounded-full'>
-            <p>Висота</p>
+            <p className='font-semibold'>Висота</p>
             <p>{'100 см'}</p>
           </div>
           <div className='grid grid-cols-2 gap-[20px] p-[20px] items-center'>
-            <p>Діаметр</p>
+            <p className='font-semibold'>Діаметр</p>
             <p>{'15 см'}</p>
           </div>
           <div className='grid grid-cols-2 gap-x-[20px] bg-gray-100 p-[20px] items-center rounded-full'>
-            <p>Розмір горщика</p>
+            <p className='font-semibold'>Розмір горщика</p>
             <p>{'9 см'}</p>
           </div>
           <div className='grid grid-cols-2 gap-[20px] p-[20px] items-center'>
-            <p>Повна висота росту</p>
+            <p className='font-semibold'>Повна висота росту</p>
             <p>{'25/35 см'}</p>
           </div>
         </div>

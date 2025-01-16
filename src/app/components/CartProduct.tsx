@@ -26,7 +26,7 @@ export default function CartProduct({ item }: { item: CartItem }) {
         <img
           src={item.product.imageUrl}
           alt={item.product.name}
-          className='object-cover rounded w-full'
+          className='object-cover rounded-full w-full'
         />
         <div className='flex flex-col gap-[5px]'>
           <div className='flex justify-between items-center w-full'>

@@ -13,11 +13,11 @@ export default async function ProductPage({ params }: { params: { productId: str
       <div className='lg:grid grid-cols-2 gap-[60px] border-b-[2px] pb-[20px] lg:pb-[70px] mb-[20px] lg:mb-[70px]'>
         <ProductImageGallery productImage={product.imageUrl} />
         <div className='py-[20px]'>
-          <h2 className='md:text-2xl lg:border-b lg:pb-[20px] mb-[20px] font-medium'>
+          <h2 className='text-2xl lg:border-b lg:pb-[20px] mb-[20px] font-medium'>
             {product.name} {product.category}
           </h2>
           <div className='flex flex-col gap-[20px] border-b pb-[20px] mb-[20px]'>
-            <p className='text-sm md:text-2xl'>{product.price} грн</p>
+            <p className='text-2xl'>{product.price} грн</p>
             <ProductCardBuyBtn product={product} />
           </div>
           <section className='flex flex-col gap-[10px]'>
