@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function ProductImageGallery({ productImage }: { productImage: string }) {
   const images = [
@@ -10,6 +10,8 @@ export default function ProductImageGallery({ productImage }: { productImage: st
     'https://i.ytimg.com/vi/-6MuMZUqXO4/sddefault.jpg',
   ];
   const [activeIndex, setActiveIndex] = useState(0);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const handlePrevious = () => {
     setActiveIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -19,9 +21,31 @@ export default function ProductImageGallery({ productImage }: { productImage: st
     setActiveIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const touchDelta = touchStartX.current - touchEndX.current;
+    if (touchDelta > 50) {
+      handleNext();
+    } else if (touchDelta < -50) {
+      handlePrevious();
+    }
+  };
+
   return (
-    <div className=''>
-      <div className='relative group'>
+    <div
+      className='touch-pan-y'
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      <div className='relative'>
         <img
           className='size-full object-cover aspect-square rounded-3xl'
           src={images[activeIndex]}

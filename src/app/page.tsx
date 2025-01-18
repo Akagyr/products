@@ -6,7 +6,7 @@ type CategoriesArr = {
   photoUrl: string;
 };
 
-export default function Mainpage() {
+export default function Homepage() {
   const categoriesArr: CategoriesArr[] = [
     {
       name: 'Фаленопсис',

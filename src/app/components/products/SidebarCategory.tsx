@@ -1,5 +1,5 @@
 import React from 'react';
-import { Category } from '../types';
+import { Category } from '../../types';
 
 export default function SidebarCategory({
   category,

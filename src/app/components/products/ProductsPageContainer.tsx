@@ -4,10 +4,10 @@ import React, { useState, useEffect } from 'react';
 import ProductsList from './ProductsList';
 import Sidebar from './Sidebar';
 import Sort from './Sort';
-import { Category, Product } from '../types';
+import { Category, Product } from '../../types';
 import Collapse from './Collapse';
 
-export default function HomePageContainer({
+export default function ProductsPageContainer({
   products,
   categories,
 }: {

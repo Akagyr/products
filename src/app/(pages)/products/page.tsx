@@ -1,4 +1,4 @@
-import HomePageContainer from '@/app/components/HomePageContainer';
+import ProductsPageContainer from '@/app/components/products/ProductsPageContainer';
 import { getCategories, getProducts } from '@/app/database/prismaQuries';
 import { Category, Product } from '@/app/types';
 
@@ -8,5 +8,5 @@ export default async function ProductsPage({ searchParams }: { searchParams: { c
     getCategories(),
   ])) as [Product[], Category[]];
 
-  return <HomePageContainer products={products} categories={categories} />;
+  return <ProductsPageContainer products={products} categories={categories} />;
 }

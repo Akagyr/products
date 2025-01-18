@@ -1,6 +1,6 @@
 import React from 'react';
 import SidebarCategory from './SidebarCategory';
-import { Category } from '../types';
+import { Category } from '../../types';
 
 export default function SidebarCategoriesList({
   categories,

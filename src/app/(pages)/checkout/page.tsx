@@ -1,6 +1,6 @@
 import React from 'react';
-import CheckoutForm from '@/app/components/CheckoutForm';
-import CheckoutProductList from '@/app/components/CheckoutProductList';
+import CheckoutForm from '@/app/components/chechout/CheckoutForm';
+import CheckoutProductList from '@/app/components/chechout/CheckoutProductList';
 
 export default function CheckoutPage() {
   return (

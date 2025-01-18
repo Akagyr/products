@@ -1,9 +1,9 @@
 'use client';
 
-import CartProduct from '@/app/components/CartProduct';
+import CartProduct from '@/app/components/cart/CartProduct';
 import React from 'react';
 import Link from 'next/link';
-import CartEmpty from '@/app/components/CartEmpty';
+import CartEmpty from '@/app/components/cart/CartEmpty';
 import { useCart } from '@/app/context/cartContext';
 
 export default function CartProductList() {

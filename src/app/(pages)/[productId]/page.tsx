@@ -1,9 +1,10 @@
-import ProductCardBuyBtn from '@/app/components/ProductCardBuyBtn';
-import ProductImageGallery from '@/app/components/ProductImageSwiper';
-import ProductInfo from '@/app/components/ProductInfo';
+import ProductBuyBtn from '@/app/components/ProductBuyBtn';
+import ProductImageGallery from '@/app/components/product/ProductImageGallery';
+import ProductInfo from '@/app/components/product/ProductInfo';
 import { getProduct } from '@/app/database/prismaQuries';
 import { Product } from '@/app/types';
 import React from 'react';
+import ProductFeatures from '@/app/components/product/ProductFeatures';
 
 export default async function ProductPage({ params }: { params: { productId: string } }) {
   const product = (await getProduct(Number(params.productId))) as Product;
@@ -13,33 +14,14 @@ export default async function ProductPage({ params }: { params: { productId: str
       <div className='lg:grid grid-cols-2 gap-[60px] border-b-[2px] pb-[20px] lg:pb-[70px] mb-[20px] lg:mb-[70px]'>
         <ProductImageGallery productImage={product.imageUrl} />
         <div className='py-[20px]'>
-          <h2 className='text-2xl lg:border-b lg:pb-[20px] mb-[20px] font-medium'>
+          <h2 className='text-2xl lg:border-b lg:pb-[10px] mb-[20px] font-medium'>
             {product.name} {product.category}
           </h2>
           <div className='flex flex-col gap-[20px] border-b pb-[20px] mb-[20px]'>
             <p className='text-2xl'>{product.price} грн</p>
-            <ProductCardBuyBtn product={product} />
+            <ProductBuyBtn product={product} styleClasses='px-[10px] md:px-[30px] py-[12px] md:py-[10px]' />
           </div>
-          <section className='flex flex-col gap-[10px]'>
-            <div className='flex gap-[5px] items-center'>
-              <div className='w-[35px] p-[6px] bg-gray-400 rounded-full'>
-                <img src='/delivery.png' className='w-full' alt='Delivery' />
-              </div>
-              <p className='text-sm text-gray-500'>Безкоштовна доставка від 50</p>
-            </div>
-            <div className='flex gap-[5px] items-center'>
-              <div className='w-[35px] p-[6px] bg-gray-400 rounded-full'>
-                <img src='/Medal.png' className='w-full' alt='Medal' />
-              </div>
-              <p className='text-sm text-gray-500'>Щойно з нашого розплідника</p>
-            </div>
-            <div className='flex gap-[5px] items-center'>
-              <div className='w-[35px] p-[6px] bg-gray-400 rounded-full'>
-                <img src='/schedule.png' className='w-full' alt='Schedule' />
-              </div>
-              <p className='text-sm text-gray-500'>Протягом 1-3 робочих днів вдома</p>
-            </div>
-          </section>
+          <ProductFeatures />
         </div>
       </div>
       <ProductInfo product={product} />

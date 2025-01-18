@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import SidebarCategoriesList from './SidebarCategoriesList';
 import Sort from './Sort';
-import { Category, Product } from '../types';
+import { Category, Product } from '../../types';
 
 export default function Collapse({
   products,

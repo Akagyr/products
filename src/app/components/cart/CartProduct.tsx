@@ -1,6 +1,6 @@
 import React from 'react';
-import { useCart } from '../context/cartContext';
-import { CartItem } from '../types';
+import { useCart } from '../../context/cartContext';
+import { CartItem } from '../../types';
 
 export default function CartProduct({ item }: { item: CartItem }) {
   const { removeFromCart } = useCart();

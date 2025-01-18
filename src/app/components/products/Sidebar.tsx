@@ -1,5 +1,5 @@
 import React from 'react';
-import { Category, Product } from '../types';
+import { Category, Product } from '../../types';
 import SidebarCategoriesList from './SidebarCategoriesList';
 
 export default function Sidebar({

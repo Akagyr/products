@@ -8,7 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {},
+      colors: {
+        'violet': '#b85aff',
+        'violet-hover': '#7c24c0',
+      },
       screens: {
         '3xl': '1920px',
       },

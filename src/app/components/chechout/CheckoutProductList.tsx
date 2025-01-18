@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useCart } from '../context/cartContext';
+import { useCart } from '../../context/cartContext';
 import { redirect } from 'next/navigation';
 
 export default function CheckoutProductList() {
@@ -20,9 +20,9 @@ export default function CheckoutProductList() {
             <img
               src={item.product.imageUrl}
               alt={item.product.name}
-              className='object-cover rounded-full size-full'
+              className='object-cover rounded-full size-full max-w-[60px]'
             />
-            <p>
+            <p className='text-left'>
               {item.product.name} {item.product.category}
             </p>
             <p>{(item.product.price * item.quantity).toFixed(2)} грн</p>
