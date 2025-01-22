@@ -3,11 +3,9 @@ import { Category, Product } from '../../types';
 import SidebarCategoriesList from './SidebarCategoriesList';
 
 export default function Sidebar({
-  categories,
   currentCategories,
   setCurrentCategories,
 }: {
-  categories: Category[];
   currentCategories: string[];
   setCurrentCategories: React.Dispatch<React.SetStateAction<string[]>>;
 }) {
@@ -16,7 +14,6 @@ export default function Sidebar({
       <h2 className='font-medium'>Фильтр:</h2>
       <hr className='my-[10px]' />
       <SidebarCategoriesList
-        categories={categories}
         currentCategories={currentCategories}
         setCurrentCategories={setCurrentCategories}
       />

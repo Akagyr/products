@@ -21,7 +21,7 @@ export default function Sort({
 
     switch (currentOption) {
       case 'default':
-        productsToSort.sort((a, b) => a.id - b.id);
+        productsToSort.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
         break;
       case 'nameBottom':
         productsToSort.sort((a, b) => a.category.localeCompare(b.category));

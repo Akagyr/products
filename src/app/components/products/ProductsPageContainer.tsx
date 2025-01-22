@@ -9,10 +9,8 @@ import Collapse from './Collapse';
 
 export default function ProductsPageContainer({
   products,
-  categories,
 }: {
   products: Product[];
-  categories: Category[];
 }) {
   const [currentCategories, setCurrentCategories] = useState<string[]>([]);
   const [localProducts, setLocalProducts] = useState<Product[]>(products);
@@ -31,7 +29,6 @@ export default function ProductsPageContainer({
   return (
     <div className='flex gap-[50px] xl:gap-[100px] py-[20px] md:py-[30px]'>
       <Sidebar
-        categories={categories}
         currentCategories={currentCategories}
         setCurrentCategories={setCurrentCategories}
       />
@@ -40,7 +37,6 @@ export default function ProductsPageContainer({
           products={products}
           sortedProducts={sortedProducts}
           setLocalProducts={setLocalProducts}
-          categories={categories}
           currentCategories={currentCategories}
           setCurrentCategories={setCurrentCategories}
           setSortedProducts={setSortedProducts}

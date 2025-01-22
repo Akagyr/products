@@ -1,41 +1,22 @@
 import Link from 'next/link';
 import React from 'react';
+import { getTypes } from './database/prismaQuries';
+import { Type } from './types';
 
-type CategoriesArr = {
-  name: string;
-  photoUrl: string;
-};
-
-export default function Homepage() {
-  const categoriesArr: CategoriesArr[] = [
-    {
-      name: 'Фаленопсис',
-      photoUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/1/1e/Phalaenopsis_philippinensis_NationalOrchidGarden-Singapore.jpg',
-    },
-    {
-      name: 'Цимбідіум',
-      photoUrl:
-        'https://flowers.ua/images/Flowers/articles/318-img-5.jpg',
-    },
-    {
-      name: 'Пафіопедилум',
-      photoUrl:
-        'https://florium.ua/media/catalog/product/cache/2/file/9df78eab33525d08d6e5fb8d27136e95/p/a/pafiopedilum.jpg',
-    },
-    {
-      name: 'Ванда',
-      photoUrl: 'https://i.ytimg.com/vi/-6MuMZUqXO4/sddefault.jpg',
-    },
-  ];
+export default async function Homepage() {
+  const types = await getTypes() as Type[];
 
   return (
     <div className='lg:flex-1 lg:flex lg:items-center lg:justify-center py-[30px]'>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-[10px] w-full xl:max-w-[900px] 3xl:max-w-[1100px] mx-auto'>
-        {categoriesArr.map((el, idx) => (
-          <Link key={idx} href={`/products?category=${el.name}`} className='relative cursor-pointer'>
+        {types.map((el, idx) => (
+          <Link
+            key={idx}
+            href={`/products?type=${el.name}`}
+            className='relative cursor-pointer'
+          >
             <img
-              src={el.photoUrl}
+              src={el.image}
               className='w-full aspect-[3/1] md:aspect-[5/3] rounded-3xl object-cover'
               alt={el.name}
             />

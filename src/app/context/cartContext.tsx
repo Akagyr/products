@@ -6,7 +6,7 @@ import { CartItem, Product } from '../types';
 type CartContextType = {
   cartItems: CartItem[];
   addToCart: (product: Product) => void;
-  removeFromCart: (productId: number) => void;
+  removeFromCart: (productId: string) => void;
   getCartTotal: () => number;
   getCart: () => void;
 };
@@ -30,7 +30,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const removeFromCart = (productId: number) => {
+  const removeFromCart = (productId: string) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.product.id !== productId));
   };
 

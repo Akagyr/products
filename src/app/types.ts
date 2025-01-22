@@ -1,22 +1,26 @@
-export type Product = {
-  id: number;
+export type Category = {
+  id: string;
   name: string;
-  category: string;
-  imageUrl: string;
-  // images: string[];
-  price: number;
-  // discountPrice: number;
-  // description: Description[];
-  createdAt: number;
+  image: string;
 };
 
-// export type Description = {
-//   heigth: string;
-// };
-
-export type Category = {
-  id: number;
+export type Type = {
+  id: string;
+  categoryId: string;
   name: string;
+  image: string;
+  createdAt: Date;
+};
+
+export type Product = {
+  id: string;
+  typeId: string;
+  name: string;
+  category: string;
+  images: string[];
+  price: number;
+  createdAt: Date;
+  type: Type;
 };
 
 export type CartItem = {

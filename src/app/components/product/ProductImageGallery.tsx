@@ -2,23 +2,17 @@
 
 import { useState, useRef } from 'react';
 
-export default function ProductImageGallery({ productImage }: { productImage: string }) {
-  const images = [
-    'https://upload.wikimedia.org/wikipedia/commons/1/1e/Phalaenopsis_philippinensis_NationalOrchidGarden-Singapore.jpg',
-    'https://flowers.ua/images/Flowers/articles/318-img-5.jpg',
-    'https://florium.ua/media/catalog/product/cache/2/file/9df78eab33525d08d6e5fb8d27136e95/p/a/pafiopedilum.jpg',
-    'https://i.ytimg.com/vi/-6MuMZUqXO4/sddefault.jpg',
-  ];
+export default function ProductImageGallery({ productImages }: { productImages: string[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
   const handlePrevious = () => {
-    setActiveIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setActiveIndex((prev) => (prev === 0 ? productImages.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    setActiveIndex((prev) => (prev === productImages.length - 1 ? 0 : prev + 1));
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -48,7 +42,7 @@ export default function ProductImageGallery({ productImage }: { productImage: st
       <div className='relative'>
         <img
           className='size-full object-cover aspect-square rounded-3xl'
-          src={images[activeIndex]}
+          src={productImages[activeIndex]}
           alt='Main product image'
         />
         <button
@@ -67,7 +61,7 @@ export default function ProductImageGallery({ productImage }: { productImage: st
         </button>
       </div>
       <div className='flex gap-[10px] mt-[10px] justify-center'>
-        {images.map((image, index) => (
+        {productImages.map((image, index) => (
           <div
             key={index}
             className={`flex-1 max-w-[80px] aspect-square rounded-xl overflow-hidden cursor-pointer transition-opacity hover:opacity-80 duration-300 ${

@@ -1,18 +1,26 @@
 import { prisma } from '@/app/database/prisma';
 
-export async function getProducts(category: string) {
-  return await prisma.products.findMany({
+export async function getProducts(typeName: string) {
+  return await prisma.product.findMany({
     where: {
-      category: category,
+      type: {
+        name: typeName,
+      },
+    },
+    include: {
+      type: true,
     },
   });
 }
 
-export async function getProduct(id: number) {
+export async function getProduct(id: string) {
   try {
-    const product = await prisma.products.findUnique({
+    const product = await prisma.product.findUnique({
       where: {
         id: id,
+      },
+      include: {
+        type: true,
       },
     });
     return product;
@@ -23,6 +31,11 @@ export async function getProduct(id: number) {
 }
 
 export async function getCategories() {
-  const categories = await prisma.categories.findMany();
+  const categories = await prisma.category.findMany();
+  return categories;
+}
+
+export async function getTypes() {
+  const categories = await prisma.type.findMany();
   return categories;
 }

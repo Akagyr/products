@@ -9,7 +9,7 @@ export default function CartProduct({ item }: { item: CartItem }) {
     <>
       <div className='hidden lg:grid grid-cols-[80px_1fr_1fr_120px] gap-[30px] items-center w-full py-[15px] border-b'>
         <img
-          src={item.product.imageUrl}
+          src={item.product.images[0]}
           alt={item.product.name}
           className='object-cover rounded-full w-[80px] h-[80px]'
         />
@@ -24,7 +24,7 @@ export default function CartProduct({ item }: { item: CartItem }) {
       </div>
       <div className='grid lg:hidden grid-cols-[80px_1fr] gap-[40px] py-[15px] border-b'>
         <img
-          src={item.product.imageUrl}
+          src={item.product.images[0]}
           alt={item.product.name}
           className='object-cover rounded-full w-full'
         />

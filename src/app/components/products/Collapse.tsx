@@ -7,14 +7,12 @@ import { Category, Product } from '../../types';
 
 export default function Collapse({
   products,
-  categories,
   currentCategories,
   sortedProducts,
   setCurrentCategories,
   setSortedProducts,
   setLocalProducts,
 }: {
-  categories: Category[];
   currentCategories: string[];
   products: Product[];
   sortedProducts: Product[];
@@ -47,7 +45,6 @@ export default function Collapse({
         <div className='mx-[10px]'>
           <h2 className='font-medium mb-[5px]'>Фильтр:</h2>
           <SidebarCategoriesList
-            categories={categories}
             currentCategories={currentCategories}
             setCurrentCategories={setCurrentCategories}
           />

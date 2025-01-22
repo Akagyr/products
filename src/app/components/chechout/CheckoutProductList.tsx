@@ -18,7 +18,7 @@ export default function CheckoutProductList() {
         <div key={item.product.id}>
           <div className='grid grid-cols-[15%_56%_25%] gap-[2%] md:gap-[2%] items-center text-center w-full py-[15px] border-b text-sm sm:text-base'>
             <img
-              src={item.product.imageUrl}
+              src={item.product.images[0]}
               alt={item.product.name}
               className='object-cover rounded-full size-full max-w-[60px]'
             />
