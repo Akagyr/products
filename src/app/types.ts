@@ -2,11 +2,13 @@ export type Category = {
   id: string;
   name: string;
   image: string;
+  createdAt: Date;
 };
 
-export type Type = {
+export type Species = {
   id: string;
   categoryId: string;
+  category: Category;
   name: string;
   image: string;
   createdAt: Date;
@@ -14,16 +16,12 @@ export type Type = {
 
 export type Product = {
   id: string;
-  typeId: string;
+  categoryId: string;
+  category: Category;
+  speciesId: string;
+  species: Species;
   name: string;
-  category: string;
   images: string[];
   price: number;
   createdAt: Date;
-  type: Type;
-};
-
-export type CartItem = {
-  product: Product;
-  quantity: number;
 };

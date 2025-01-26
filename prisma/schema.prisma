@@ -1,37 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider  = "postgresql"
   url       = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model Category {
-  id    String @id @default(uuid())
-  name  String
-  image String
-  types Type[]
-  createdAt DateTime @default(now())
+  id        String    @id @default(uuid())
+  name      String
+  image     String
+  createdAt DateTime  @default(now())
+  products  Product[]
+  species   Species[]
 }
 
-model Type {
+model Species {
   id         String    @id @default(uuid())
   categoryId String
-  category   Category  @relation(fields: [categoryId], references: [id])
   name       String
   image      String
+  createdAt  DateTime  @default(now())
   products   Product[]
-  createdAt DateTime @default(now())
+  category   Category  @relation(fields: [categoryId], references: [id])
 }
 
 model Product {
-  id        String   @id @default(uuid())
-  typeId    String
-  type      Type     @relation(fields: [typeId], references: [id])
-  name      String
-  images    String[] @default([])
-  price     Float
-  createdAt DateTime @default(now())
+  id         String   @id @default(uuid())
+  categoryId String
+  speciesId  String
+  name       String
+  images     String[] @default([])
+  price      Float
+  createdAt  DateTime @default(now())
+  category   Category @relation(fields: [categoryId], references: [id])
+  species    Species  @relation(fields: [speciesId], references: [id])
 }

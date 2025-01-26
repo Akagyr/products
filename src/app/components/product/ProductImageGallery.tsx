@@ -2,7 +2,17 @@
 
 import { useState, useRef } from 'react';
 
-export default function ProductImageGallery({ productImages }: { productImages: string[] }) {
+export default function ProductImageGallery({
+  productImages,
+  categoryName,
+  speciesName,
+  productName,
+}: {
+  productImages: string[];
+  categoryName: string;
+  speciesName: string;
+  productName: string;
+}) {
   const [activeIndex, setActiveIndex] = useState(0);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
@@ -43,7 +53,7 @@ export default function ProductImageGallery({ productImages }: { productImages: 
         <img
           className='size-full object-cover aspect-square rounded-3xl'
           src={productImages[activeIndex]}
-          alt='Main product image'
+          alt={`${categoryName} ${speciesName} ${productName}`}
         />
         <button
           onClick={handlePrevious}

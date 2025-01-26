@@ -4,27 +4,32 @@ import React from 'react';
 import emailjs from 'emailjs-com';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/app/context/cartContext';
-import { CartItem } from '@/app/types';
+import { Product } from '@/app/types';
 
 export default function CheckoutForm() {
   const navigate = useRouter();
   const { getCart, getCartTotal } = useCart();
-  const checkoutProductArr = getCart()! as CartItem[];
+  const checkoutProductArr = getCart()! as Product[];
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const message = `Замовлення:\nІм'я: ${e.target.name.value}\nПошта: ${
-      e.target.email.value
-    }\nНомер телефона: ${e.target.phone.value}\n\nТовари:\n${checkoutProductArr
-      .map((el) => `${el.product.name + ' ' + el.product.category} - ${el.quantity} од.`)
+    const form = e.currentTarget;
+    const nameInput = form.elements.namedItem('name') as HTMLInputElement;
+    const emailInput = form.elements.namedItem('email') as HTMLInputElement;
+    const phoneInput = form.elements.namedItem('phone') as HTMLInputElement;
+
+    const message = `Замовлення:\nІм'я: ${nameInput.value}\nПошта: ${
+      emailInput.value
+    }\nНомер телефона: ${phoneInput.value}\n\nТовари:\n${checkoutProductArr
+      .map((el) => `${el.species + ' ' + el.name}`)
       .join('\n')}\n\nСума ${getCartTotal().toFixed(2)} грн.`;
 
     const templateParams = {
       to_email: 'product.order.2024@gmail.com',
-      from_name: e.target.name.value,
-      from_email: e.target.email.value,
-      subject: `Замовлення від ${e.target.name.value}`,
+      from_name: nameInput.value,
+      from_email: emailInput.value,
+      subject: `Замовлення від ${nameInput.value}`,
       message: message,
     };
 

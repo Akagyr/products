@@ -12,14 +12,22 @@ export default async function ProductPage({ params }: { params: { productId: str
   return (
     <div className='py-[30px] px-[10px] lg:px-[15%]'>
       <div className='lg:grid grid-cols-2 gap-[60px] border-b-[2px] pb-[20px] lg:pb-[70px] mb-[20px] lg:mb-[70px]'>
-        <ProductImageGallery productImages={product.images} />
+        <ProductImageGallery
+          productImages={product.images}
+          categoryName={product.category.name}
+          speciesName={product.species.name}
+          productName={product.name}
+        />
         <div className='py-[20px]'>
           <h2 className='text-2xl lg:border-b lg:pb-[10px] mb-[20px] font-medium'>
-          {product.type.name} {product.name}
+            {product.species.name} {product.name}
           </h2>
           <div className='flex flex-col gap-[20px] border-b pb-[20px] mb-[20px]'>
             <p className='text-2xl'>{product.price} грн</p>
-            <ProductBuyBtn product={product} styleClasses='px-[10px] md:px-[30px] py-[12px] md:py-[10px]' />
+            <ProductBuyBtn
+              product={product}
+              styleClasses='px-[10px] md:px-[30px] py-[12px] md:py-[10px]'
+            />
           </div>
           <ProductFeatures />
         </div>

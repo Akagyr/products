@@ -3,7 +3,7 @@ import { Product } from '../../types';
 
 export default function ProductInfo({ product }: { product: Product }) {
   const characteristics = [
-    { label: 'Назва', value: `${product.type.name} ${product.name}` },
+    { label: 'Назва', value: `${product.species.name} ${product.name}` },
     { label: 'Тип доставки', value: 'В горщику для вирощування' },
     { label: 'Висота', value: '100 см' },
     { label: 'Діаметр', value: '15 см' },
@@ -30,7 +30,7 @@ export default function ProductInfo({ product }: { product: Product }) {
         <img
           className='hidden lg:block w-full object-cover rounded-3xl'
           src={product.images[0]}
-          alt={product.category}
+          alt={`${product.category.name} ${product.species.name} ${product.name}`}
         />
       </div>
     </section>

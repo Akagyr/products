@@ -24,10 +24,10 @@ export default function Sort({
         productsToSort.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
         break;
       case 'nameBottom':
-        productsToSort.sort((a, b) => a.category.localeCompare(b.category));
+        productsToSort.sort((a, b) => a.category.name.localeCompare(b.category.name));
         break;
       case 'nameTop':
-        productsToSort.sort((a, b) => b.category.localeCompare(a.category));
+        productsToSort.sort((a, b) => b.category.name.localeCompare(a.category.name));
         break;
       case 'priceTop':
         productsToSort.sort((a, b) => a.price - b.price);

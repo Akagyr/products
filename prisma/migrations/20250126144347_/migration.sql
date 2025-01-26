@@ -9,20 +9,21 @@ CREATE TABLE "Category" (
 );
 
 -- CreateTable
-CREATE TABLE "Type" (
+CREATE TABLE "Species" (
     "id" TEXT NOT NULL,
     "categoryId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "Type_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Species_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Product" (
     "id" TEXT NOT NULL,
-    "typeId" TEXT NOT NULL,
+    "categoryId" TEXT NOT NULL,
+    "speciesId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "images" TEXT[] DEFAULT ARRAY[]::TEXT[],
     "price" DOUBLE PRECISION NOT NULL,
@@ -32,7 +33,10 @@ CREATE TABLE "Product" (
 );
 
 -- AddForeignKey
-ALTER TABLE "Type" ADD CONSTRAINT "Type_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Species" ADD CONSTRAINT "Species_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Product" ADD CONSTRAINT "Product_typeId_fkey" FOREIGN KEY ("typeId") REFERENCES "Type"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Product" ADD CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Product" ADD CONSTRAINT "Product_speciesId_fkey" FOREIGN KEY ("speciesId") REFERENCES "Species"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

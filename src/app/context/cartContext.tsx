@@ -1,10 +1,10 @@
 'use client';
 
 import React, { createContext, useContext, useState } from 'react';
-import { CartItem, Product } from '../types';
+import { Product } from '../types';
 
 type CartContextType = {
-  cartItems: CartItem[];
+  cartItems: Product[];
   addToCart: (product: Product) => void;
   removeFromCart: (productId: string) => void;
   getCartTotal: () => number;
@@ -14,28 +14,26 @@ type CartContextType = {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<Product[]>([]);
 
   const addToCart = (product: Product) => {
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.product.id === product.id);
+      const existingItem = prevItems.find((item) => item.id === product.id);
 
       if (existingItem) {
-        return prevItems.map((item) =>
-          item.product.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
+        return prevItems;
       }
 
-      return [...prevItems, { product, quantity: 1 }];
+      return [...prevItems, product];
     });
   };
 
   const removeFromCart = (productId: string) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.product.id !== productId));
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== productId));
   };
 
   const getCartTotal = () => {
-    return cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0);
+    return cartItems.reduce((total, item) => total + item.price, 0);
   };
 
   const getCart = () => {

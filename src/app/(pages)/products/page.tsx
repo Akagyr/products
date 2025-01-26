@@ -5,9 +5,9 @@ import { Product } from '@/app/types';
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: { type: string };
+  searchParams: { species: string };
 }) {
-  const products = await getProducts(searchParams.type) as Product[];
+  const products = (await getProducts(searchParams.species)) as Product[];
 
   return <ProductsPageContainer products={products} />;
 }

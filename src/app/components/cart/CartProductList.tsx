@@ -1,6 +1,6 @@
 'use client';
 
-import CartProduct from '@/app/components/cart/CartProduct';
+import CartProductListItem from '@/app/components/cart/CartProductListItem';
 import React from 'react';
 import Link from 'next/link';
 import CartEmpty from '@/app/components/cart/CartEmpty';
@@ -16,7 +16,7 @@ export default function CartProductList() {
       ) : (
         <>
           {cartItems.map((item) => (
-            <CartProduct key={item.product.id} item={item} />
+            <CartProductListItem key={item.id} product={item} />
           ))}
           <div className='mt-[20px] text-center sm:text-right'>
             <div className='sm:text-lg lg:text-xl font-semibold'>

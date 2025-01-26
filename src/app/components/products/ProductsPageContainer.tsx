@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import ProductsList from './ProductsList';
 import Sidebar from './Sidebar';
 import Sort from './Sort';
-import { Category, Product } from '../../types';
+import { Product } from '../../types';
 import Collapse from './Collapse';
 
 export default function ProductsPageContainer({
@@ -20,7 +20,7 @@ export default function ProductsPageContainer({
     let result = sortedProducts.length ? sortedProducts : products;
 
     if (currentCategories.length > 0) {
-      result = result.filter((product) => currentCategories.includes(product.category));
+      result = result.filter((product) => currentCategories.includes(product.category.name));
     }
 
     setLocalProducts(result);
