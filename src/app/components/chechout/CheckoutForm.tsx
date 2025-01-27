@@ -4,12 +4,11 @@ import React from 'react';
 import emailjs from 'emailjs-com';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/app/context/cartContext';
-import { Product } from '@/app/types';
 
 export default function CheckoutForm() {
   const navigate = useRouter();
   const { getCart, getCartTotal } = useCart();
-  const checkoutProductArr = getCart()! as Product[];
+  const checkoutProductArr = getCart();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

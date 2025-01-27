@@ -3,8 +3,9 @@ import { Product } from '../../types';
 
 export default function ProductInfo({ product }: { product: Product }) {
   const characteristics = [
-    { label: 'Назва', value: `${product.species.name} ${product.name}` },
-    { label: 'Тип доставки', value: 'В горщику для вирощування' },
+    { label: 'Категорія', value: `${product.category.name}`},
+    { label: 'Вид', value: `${product.species.name}` },
+    { label: 'Назва', value: `${product.name}` },
     { label: 'Висота', value: '100 см' },
     { label: 'Діаметр', value: '15 см' },
     { label: 'Розмір горщика', value: '9 см' },
@@ -12,7 +13,7 @@ export default function ProductInfo({ product }: { product: Product }) {
 
   return (
     <section>
-      <div className='lg:grid grid-cols-[55%_35%] gap-[10%]'>
+      <div className='lg:grid grid-cols-[54%_38%] gap-[8%]'>
         <div>
           <h2 className='mb-[20px] text-2xl font-medium'>Характеристика:</h2>
           {characteristics.map((item, index) => (
@@ -28,7 +29,7 @@ export default function ProductInfo({ product }: { product: Product }) {
           ))}
         </div>
         <img
-          className='hidden lg:block w-full object-cover rounded-3xl'
+          className='hidden lg:block size-full object-cover rounded-3xl'
           src={product.images[0]}
           alt={`${product.category.name} ${product.species.name} ${product.name}`}
         />

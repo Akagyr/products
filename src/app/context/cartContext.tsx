@@ -8,7 +8,7 @@ type CartContextType = {
   addToCart: (product: Product) => void;
   removeFromCart: (productId: string) => void;
   getCartTotal: () => number;
-  getCart: () => void;
+  getCart: () => Product[];
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
