@@ -23,18 +23,27 @@ model Species {
   name       String
   image      String
   createdAt  DateTime  @default(now())
-  products   Product[]
   category   Category  @relation(fields: [categoryId], references: [id])
+  products   Product[]
 }
 
 model Product {
-  id         String   @id @default(uuid())
-  categoryId String
-  speciesId  String
-  name       String
-  images     String[] @default([])
-  price      Float
-  createdAt  DateTime @default(now())
-  category   Category @relation(fields: [categoryId], references: [id])
-  species    Species  @relation(fields: [speciesId], references: [id])
+  id          String        @id @default(uuid())
+  categoryId  String
+  speciesId   String
+  name        String
+  images      String[]      @default([])
+  price       Float
+  createdAt   DateTime      @default(now())
+  category    Category      @relation(fields: [categoryId], references: [id])
+  species     Species       @relation(fields: [speciesId], references: [id])
+  description Description[]
+}
+
+model Description {
+  id        String  @id @default(uuid())
+  productId String
+  name      String
+  value     String
+  product   Product @relation(fields: [productId], references: [id])
 }

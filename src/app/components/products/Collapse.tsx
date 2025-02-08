@@ -1,34 +1,25 @@
 'use client';
 
 import { useState } from 'react';
-import SidebarCategoriesList from './SidebarCategoriesList';
-import Sort from './Sort';
-import { Category, Product } from '../../types';
+import SidebarCategoriesList from './SidebarFilters';
+import { Product } from '../../types';
 
 export default function Collapse({
   products,
-  currentCategories,
-  sortedProducts,
-  setCurrentCategories,
-  setSortedProducts,
-  setLocalProducts,
+  setFilteredProducts,
 }: {
-  currentCategories: string[];
   products: Product[];
-  sortedProducts: Product[];
-  setCurrentCategories: React.Dispatch<React.SetStateAction<string[]>>;
-  setSortedProducts: React.Dispatch<React.SetStateAction<Product[]>>;
-  setLocalProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  setFilteredProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }) {
   const [isActive, setIsActive] = useState<boolean>(false);
 
   return (
-    <div className='w-full lg:hidden'>
+    <div className='w-full lg:hidden text-sm md:text-base'>
       <button
         onClick={() => setIsActive(!isActive)}
         className='flex justify-between w-full font-medium rounded-full px-[15px] py-[10px] text-center bg-gray-200 relative'
       >
-        <p>Sort and Filter</p>
+        <p>Фільтр</p>
         <span
           className={`${
             isActive ? 'rotate-180' : 'rotate-0'
@@ -43,17 +34,7 @@ export default function Collapse({
         }`}
       >
         <div className='mx-[10px]'>
-          <h2 className='font-medium mb-[5px]'>Фильтр:</h2>
-          <SidebarCategoriesList
-            currentCategories={currentCategories}
-            setCurrentCategories={setCurrentCategories}
-          />
-          <Sort
-            products={products}
-            sortedProducts={sortedProducts}
-            setLocalProducts={setLocalProducts}
-            setSortedProducts={setSortedProducts}
-          />
+          <SidebarCategoriesList products={products} setFilteredProducts={setFilteredProducts} />
         </div>
       </div>
     </div>

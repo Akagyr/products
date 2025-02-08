@@ -23,5 +23,13 @@ export type Product = {
   name: string;
   images: string[];
   price: number;
+  description: Description[];
   createdAt: Date;
+};
+
+export type Description = {
+  id: string;
+  productId: string;
+  name: string;
+  value: string;
 };

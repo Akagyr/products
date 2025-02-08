@@ -2,28 +2,31 @@ import React from 'react';
 import { Product } from '../../types';
 
 export default function ProductInfo({ product }: { product: Product }) {
-  const characteristics = [
-    { label: 'Категорія', value: `${product.category.name}`},
-    { label: 'Вид', value: `${product.species.name}` },
-    { label: 'Назва', value: `${product.name}` },
-    { label: 'Висота', value: '100 см' },
-    { label: 'Діаметр', value: '15 см' },
-    { label: 'Розмір горщика', value: '9 см' },
-  ];
-
   return (
     <section>
       <div className='lg:grid grid-cols-[54%_38%] gap-[8%]'>
         <div>
           <h2 className='mb-[20px] text-2xl font-medium'>Характеристика:</h2>
-          {characteristics.map((item, index) => (
+          <div className='grid grid-cols-2 gap-x-[20px] p-[20px] items-center bg-gray-100 rounded-full'>
+            <p className='font-semibold'>Категорія</p>
+            <p>{product.category.name}</p>
+          </div>
+          <div className='grid grid-cols-2 gap-x-[20px] p-[20px] items-center'>
+            <p className='font-semibold'>Вид</p>
+            <p>{product.species.name}</p>
+          </div>
+          <div className='grid grid-cols-2 gap-x-[20px] p-[20px] items-center bg-gray-100 rounded-full'>
+            <p className='font-semibold'>Модель</p>
+            <p>{product.name}</p>
+          </div>
+          {product.description.map((item, index) => (
             <div
-              key={index}
+              key={item.id}
               className={`grid grid-cols-2 gap-x-[20px] p-[20px] items-center ${
-                index % 2 === 0 ? 'bg-gray-100 rounded-full' : ''
+                index % 2 !== 0 ? 'bg-gray-100 rounded-full' : ''
               }`}
             >
-              <p className='font-semibold'>{item.label}</p>
+              <p className='font-semibold'>{item.name}</p>
               <p>{item.value}</p>
             </div>
           ))}

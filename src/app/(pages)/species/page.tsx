@@ -6,15 +6,15 @@ import Card from '@/app/components/Card';
 export default async function SpeciesPage({
   searchParams,
 }: {
-  searchParams: { category: string };
+  searchParams: { species: string };
 }) {
-  const species = (await getSpecies(searchParams.category)) as Species[];
+  const species = (await getSpecies(searchParams.species)) as Species[];
 
   return (
     <div className='lg:flex-1 lg:flex lg:items-center lg:justify-center py-[30px]'>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-[10px] w-full xl:max-w-[900px] 3xl:max-w-[1100px] mx-auto'>
         {species.map((el) => (
-          <Card key={el.id} item={el} href={`/products?species=${el.name}`} />
+          <Card key={el.id} item={el} href={`/products?species=${el.id}`} />
         ))}
       </div>
     </div>
