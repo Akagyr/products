@@ -6,6 +6,7 @@ import Sidebar from './Sidebar';
 import Sort from './Sort';
 import { Product } from '../../types';
 import Collapse from './Collapse';
+import Breadcrumbs from '../Breadcrumbs';
 
 export default function ProductsPageContainer({ products }: { products: Product[] }) {
   const [localProducts, setLocalProducts] = useState<Product[]>(products);
@@ -42,6 +43,7 @@ export default function ProductsPageContainer({ products }: { products: Product[
     <div className='flex gap-[50px] xl:gap-[100px] py-[20px] md:py-[30px]'>
       <Sidebar products={products} setFilteredProducts={setFilteredProducts} />
       <div className='w-full'>
+        <Breadcrumbs />
         <Collapse products={products} setFilteredProducts={setFilteredProducts} />
         <div className='flex items-start justify-between my-[10px] md:mb-[30px] md:mt-0 text-sm md:text-base'>
           <div className='mt-[20px] lg:mt-0'>Знайдено: {localProducts.length}</div>

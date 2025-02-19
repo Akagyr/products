@@ -3,6 +3,7 @@ import './globals.css';
 import Header from './components/Header';
 import { CartProvider } from './context/cartContext';
 import { Montserrat } from 'next/font/google';
+import { BreadcrumbsProvider } from './context/breadcrumbsContext';
 
 const montserrat = Montserrat({
   subsets: ['cyrillic'],
@@ -22,11 +23,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ua'>
-      <body className={`${montserrat.variable} font-montserrat antialiased relative min-h-screen flex flex-col`}>
-        <CartProvider>
-          <Header />
-          <main className='flex-1 flex flex-col px-[20px] lg:px-[50px]'>{children}</main>
-        </CartProvider>
+      <body
+        className={`${montserrat.variable} font-montserrat antialiased relative min-h-screen flex flex-col`}
+      >
+        <BreadcrumbsProvider>
+          <CartProvider>
+            <Header />
+            <main className='flex-1 flex flex-col px-[20px] lg:px-[100px]'>{children}</main>
+          </CartProvider>
+        </BreadcrumbsProvider>
       </body>
     </html>
   );

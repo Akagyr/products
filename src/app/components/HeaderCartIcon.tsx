@@ -3,14 +3,21 @@ import React from 'react';
 export default function HeaderCartIcon() {
   return (
     <svg
+      width='30px'
+      height='30px'
+      viewBox='0 0 48 48'
       xmlns='http://www.w3.org/2000/svg'
-      viewBox='0 0 32 32'
-      className='fill-violet lg:group-hover:fill-violet-hover size-[25px] transition-colors'
+      className='lg:hover:fill-violet lg:hover:transition-colors'
     >
-      <g>
-        <path d='M29.46 10.14A2.94 2.94 0 0 0 27.1 9H10.22L8.76 6.35A2.67 2.67 0 0 0 6.41 5H3a1 1 0 0 0 0 2h3.41a.68.68 0 0 1 .6.31l1.65 3 .86 9.32a3.84 3.84 0 0 0 4 3.38h10.37a3.92 3.92 0 0 0 3.85-2.78l2.17-7.82a2.58 2.58 0 0 0-.45-2.27zM28 11.86l-2.17 7.83A1.93 1.93 0 0 1 23.89 21H13.48a1.89 1.89 0 0 1-2-1.56L10.73 11H27.1a1 1 0 0 1 .77.35.59.59 0 0 1 .13.51z' />
-        <circle cx='14' cy='26' r='2' />
-        <circle cx='24' cy='26' r='2' />
+      <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
+      <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
+      <g id='SVGRepo_iconCarrier'>
+        {' '}
+        <path d='M0 0h48v48H0z' fill='none'></path>{' '}
+        <g id='Shopicon'>
+          {' '}
+          <path d='M8,44h32c2.2,0,4-1.8,4-4l0-26h-8.18C34.863,8.334,29.934,4,24,4S13.137,8.334,12.181,14H4l0,26C4,42.2,5.8,44,8,44z M24,8 c3.719,0,6.845,2.555,7.737,6H16.263C17.155,10.555,20.281,8,24,8z M12,18v4h4v-4h16v4h4v-4h4l0,22L8,40l0-22H12z'></path>{' '}
+        </g>{' '}
       </g>
     </svg>
   );

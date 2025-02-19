@@ -5,12 +5,14 @@ import { getProduct } from '@/app/database/prismaQuries';
 import { Product } from '@/app/types';
 import React from 'react';
 import ProductFeatures from '@/app/components/product/ProductFeatures';
+import Breadcrumbs from '@/app/components/Breadcrumbs';
 
 export default async function ProductPage({ params }: { params: { productId: string } }) {
   const product = (await getProduct(params.productId)) as Product;
 
   return (
     <div className='py-[30px] px-[10px] lg:px-[15%]'>
+      <Breadcrumbs />
       <div className='lg:grid grid-cols-2 gap-[60px] border-b-[2px] pb-[20px] lg:pb-[70px] mb-[20px] lg:mb-[70px]'>
         <ProductImageGallery
           productImages={product.images}

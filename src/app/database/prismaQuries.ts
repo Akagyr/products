@@ -14,9 +14,7 @@ export async function getSpecies(categoryId: string) {
   try {
     return await prisma.species.findMany({
       where: {
-        category: {
-          id: categoryId,
-        },
+        categoryId: categoryId,
       },
       include: {
         category: true,
@@ -32,9 +30,7 @@ export async function getProducts(speciesId: string) {
   try {
     return await prisma.product.findMany({
       where: {
-        species: {
-          id: speciesId,
-        },
+        speciesId: speciesId,
       },
       include: {
         species: true,
@@ -48,11 +44,11 @@ export async function getProducts(speciesId: string) {
   }
 }
 
-export async function getProduct(id: string) {
+export async function getProduct(productId: string) {
   try {
     const product = await prisma.product.findUnique({
       where: {
-        id: id,
+        id: productId,
       },
       include: {
         species: true,
