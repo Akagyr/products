@@ -9,14 +9,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'violet': '#b85aff',
-        'violet-hover': '#7c24c0',
+        'rose': '#912758',
+        'rose-hover': '#542138',
       },
       screens: {
         '3xl': '1920px',
       },
       fontFamily: {
         montserrat: ['var(--font-montserrat)'],
+      },
+      maxWidth: {
+        'container': '1480px',
       },
     },
   },

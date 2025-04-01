@@ -3,11 +3,8 @@ import { Product } from '../../types';
 
 export default function ProductCartInfo({ product }: { product: Product }) {
   return (
-    <>
-      <h2 className='font-semibold md:text-lg'>
-      {product.species.name} {product.name}
-      </h2>
-      <p className='text-sm md:text-base lg:text-lg'>{product.price} грн</p>
-    </>
+    <div className='flex flex-col gap-[10px] justify-between'>
+      <p className='text-lg text-rose font-medium'>{product.price} грн</p>
+    </div>
   );
 }

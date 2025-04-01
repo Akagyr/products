@@ -12,30 +12,32 @@ export default function ProductBuyBtn({
   styleClasses?: string;
 }) {
   const [isClicked, setIsClicked] = useState<boolean>(false);
-  const { addToCart, getCart } = useCart();
+  const { addToCart, removeFromCart, getCart } = useCart();
   const cartItems = getCart();
   const isAdded: boolean = cartItems.some((item: Product) => item.name === product.name);
 
-  const onClick = (e: React.MouseEvent, product: Product) => {
-    e.stopPropagation();
-    e.preventDefault();
-    addToCart(product);
-    setIsClicked(true);
+  const onClick = (product: Product) => {
+    if (isAdded) {
+      removeFromCart(product.id);
+      setIsClicked(false);
+    } else {
+      addToCart(product);
+      setIsClicked(true);
+    }
   };
 
   return (
     <button
       className={`${
         isClicked || isAdded
-          ? 'border-[2px] border-[#b85aff] text-[#b85aff] font-medium'
-          : 'bg-[#b85aff] lg:hover:bg-[#7c24c0] text-white'
+          ? 'border-[2px] border-rose text-rose lg:hover:border-rose-hover font-medium'
+          : 'border-[2px] border-rose bg-rose lg:hover:bg-rose-hover lg:hover:border-rose-hover text-white'
       } ${
-        styleClasses ? styleClasses : 'px-[10px] md:px-[30px] py-[8px]'
-      } text-sm md:text-base rounded-full w-full md:w-fit lg:hover:transition-colors lg:hover:duration-500 cursor-pointer`}
-      disabled={isClicked}
-      onClick={(e) => onClick(e, product)}
+        styleClasses ? styleClasses : 'px-[10px] md:px-[30px] py-[8px] mt-[10px]'
+      } text-sm md:text-base rounded-xl lg:hover:transition-colors lg:hover:duration-500 cursor-pointer`}
+      onClick={() => onClick(product)}
     >
-      {isClicked || isAdded ? '✓ Додано' : 'Додати до кошика'}
+      {isClicked || isAdded ? 'Видалити' : 'До кошика'}
     </button>
   );
 }

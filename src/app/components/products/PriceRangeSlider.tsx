@@ -66,7 +66,7 @@ export default function PriceRangeSlider({
       </div>
 
       <div className='relative w-full h-[5px] bg-gray-200 rounded'>
-        <div ref={progressRef} className='absolute h-full bg-violet rounded' />
+        <div ref={progressRef} className='absolute h-full bg-rose rounded' />
         <input
           ref={minInputRef}
           type='range'
@@ -76,7 +76,7 @@ export default function PriceRangeSlider({
           onChange={handleMinChange}
           onMouseDown={() => setActiveThumb('min')}
           onTouchStart={() => setActiveThumb('min')}
-          className={`absolute w-full h-[5px] appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-[15px] [&::-webkit-slider-thumb]:h-[15px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-violet [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:shadow-[0_0_4px_rgba(0,0,0,0.4)] ${
+          className={`absolute w-full h-[5px] appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-[15px] [&::-webkit-slider-thumb]:h-[15px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-rose [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:shadow-[0_0_4px_rgba(0,0,0,0.4)] ${
             activeThumb === 'min' ? 'z-[2]' : 'z-[1]'
           }`}
         />
@@ -89,7 +89,7 @@ export default function PriceRangeSlider({
           onChange={handleMaxChange}
           onMouseDown={() => setActiveThumb('max')}
           onTouchStart={() => setActiveThumb('max')}
-          className={`absolute w-full h-[5px] appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-[15px] [&::-webkit-slider-thumb]:h-[15px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-violet [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:shadow-[0_0_4px_rgba(0,0,0,0.4)] ${
+          className={`absolute w-full h-[5px] appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-[15px] [&::-webkit-slider-thumb]:h-[15px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-rose [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:shadow-[0_0_4px_rgba(0,0,0,0.4)] ${
             activeThumb === 'max' ? 'z-[2]' : 'z-[1]'
           }`}
         />

@@ -8,6 +8,7 @@ type CartContextType = {
   addToCart: (product: Product) => void;
   removeFromCart: (productId: string) => void;
   getCartTotal: () => number;
+  getCartCount: () => number;
   getCart: () => Product[];
 };
 
@@ -36,6 +37,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return cartItems.reduce((total, item) => total + item.price, 0);
   };
 
+  const getCartCount = () => {
+    return cartItems.length;
+  };
+
   const getCart = () => {
     return cartItems;
   };
@@ -47,6 +52,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         addToCart,
         removeFromCart,
         getCartTotal,
+        getCartCount,
         getCart,
       }}
     >

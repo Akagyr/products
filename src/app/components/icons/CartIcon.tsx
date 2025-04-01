@@ -1,13 +1,11 @@
 import React from 'react';
 
-export default function HeaderCartIcon() {
+export default function CartIcon({ styleClass = '' }: { styleClass?: string }) {
   return (
     <svg
-      width='30px'
-      height='30px'
       viewBox='0 0 48 48'
       xmlns='http://www.w3.org/2000/svg'
-      className='lg:hover:fill-violet lg:hover:transition-colors'
+      className={styleClass}
     >
       <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
       <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>

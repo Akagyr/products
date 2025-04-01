@@ -1,25 +1,36 @@
 import React from 'react';
 import { useCart } from '../../context/cartContext';
 import { Product } from '@/app/types';
+import Link from 'next/link';
 
-export default function CartProductListItem({ product }: { product: Product }) {
+export default function CartProductListItem({
+  product,
+  firstProduct,
+}: {
+  product: Product;
+  firstProduct: boolean;
+}) {
   const { removeFromCart } = useCart();
 
   return (
     <>
-      <div className='hidden lg:grid grid-cols-[80px_1fr_1fr_120px] gap-[30px] items-center w-full py-[15px] border-b'>
+      <div
+        className={`${
+          !firstProduct && 'border-t'
+        } hidden lg:grid grid-cols-[100px_1fr_250px_120px] gap-[30px] items-center w-full py-[20px] px-[30px]`}
+      >
         <img
           src={product.images[0]}
           alt={`${product.category.name} ${product.species.name} ${product.name}`}
-          className='object-cover rounded-full w-[80px] h-[80px]'
+          className='object-cover rounded-full w-full aspect-square'
         />
-        <p>
+        <Link href={`/${product.id}`} className='lg:hover:text-rose'>
           {product.category.name} {product.species.name} {product.name}
-        </p>
+        </Link>
         <p className='text-center'>{product.price.toFixed(2)} грн</p>
         <button
           onClick={() => removeFromCart(product.id)}
-          className='text-white px-[15px] py-[8px] rounded-full bg-red-600 lg:hover:bg-red-800 w-fit transition-colors'
+          className='text-white px-[15px] py-[8px] rounded-full bg-rose lg:hover:bg-rose-hover w-fit transition-colors'
         >
           Видалити
         </button>

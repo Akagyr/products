@@ -1,12 +1,16 @@
 import React from 'react';
 
-export default function Checkbox({
+export default function RadioButton({
   id,
+  name,
+  value,
   checked,
   onChange,
   label,
 }: {
   id: string;
+  name: string;
+  value: string;
   checked: boolean;
   onChange: () => void;
   label: string;
@@ -16,13 +20,15 @@ export default function Checkbox({
       <label htmlFor={id} className='group flex items-center cursor-pointer'>
         <input
           id={id}
-          type='checkbox'
+          type='radio'
+          name={name}
+          value={value}
           className='hidden peer'
           checked={checked}
           onChange={onChange}
         />
-        <span className='relative w-[20px] h-[20px] flex justify-center items-center border-2 rounded-md shadow-md transition-all duration-500 peer-checked:border-rose peer-checked:bg-rose'>
-          <span className='absolute inset-0 opacity-0 peer-checked:opacity-100 rounded-md transition-all duration-500' />
+        <span className='relative w-[20px] h-[20px] flex justify-center items-center border-2 rounded-full shadow-md transition-all duration-500 peer-checked:border-rose'>
+          <span className='absolute w-[10px] h-[10px] rounded-full opacity-0 peer-checked:opacity-100 transition-all duration-500' />
         </span>
         <span className='ml-[10px]'>{label}</span>
       </label>

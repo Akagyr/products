@@ -8,14 +8,14 @@ export default function Breadcrumbs() {
   const { breadcrumbs } = useBreadcrumbs();
 
   return (
-    <nav className='flex mb-4 text-sm'>
+    <nav className='max-w-container mx-auto flex my-[20px] text-sm'>
       {breadcrumbs.map((breadcrumb, index) => (
         <React.Fragment key={index}>
           <NavigationLink
             href={breadcrumb.href}
             name={breadcrumb.name}
             type={breadcrumb.type}
-            className='text-violet hover:text-violet-hover transition-colors'
+            className='text-rose lg:hover:text-rose-hover transition-colors'
           >
             {breadcrumb.name}
           </NavigationLink>

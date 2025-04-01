@@ -1,24 +1,27 @@
-'use client';
-
 import React from 'react';
 import { Product } from '../../types';
-import ProductBuyBtn from '../ProductBuyBtn';
 import ProductCartInfo from './ProductCartInfo';
 import NavigationLink from '../NavigationLink';
+import ProductBuyBtn from '../ProductBuyBtn';
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
-    <NavigationLink
-      href={`/species/products/${product.id}`}
-      name={product.name}
-      type={'product'}
-      className='size-full rounded-3xl mx-auto flex flex-col shadow-xl'
-    >
-      <img className='w-full aspect-[5/6] rounded-t-3xl object-cover' src={product.images[0]} />
-      <div className='pt-[10px] pb-[15px] px-[10px] 3xl:pt-[10px] 3xl:pb-[20px] flex flex-col gap-[5px] md:gap-[10px] flex-1 justify-between items-center text-center'>
+    <div className='size-full rounded-xl flex flex-col gap-[20px] justify-between flex-1 shadow-xl text-center'>
+      <NavigationLink href={`/${product.id}`} name={product.name} type={'product'}>
+        <div className='overflow-hidden rounded-t-xl group'>
+          <img
+            className='w-full rounded-t-xl h-auto object-cover transition-transform duration-700 ease-in-out group-hover:scale-105 will-change-transform backface-hidden'
+            src={product.images[0]}
+          />
+        </div>
+        <h2 className='px-[10px] pt-[15px] font-medium line-clamp-2 lg:hover:text-rose'>
+          {product.species.name} {product.name}
+        </h2>
+      </NavigationLink>
+      <div className='flex flex-col gap-[15px] px-[10px] pb-[15px]'>
         <ProductCartInfo product={product} />
         <ProductBuyBtn product={product} />
       </div>
-    </NavigationLink>
+    </div>
   );
 }
