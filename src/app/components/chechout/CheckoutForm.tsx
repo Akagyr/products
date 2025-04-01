@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import emailjs from 'emailjs-com';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/app/context/cartContext';
 import RadioButton from '../RadioButton';
@@ -26,36 +25,6 @@ export default function CheckoutForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const form = e.currentTarget;
-    const nameInput = form.elements.namedItem('name') as HTMLInputElement;
-    const lastNameInput = form.elements.namedItem('lastName') as HTMLInputElement;
-    const emailInput = form.elements.namedItem('email') as HTMLInputElement;
-    const phoneInput = form.elements.namedItem('phone') as HTMLInputElement;
-
-    const message = `Замовлення:\nІм'я: ${nameInput.value}\nПрізвище: ${
-      lastNameInput.value
-    }\nПошта: ${emailInput.value}\nНомер телефона: ${
-      phoneInput.value
-    }\n\nТовари:\n${checkoutProductArr
-      .map((el) => `${el.species + ' ' + el.name}`)
-      .join('\n')}\n\nСума ${getCartTotal().toFixed(2)} грн.`;
-
-    const templateParams = {
-      to_email: 'product.order.2024@gmail.com',
-      from_name: nameInput.value,
-      from_email: emailInput.value,
-      subject: `Замовлення від ${nameInput.value}`,
-      message: message,
-    };
-
-    emailjs.send(
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-      templateParams,
-      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-    );
-
     navigate.replace('/');
   };
 
