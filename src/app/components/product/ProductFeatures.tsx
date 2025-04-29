@@ -1,13 +1,23 @@
 import React from 'react';
+import DeliveryIcon from '../icons/DeliveryIcon';
+import QulityIcon from '../icons/QulityIcon';
 
 export default function ProductFeatures() {
   return (
-    <div className='flex flex-col gap-[10px]'>
-      <div className='flex gap-[5px] items-center'>
-        <div className='w-[35px] p-[6px] bg-gray-400 rounded-full'>
-          <img src='/schedule.png' className='w-full' alt='Schedule icon' />
+    <div className='flex flex-col gap-[20px]'>
+      <div className='flex gap-[20px]'>
+        <DeliveryIcon styles='size-[30px]' />
+        <div className='text-[#231f20]'>
+          <h3 className='font-semibold mb-[5px]'>Безпечна доставка</h3>
+          <p>Наш унікальний метод упаковки забезпечує дбайливе транспортування.</p>
         </div>
-        <p className='text-gray-500'>Відправка протягом 1-3 робочих днів</p>
+      </div>
+      <div className='flex gap-[20px]'>
+        <QulityIcon styles='size-[30px]' />
+        <div className='text-[#231f20]'>
+          <h3 className='font-semibold mb-[5px]'>Високоякісні рослини</h3>
+          <p>Наші рослини повністю готові до відправлення!</p>
+        </div>
       </div>
     </div>
   );

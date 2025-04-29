@@ -39,7 +39,7 @@ export default function ProductsPageContainer({ products }: { products: Product[
   }, [filteredProducts, currentSort]);
 
   return (
-    <div className='flex gap-[50px] xl:gap-[100px] py-[20px] md:py-[30px] max-w-container mx-auto'>
+    <div className='flex gap-[50px] xl:gap-[100px] py-[20px] md:py-[30px] px-[20px] 2xl:px-0 2xl:max-w-container 2xl:mx-auto'>
       <Sidebar products={products} setFilteredProducts={setFilteredProducts} />
       <div className='w-full'>
         <Collapse products={products} setFilteredProducts={setFilteredProducts} />

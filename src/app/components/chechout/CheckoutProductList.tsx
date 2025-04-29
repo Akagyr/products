@@ -18,7 +18,7 @@ export default function CheckoutProductList() {
         <CheckoutProductListItem key={item.id} product={item} />
       ))}
       <div className='mt-[20px] text-right'>
-        <div className='flex justify-between sm:text-lg md:text-xl font-semibold'>
+        <div className='flex justify-between text-lg md:text-xl font-semibold'>
           <span>До оплати:</span>
           <span>{getCartTotal().toFixed(2)} грн</span>
         </div>

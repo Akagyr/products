@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import ArrowRightIcon from '../icons/ArrowRightIcon';
 
 export default function ProductImageGallery({
   productImages,
@@ -44,12 +45,12 @@ export default function ProductImageGallery({
 
   return (
     <div
-      className='touch-pan-y flex gap-[50px]'
+      className='touch-pan-y flex flex-col-reverse md:flex-row gap-[30px] md:gap-[50px]'
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className='flex flex-col gap-[20px] w-[100px]'>
+      <div className='flex flex-row md:flex-col gap-[20px] h-[90px] md:h-full md:w-[100px]'>
         {productImages.map((image, index) => (
           <div
             key={index}
@@ -68,23 +69,23 @@ export default function ProductImageGallery({
       </div>
       <div className='relative w-full'>
         <img
-          className='size-full object-cover aspect-square rounded-2xl'
+          className='size-full md:max-w-[80%] lg:max-w-full object-cover aspect-square rounded-2xl'
           src={productImages[activeIndex]}
           alt={`${categoryName} ${speciesName} ${productName}`}
         />
         <button
           onClick={handlePrevious}
-          className='absolute left-[15px] top-1/2 -translate-y-1/2 bg-white/60 lg:hover:bg-white px-[10px] py-[5px] rounded-full shadow-lg rotate-180'
+          className='hidden lg:flex absolute left-[15px] top-1/2 -translate-y-1/2 size-[40px] justify-center items-center rounded-full bg-rose/80 rotate-180'
           aria-label='Previous image'
         >
-          ➜
+          <ArrowRightIcon styleClass='size-[20px] text-white' />
         </button>
         <button
           onClick={handleNext}
-          className='absolute right-[15px] top-1/2 -translate-y-1/2 bg-white/60 lg:hover:bg-white px-[10px] py-[5px] rounded-full shadow-lg transition-colors'
+          className='hidden lg:flex absolute right-[15px] top-1/2 -translate-y-1/2 size-[40px] justify-center items-center rounded-full bg-rose/80'
           aria-label='Next image'
         >
-          ➜
+          <ArrowRightIcon styleClass='size-[20px] text-white' />
         </button>
       </div>
     </div>

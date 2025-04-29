@@ -10,15 +10,15 @@ export default async function ProductPage({ params }: { params: { productId: str
   const product = (await getProduct(params.productId)) as Product;
 
   return (
-    <div className='py-[30px] max-w-container mx-auto'>
-      <div className='lg:grid grid-cols-2 gap-[150px] border-b-[2px] pb-[20px] lg:pb-[70px] mb-[20px] lg:mb-[70px]'>
+    <div className='py-[30px] px-[20px] 2xl:p-0 2xl:max-w-container 2xl:mx-auto'>
+      <div className='lg:grid grid-cols-2 gap-[150px] lg:border-b-[2px] lg:pb-[70px] mb-[40px] lg:mb-[70px]'>
         <ProductImageGallery
           productImages={product.images}
           categoryName={product.category.name}
           speciesName={product.species.name}
           productName={product.name}
         />
-        <div className='p-[30px] border-[1px] rounded-2xl'>
+        <div className='mt-[40px] lg:mt-0 p-[30px] border-[1px] rounded-2xl'>
           <div className='lg:border-b lg:pb-[10px] mb-[20px]'>
             <h2 className='text-2xl font-semibold'>
               {product.species.name} {product.name}
@@ -29,7 +29,7 @@ export default async function ProductPage({ params }: { params: { productId: str
             <p className='text-2xl text-rose'>{product.price} грн</p>
             <ProductBuyBtn
               product={product}
-              styleClasses='px-[10px] md:px-[30px] py-[12px] md:py-[10px] w-fit'
+              styleClasses='px-[10px] md:px-[30px] py-[12px] md:py-[10px] w-full lg:w-fit text-base'
             />
           </div>
           <ProductFeatures />

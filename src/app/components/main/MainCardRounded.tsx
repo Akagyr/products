@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import ArrowRigthIcon from '../icons/ArrowRigthIcon';
+import ArrowRightIcon from '../icons/ArrowRightIcon';
 
 export default function MainCardRounded({
   href,
@@ -18,13 +18,13 @@ export default function MainCardRounded({
       <div className='overflow-hidden rounded-full'>
         <img
           src={src}
-          className='w-full rounded-full aspect-square object-cover object-center transition-transform duration-700 ease-in-out group-hover:scale-105 will-change-transform backface-hidden'
+          className='w-full rounded-full aspect-square object-cover object-center lg:transition-transform lg:duration-700 lg:ease-in-out lg:group-hover:scale-105 lg:will-change-transform lg:backface-hidden'
           alt={name}
         />
       </div>
-      <div className='mt-[10px] font-semibold flex justify-center items-center transition-colors duration-300 group-hover:text-rose-hover'>
+      <div className='mt-[10px] font-semibold flex justify-center items-center lg:transition-colors lg:duration-300 lg:group-hover:text-rose-hover'>
         <span>{name}</span>
-        <ArrowRigthIcon styleClass='w-0 h-[16px] overflow-hidden transition-all duration-300 group-hover:w-[16px] group-hover:ml-[10px]' />
+        <ArrowRightIcon styleClass='hidden lg:block w-0 h-[16px] overflow-hidden transition-all duration-300 group-hover:w-[16px] group-hover:ml-[10px]' />
       </div>
     </Link>
   );

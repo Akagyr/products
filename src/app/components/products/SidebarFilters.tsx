@@ -113,7 +113,6 @@ export default function SidebarFilters({ products, setFilteredProducts }: Sideba
             {uniqueValues.map((value) => (
               <Checkbox
                 key={`${descriptionName}-${value}`}
-                id={`${descriptionName}-${value}`}
                 checked={selectedValues.includes(value)}
                 onChange={() => handleDescriptionFilter(descriptionName, value)}
                 label={value}
@@ -134,7 +133,6 @@ export default function SidebarFilters({ products, setFilteredProducts }: Sideba
           {uniqueModels.map((model) => (
             <Checkbox
               key={model}
-              id={model}
               checked={selectedModels.includes(model)}
               onChange={() => handleModelFilter(model)}
               label={model}

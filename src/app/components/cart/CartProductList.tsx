@@ -14,7 +14,7 @@ export default function CartProductList() {
       {cartItems.length === 0 ? (
         <CartEmpty />
       ) : (
-        <div className='flex gap-[50px] justify-between'>
+        <div className='flex flex-col xl:flex-row gap-[30px] xl:gap-[50px] justify-between'>
           <div className='border-[1px] rounded-2xl h-fit'>
             {cartItems.map((item) => (
               <CartProductListItem
@@ -24,8 +24,8 @@ export default function CartProductList() {
               />
             ))}
           </div>
-          <div className='border-[1px] p-[30px] size-fit rounded-2xl max-w-[400px]'>
-            <div className='sm:text-lg lg:text-xl font-semibold flex justify-between'>
+          <div className='border-[1px] p-[30px] h-fit w-full rounded-2xl xl:w-[400px] xl:flex xl:flex-col'>
+            <div className='text-xl font-semibold flex justify-between'>
               <p>До оплати:</p>
               <p>{getCartTotal().toFixed(2)} грн</p>
             </div>
@@ -34,7 +34,7 @@ export default function CartProductList() {
             </p>
             <Link
               href='/checkout'
-              className='block px-[10px] md:px-[20px] py-[10px] text-sm md:text-base text-center rounded-full bg-rose lg:hover:bg-rose-hover text-white w-full transition-colors'
+              className='block px-[10px] md:px-[20px] py-[10px] text-base text-center rounded-xl bg-rose lg:hover:bg-rose-hover text-white w-full transition-colors'
             >
               Перейти до оформлення
             </Link>

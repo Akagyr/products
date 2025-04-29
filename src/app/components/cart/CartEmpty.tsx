@@ -11,7 +11,7 @@ export default function CartEmpty() {
       <p className='text-gray-500 mb-[20px]'>Ваш кошик пустий!</p>
       <button
         onClick={() => router.back()}
-        className='px-[10px] md:px-[20px] py-[8px] text-sm md:text-base text-center rounded-full bg-gray-200 lg:hover:bg-gray-300 w-fit transition-colors'
+        className='px-[10px] md:px-[20px] py-[8px] text-sm md:text-base text-center rounded-xl bg-gray-200 lg:hover:bg-gray-300 w-fit transition-colors'
       >
         Повернутись до покупок
       </button>

@@ -9,7 +9,7 @@ export default async function Homepage() {
   const species = await getAllSpecies();
   const slicedSpecies = species!.slice(0, 12);
   const newProducts = (await getNewProducts()) as Product[];
-  const slicedNewProducrs = newProducts.slice(0, 6);
+  const slicedNewProducrs = newProducts.slice(0, 12);
 
   return (
     <>
@@ -19,7 +19,7 @@ export default async function Homepage() {
           className='w-full h-[400px] object-cover'
         />
       </section>
-      <div className='flex flex-col gap-[50px] max-w-container mx-auto'>
+      <div className='flex flex-col gap-[50px] px-[20px] 2xl:px-0 2xl:max-w-container 2xl:mx-auto'>
         <MainSection titleText='Види рослин' seeMoreText='Переглянути всі' seeMoreLink='/products'>
           {slicedSpecies.map((spec) => (
             <MainCardRounded

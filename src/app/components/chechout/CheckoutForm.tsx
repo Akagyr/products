@@ -2,17 +2,35 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useCart } from '@/app/context/cartContext';
 import RadioButton from '../RadioButton';
 import CustomSelect from '../CustomSelect';
+import CheckoutFormInput from './CheckoutFormInput';
+
+type FormData = {
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  region: string;
+  city: string;
+  street: string;
+  build: string;
+  apart?: string;
+  postal: string;
+  deliveryMethod: string;
+  deliveryTypeDetails?: string;
+};
+
+type FormErrors = {
+  [key in keyof FormData]?: string;
+};
 
 export default function CheckoutForm() {
   const navigate = useRouter();
-  const { getCart, getCartTotal } = useCart();
-  const checkoutProductArr = getCart();
 
-  const [deliveryMethod, setDeliveryMethod] = useState('');
-  const [deliveryType, setDeliveryType] = useState('depart');
+  const [deliveryMethod, setDeliveryMethod] = useState<string>('');
+  const [deliveryType, setDeliveryType] = useState<string>('depart');
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const getDeliveryPlaceholder = () => {
     switch (deliveryType) {
@@ -20,142 +38,219 @@ export default function CheckoutForm() {
         return 'відділення';
       case 'parcel':
         return 'поштомат';
+      default:
+        return '';
     }
+  };
+
+  const validateForm = (formData: FormData) => {
+    let newErrors: FormErrors = {};
+
+    if (!formData.name) newErrors.name = 'Імʼя обовʼязкове';
+    if (!formData.lastName) newErrors.lastName = 'Прізвище обовʼязкове';
+    if (!formData.email) newErrors.email = 'Вкажіть електронну адресу';
+    if (!formData.phone) newErrors.phone = 'Вкажіть номер телефону';
+    if (formData.phone && !/^0\d{9}$/.test(formData.phone))
+      newErrors.phone = 'Невірний номер телефону';
+    if (!formData.region) newErrors.region = 'Вкажіть область';
+    if (!formData.city) newErrors.city = 'Вкажіть місто';
+    if (!formData.street) newErrors.street = 'Вкажіть вулицю';
+    if (!formData.build) newErrors.build = 'Вкажіть номер будинку';
+    if (!formData.postal) newErrors.postal = 'Вкажіть поштовий індекс';
+
+    if (!formData.deliveryMethod) {
+      newErrors.deliveryMethod = 'Оберіть спосіб доставки';
+    }
+
+    if (
+      formData.deliveryMethod === 'novapost' &&
+      deliveryType !== 'courier' &&
+      !formData.deliveryTypeDetails
+    ) {
+      newErrors.deliveryTypeDetails = `Вкажіть ${getDeliveryPlaceholder()}`;
+    }
+
+    return newErrors;
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate.replace('/');
+
+    const form = e.currentTarget;
+
+    const formDataObj: FormData = {
+      name: (form.elements.namedItem('name') as HTMLInputElement).value,
+      lastName: (form.elements.namedItem('lastName') as HTMLInputElement).value,
+      email: (form.elements.namedItem('email') as HTMLInputElement).value,
+      phone: (form.elements.namedItem('phone') as HTMLInputElement).value,
+      region: (form.elements.namedItem('region') as HTMLInputElement).value,
+      city: (form.elements.namedItem('city') as HTMLInputElement).value,
+      street: (form.elements.namedItem('street') as HTMLInputElement).value,
+      build: (form.elements.namedItem('build') as HTMLInputElement).value,
+      apart: (form.elements.namedItem('apart') as HTMLInputElement)?.value || '',
+      postal: (form.elements.namedItem('postal') as HTMLInputElement).value,
+      deliveryMethod: deliveryMethod, // Use the state value
+      deliveryTypeDetails:
+        (form.elements.namedItem('deliveryTypeDetails') as HTMLInputElement)?.value || '',
+    };
+
+    const validationErrors = validateForm(formDataObj);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      console.log(formDataObj);
+    }
   };
 
   return (
-    <form className='w-full flex flex-col gap-[40px]' onSubmit={handleSubmit}>
+    <form className='w-full flex flex-col gap-[40px]' onSubmit={handleSubmit} noValidate>
       <section className='flex flex-col gap-[20px]'>
         <h2 className='text-lg md:text-xl font-semibold'>Контактні дані</h2>
-        <div className='flex gap-[20px]'>
-          <input
-            className='py-[12px] px-[15px] text-sm border-2 border-gray-300 rounded-xl w-full lg:focus:border-rose'
+        <div className='flex flex-col lg:flex-row gap-[20px]'>
+          <CheckoutFormInput
             type='text'
             name='name'
             placeholder='Імʼя'
-            required
+            required={true}
+            error={errors.name}
           />
-          <input
-            className='py-[12px] px-[15px] text-sm border-2 border-gray-300 rounded-xl w-full lg:focus:border-rose'
+          <CheckoutFormInput
             type='text'
             name='lastName'
             placeholder='Прізвище'
-            required
+            required={true}
+            error={errors.lastName}
           />
         </div>
-        <input
-          className='py-[12px] px-[15px] text-sm border-2 border-gray-300 rounded-xl w-full lg:focus:border-rose'
+        <CheckoutFormInput
           type='email'
           name='email'
           placeholder='Електронна адреса'
-          required
+          required={true}
+          error={errors.email}
         />
-        <input
+        <CheckoutFormInput
           type='tel'
-          className='py-[12px] px-[15px] text-sm border-2 border-gray-300 rounded-xl w-full lg:focus:border-rose'
           name='phone'
           pattern='^0\d{9}$'
           placeholder='Номер телефону'
-          required
+          required={true}
+          error={errors.phone}
         />
       </section>
       <section className='flex flex-col gap-[20px]'>
         <h2 className='text-lg md:text-xl font-semibold'>Адреса доставки</h2>
-        <input
+        <CheckoutFormInput
           type='text'
-          className='py-[12px] px-[15px] text-sm border-2 border-gray-300 rounded-xl w-full focus:border-rose'
           name='region'
           placeholder='Область'
-          required
+          required={true}
+          error={errors.region}
         />
-        <input
+        <CheckoutFormInput
           type='text'
-          className='py-[12px] px-[15px] text-sm border-2 border-gray-300 rounded-xl w-full focus:border-rose'
           name='city'
           placeholder='Місто'
-          required
+          required={true}
+          error={errors.city}
         />
-        <input
+        <CheckoutFormInput
           type='text'
-          className='py-[12px] px-[15px] text-sm border-2 border-gray-300 rounded-xl w-full focus:border-rose'
           name='street'
           placeholder='Вулиця'
-          required
+          required={true}
+          error={errors.street}
         />
-        <div className='flex gap-[20px]'>
-          <input
+        <div className='flex flex-col lg:flex-row gap-[20px]'>
+          <CheckoutFormInput
             type='text'
-            className='py-[12px] px-[15px] text-sm border-2 border-gray-300 rounded-xl w-full focus:border-rose'
             name='build'
             placeholder='Номер будинку'
-            required
+            required={true}
+            error={errors.build}
           />
-          <input
+          <CheckoutFormInput
             type='text'
-            className='py-[12px] px-[15px] text-sm border-2 border-gray-300 rounded-xl w-full focus:border-rose'
             name='apart'
             placeholder={`Номер квартири (необов'язково)`}
           />
         </div>
-        <input
+        <CheckoutFormInput
           type='text'
-          className='py-[12px] px-[15px] text-sm border-2 border-gray-300 rounded-xl w-full focus:border-rose'
           name='postal'
           placeholder='Поштовий індекс'
+          required={true}
+          error={errors.postal}
         />
       </section>
       <section className='flex flex-col gap-[20px]'>
         <h2 className='text-lg md:text-xl font-semibold'>Вид доставки</h2>
-        <RadioButton
-          id='novapost'
-          name='deliveryMethod'
-          value='novapost'
-          onChange={() => setDeliveryMethod('novapost')}
-          checked={deliveryMethod === 'novapost'}
-          label='Нова пошта'
-        />
-        {deliveryMethod === 'novapost' && (
-          <>
-            <CustomSelect
-              options={[
-                { value: 'depart', label: 'Відділення' },
-                { value: 'parcel', label: 'Поштомат' },
-                { value: 'courier', label: "Кур'єр" },
-              ]}
-              value={deliveryType}
-              onChange={(value) => setDeliveryType(value)}
-              placeholder='Оберіть тип доставки'
-              required={deliveryMethod === 'novapost'}
-            />
-            {deliveryType && deliveryType !== 'courier' && (
-              <input
-                type='text'
-                className='py-[12px] px-[15px] text-sm border-2 border-gray-300 rounded-xl w-full lg:focus:border-rose'
-                name='deliveryTypeDetails'
-                placeholder={`Вкажіть ${getDeliveryPlaceholder()}`}
-                required={deliveryMethod === 'novapost'}
+        <div>
+          <div className={errors.deliveryMethod ? 'border border-red-500 p-3 rounded-md' : ''}>
+            <div className='flex flex-col gap-[20px]'>
+              <RadioButton
+                id='novapost'
+                name='deliveryMethod'
+                value='novapost'
+                onChange={() => {
+                  setDeliveryMethod('novapost');
+                  setErrors({ ...errors, deliveryMethod: undefined });
+                }}
+                checked={deliveryMethod === 'novapost'}
+                label='Нова пошта'
               />
+              <RadioButton
+                id='ukrpost'
+                name='deliveryMethod'
+                value='ukrpost'
+                onChange={() => {
+                  setDeliveryMethod('ukrpost');
+                  setErrors({ ...errors, deliveryMethod: undefined });
+                }}
+                checked={deliveryMethod === 'ukrpost'}
+                label='Укрпошта'
+              />
+            </div>
+
+            {errors.deliveryMethod && (
+              <p className='text-red-500 text-sm mt-[10px]'>{errors.deliveryMethod}</p>
             )}
-          </>
-        )}
-        <RadioButton
-          id='ukrpost'
-          name='deliveryMethod'
-          value='ukrpost'
-          onChange={() => setDeliveryMethod('ukrpost')}
-          checked={deliveryMethod === 'ukrpost'}
-          label='Укрпошта'
-        />
+          </div>
+
+          {deliveryMethod === 'novapost' && (
+            <>
+              <div className='mt-3'>
+                <CustomSelect
+                  options={[
+                    { value: 'depart', label: 'Відділення' },
+                    { value: 'parcel', label: 'Поштомат' },
+                    { value: 'courier', label: "Кур'єр" },
+                  ]}
+                  value={deliveryType}
+                  onChange={(value) => setDeliveryType(value)}
+                  placeholder='Оберіть тип доставки'
+                  required={deliveryMethod === 'novapost'}
+                />
+              </div>
+              {deliveryType !== 'courier' && (
+                <div className='mt-3'>
+                  <CheckoutFormInput
+                    type='text'
+                    name='deliveryTypeDetails'
+                    placeholder={`Вкажіть ${getDeliveryPlaceholder()}`}
+                    required={true}
+                    error={errors.deliveryTypeDetails}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </div>
       </section>
       <div className='text-right'>
         <button
           type='submit'
-          className='px-[10px] md:px-[20px] py-[12px] text-sm md:text-base text-center rounded-xl bg-rose lg:hover:bg-rose-hover text-white w-full transition-colors'
+          className='px-[10px] md:px-[20px] py-[12px] text-base text-center rounded-xl bg-rose lg:hover:bg-rose-hover text-white w-full transition-colors'
         >
           Оформити замовлення
         </button>

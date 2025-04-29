@@ -1,10 +1,9 @@
 import React from 'react';
-import { Category } from '../types';
-import Link from 'next/link';
+import { Category } from '../../types';
 
 export default function HeaderMenu({ categories }: { categories: Category[] }) {
   return (
-    <menu className='flex gap-[40px] py-[20px] text-sm text-gray-500 font-medium'>
+    <menu className='hidden lg:flex gap-[40px] py-[20px] text-sm text-gray-500 font-medium'>
       <a href='/products?new=true' className='lg:hover:text-rose'>
         Новинки
       </a>

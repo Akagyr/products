@@ -1,0 +1,23 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import ProfileIcon from '../icons/ProfileIcon';
+
+export default function HeaderAccount() {
+  return (
+    <>
+      <Link href='' className='lg:hidden'>
+        <ProfileIcon styleClass='size-[22px]' />
+      </Link>
+      <div className='hidden lg:flex flex-col items-center border-r-[1px] border-rose pr-[30px]'>
+        <div className='flex gap-[5px] text-sm text-rose'>
+          <Link href=''>Увійти</Link>
+          <span>/</span>
+          <Link href=''>Реєстрація</Link>
+        </div>
+        <p className='font-semibold'>Мій профіль</p>
+      </div>
+    </>
+  );
+}
