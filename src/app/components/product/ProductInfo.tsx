@@ -29,7 +29,7 @@ export default function ProductInfo({ product }: { product: Product }) {
           </div>
         </div>
         <img
-          className='hidden lg:block justify-end max-w-[540px] mx-auto size-full aspect-square object-cover rounded-[5%_40%_10%_40%]'
+          className='hidden lg:block justify-end max-w-[540px] mx-auto w-full h-full aspect-square object-cover rounded-[5%_40%_10%_40%]'
           src={product.category.image}
           alt={`${product.category.name} ${product.species.name} ${product.name}`}
         />

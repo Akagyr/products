@@ -55,15 +55,15 @@ export default function MainSection({
         </div>
         <button
           onClick={() => instanceRef.current?.prev()}
-          className='hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 size-[40px] justify-center items-center rounded-full bg-rose/80 rotate-180'
+          className='hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 w-[40px] h-[40px] justify-center items-center rounded-full bg-rose/80 rotate-180'
         >
-          <ArrowRightIcon styleClass='size-[20px] text-white' />
+          <ArrowRightIcon styleClass='w-[20px] h-[20px] text-white' />
         </button>
         <button
           onClick={() => instanceRef.current?.next()}
-          className='hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 size-[40px] justify-center items-center rounded-full bg-rose/80'
+          className='hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 w-[40px] h-[40px] justify-center items-center rounded-full bg-rose/80'
         >
-          <ArrowRightIcon styleClass='size-[20px] text-white' />
+          <ArrowRightIcon styleClass='w-[20px] h-[20px] text-white' />
         </button>
       </div>
     </section>

@@ -5,7 +5,7 @@ export default function HeaderSearch() {
   return (
     <>
       <button className='lg:hidden'>
-        <SearchIcon styleClass='size-[22px] text-black' />
+        <SearchIcon styleClass='w-[22px] h-[22px] text-black' />
       </button>
       <form className='hidden lg:flex max-w-[800px] w-full'>
         <input
@@ -14,7 +14,7 @@ export default function HeaderSearch() {
           placeholder='Пошук...'
         />
         <button className='bg-rose lg:hover:bg-rose-hover text-white font-medium px-[15px] transition-colors rounded-e-xl'>
-          <SearchIcon styleClass='size-[22px]' />
+          <SearchIcon styleClass='w-[22px] h-[22px]' />
         </button>
       </form>
     </>

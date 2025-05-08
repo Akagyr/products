@@ -7,7 +7,7 @@ export default function CheckoutProductListItem({ product }: { product: Product 
       <img
         src={product.images[0]}
         alt={`${product.category.name} ${product.species.name} ${product.name}`}
-        className='object-cover rounded-full size-full max-w-[60px]'
+        className='object-cover rounded-full w-full h-full max-w-[60px]'
       />
       <p className='text-left'>
         {product.category.name} {product.species.name} {product.name}

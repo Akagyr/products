@@ -65,7 +65,7 @@ export default function CustomSelect({
       >
         <div className='truncate'>{selectedOption ? selectedOption.label : placeholder}</div>
         <svg
-          className={`size-[20px] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-[20px] h-[20px] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
           fill='none'
           stroke='currentColor'
           viewBox='0 0 24 24'

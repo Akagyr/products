@@ -8,7 +8,7 @@ export default function HeaderAccount() {
   return (
     <>
       <Link href='' className='lg:hidden'>
-        <ProfileIcon styleClass='size-[22px]' />
+        <ProfileIcon styleClass='w-[22px] h-[22px]' />
       </Link>
       <div className='hidden lg:flex flex-col items-center border-r-[1px] border-rose pr-[30px]'>
         <div className='flex gap-[5px] text-sm text-rose'>

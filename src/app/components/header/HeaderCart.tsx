@@ -11,8 +11,8 @@ export default function HeaderCart() {
   return (
     <div className='lg:flex gap-[15px] items-center'>
       <Link href='/cart' className='relative'>
-        <CartIcon styleClass='size-[30px]' />
-        <div className='absolute top-[-2px] right-[-7px] flex justify-center items-center size-[20px] bg-rose rounded-full'>
+        <CartIcon styleClass='w-[30px] h-[30px]' />
+        <div className='absolute top-[-2px] right-[-7px] flex justify-center items-center w-[20px] h-[20px] bg-rose rounded-full'>
           <span className='text-xs font-semibold text-white'>{getCartCount()}</span>
         </div>
       </Link>

@@ -60,7 +60,7 @@ export default function ProductImageGallery({
             onClick={() => setActiveIndex(index)}
           >
             <img
-              className='size-full object-cover'
+              className='w-full h-full object-cover'
               src={image}
               alt={`Product thumbnail ${index + 1}`}
             />
@@ -69,23 +69,23 @@ export default function ProductImageGallery({
       </div>
       <div className='relative w-full'>
         <img
-          className='size-full md:max-w-[80%] lg:max-w-full object-cover aspect-square rounded-2xl'
+          className='w-full h-full md:max-w-[80%] lg:max-w-full object-cover aspect-square rounded-2xl'
           src={productImages[activeIndex]}
           alt={`${categoryName} ${speciesName} ${productName}`}
         />
         <button
           onClick={handlePrevious}
-          className='hidden lg:flex absolute left-[15px] top-1/2 -translate-y-1/2 size-[40px] justify-center items-center rounded-full bg-rose/80 rotate-180'
+          className='hidden lg:flex absolute left-[15px] top-1/2 -translate-y-1/2 w-[40px] h-[40px] justify-center items-center rounded-full bg-rose/80 rotate-180'
           aria-label='Previous image'
         >
-          <ArrowRightIcon styleClass='size-[20px] text-white' />
+          <ArrowRightIcon styleClass='w-[20px] h-[20px] text-white' />
         </button>
         <button
           onClick={handleNext}
-          className='hidden lg:flex absolute right-[15px] top-1/2 -translate-y-1/2 size-[40px] justify-center items-center rounded-full bg-rose/80'
+          className='hidden lg:flex absolute right-[15px] top-1/2 -translate-y-1/2 w-[40px] h-[40px] justify-center items-center rounded-full bg-rose/80'
           aria-label='Next image'
         >
-          <ArrowRightIcon styleClass='size-[20px] text-white' />
+          <ArrowRightIcon styleClass='w-[20px] h-[20px] text-white' />
         </button>
       </div>
     </div>
