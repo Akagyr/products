@@ -4,6 +4,7 @@ import { getAllSpecies, getNewProducts } from './database/prismaQuries';
 import MainCardRounded from './components/main/MainCardRounded';
 import { Product } from './types';
 import MainSection from './components/main/MainSection';
+import Image from 'next/image';
 
 export default async function Homepage() {
   const species = await getAllSpecies();
@@ -14,9 +15,14 @@ export default async function Homepage() {
   return (
     <>
       <section className='mb-[50px]'>
-        <img
-          src='https://images.unsplash.com/photo-1680762424301-604a1697f698?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-          className='w-full h-[400px] object-cover'
+        <Image
+          src='/orchid_banner.jpg'
+          width={2070}
+          height={400}
+          quality={100}
+          priority
+          className='w-full h-[250px] sm:h-[300px] md:h-[400px] object-cover'
+          alt='Orchid banner'
         />
       </section>
       <div className='flex flex-col gap-[50px] px-[20px] 2xl:px-0 2xl:max-w-container 2xl:mx-auto'>

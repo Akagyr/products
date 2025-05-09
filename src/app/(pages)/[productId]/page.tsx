@@ -10,7 +10,7 @@ export default async function ProductPage({ params }: { params: { productId: str
   const product = (await getProduct(params.productId)) as Product;
 
   return (
-    <div className='py-[30px] px-[20px] 2xl:p-0 2xl:max-w-container 2xl:mx-auto'>
+    <div className='py-[30px] px-[20px] 2xl:px-0 2xl:max-w-container 2xl:mx-auto'>
       <div className='lg:grid grid-cols-2 gap-[150px] lg:border-b-[2px] lg:pb-[70px] mb-[40px] lg:mb-[70px]'>
         <ProductImageGallery
           productImages={product.images}

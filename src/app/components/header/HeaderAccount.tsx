@@ -10,14 +10,14 @@ export default function HeaderAccount() {
       <Link href='' className='lg:hidden'>
         <ProfileIcon styleClass='w-[22px] h-[22px]' />
       </Link>
-      <div className='hidden lg:flex flex-col items-center border-r-[1px] border-rose pr-[30px]'>
+      <Link href='' className='hidden lg:flex flex-col items-center border-r-[1px] border-rose pr-[30px]'>
         <div className='flex gap-[5px] text-sm text-rose'>
-          <Link href=''>Увійти</Link>
+          Увійти
           <span>/</span>
-          <Link href=''>Реєстрація</Link>
+          Реєстрація
         </div>
         <p className='font-semibold'>Мій профіль</p>
-      </div>
+      </Link>
     </>
   );
 }

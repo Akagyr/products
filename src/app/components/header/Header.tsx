@@ -22,7 +22,9 @@ export default async function Header() {
             />
           </Link>
           <div className='flex gap-[20px] lg:gap-[30px] xl:gap-[40px] items-center lg:w-full'>
-            <HeaderSearch />
+            <div className='flex-1'>
+              <HeaderSearch />
+            </div>
             <HeaderAccount />
             <HeaderCart />
           </div>

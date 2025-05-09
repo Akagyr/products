@@ -126,3 +126,76 @@ export async function getProduct(productId: string) {
     return null;
   }
 }
+
+export async function getLimitSearchProducts(query: string) {
+  try {
+    return await prisma.product.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+          {
+            species: {
+              name: {
+                contains: query,
+                mode: 'insensitive',
+              },
+            },
+          },
+        ],
+      },
+      select: {
+        id: true,
+        name: true,
+        price: true,
+        images: true,
+        species: {
+          select: {
+            name: true,
+          },
+        },
+      },
+      take: 3,
+    });
+  } catch (error) {
+    console.error('Error searching products:', error);
+    return null;
+  }
+}
+
+export async function getSearchProducts(query: string) {
+  try {
+    return await prisma.product.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+          {
+            species: {
+              name: {
+                contains: query,
+                mode: 'insensitive',
+              },
+            },
+          },
+        ],
+      },
+      include: {
+        species: true,
+        category: true,
+        description: true,
+      },
+    });
+  } catch (error) {
+    console.error('Error searching products:', error);
+    return null;
+  }
+}

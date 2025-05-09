@@ -33,3 +33,13 @@ export type Description = {
   name: string;
   value: string;
 };
+
+export type ProductSearchResult = {
+  id: string;
+  species: {
+    name: string;
+  };
+  name: string;
+  price: number;
+  image: string;
+};
