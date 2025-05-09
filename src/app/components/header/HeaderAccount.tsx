@@ -7,12 +7,12 @@ import ProfileIcon from '../icons/ProfileIcon';
 export default function HeaderAccount() {
   return (
     <>
-      <Link href='' className='lg:hidden'>
+      <Link href='/auth' className='lg:hidden'>
         <ProfileIcon styleClass='w-[22px] h-[22px]' />
       </Link>
-      <Link href='' className='hidden lg:flex flex-col items-center border-r-[1px] border-rose pr-[30px]'>
+      <Link href='/auth' className='hidden lg:flex flex-col items-center border-r-[1px] border-rose pr-[30px]'>
         <div className='flex gap-[5px] text-sm text-rose'>
-          Увійти
+          Вхід
           <span>/</span>
           Реєстрація
         </div>

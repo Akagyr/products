@@ -13,7 +13,7 @@ export default function CheckoutProductList() {
   }
 
   return (
-    <div className='border px-[20px] pb-[20px] rounded-lg h-fit w-full'>
+    <div className='border-2 px-[20px] pb-[20px] rounded-lg h-fit w-full'>
       {cartItems.map((item) => (
         <CheckoutProductListItem key={item.id} product={item} />
       ))}
