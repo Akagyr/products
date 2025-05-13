@@ -180,7 +180,7 @@ export default function HeaderSearch() {
                   role='listbox'
                 >
                   {isLoading ? (
-                    <div className='p-[15px] text-center text-gray-500'>Завантаження...</div>
+                    <div className='p-[15px] text-center text-rose'>Завантаження...</div>
                   ) : suggestions.length > 0 ? (
                     <HeaderSearchListItems
                       suggestions={suggestions}
@@ -189,7 +189,7 @@ export default function HeaderSearch() {
                       searchTerm={searchTerm}
                     />
                   ) : (
-                    <div className='p-[15px] text-center text-gray-500'>Товарів не знайдено</div>
+                    <div className='p-[15px] text-center text-rose'>Товарів не знайдено</div>
                   )}
                 </div>
               )}
@@ -228,7 +228,7 @@ export default function HeaderSearch() {
             role='listbox'
           >
             {isLoading ? (
-              <div className='p-[15px] text-center text-gray-500'>Завантаження...</div>
+              <div className='p-[15px] text-center text-rose'>Завантаження...</div>
             ) : suggestions.length > 0 ? (
               <HeaderSearchListItems
                 suggestions={suggestions}
@@ -237,7 +237,7 @@ export default function HeaderSearch() {
                 searchTerm={searchTerm}
               />
             ) : (
-              <div className='p-[15px] text-center text-gray-500'>Товарів не знайдено</div>
+              <div className='p-[15px] text-center text-rose'>Товарів не знайдено</div>
             )}
           </div>
         )}

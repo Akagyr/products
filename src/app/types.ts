@@ -1,3 +1,23 @@
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type AuthSuccess = {
+  success: true;
+  user: User;
+}
+
+export type AuthError = {
+  success: false;
+  message: string;
+}
+
+export type AuthResult = AuthSuccess | AuthError;
+
 export type Category = {
   id: string;
   name: string;

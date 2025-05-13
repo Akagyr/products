@@ -3,8 +3,8 @@ import './globals.css';
 import Header from './components/header/Header';
 import { CartProvider } from './context/cartContext';
 import { Montserrat } from 'next/font/google';
-import { BreadcrumbsProvider } from './context/breadcrumbsContext';
 import Footer from './components/Footer';
+import { AuthProvider } from './context/authContext';
 
 const montserrat = Montserrat({
   subsets: ['cyrillic'],
@@ -27,15 +27,13 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} font-montserrat antialiased flex flex-col min-h-screen`}
       >
-        <BreadcrumbsProvider>
+        <AuthProvider>
           <CartProvider>
             <Header />
-            <main className='flex-grow'>
-              {children}
-            </main>
+            <main className='flex-grow'>{children}</main>
             <Footer />
           </CartProvider>
-        </BreadcrumbsProvider>
+        </AuthProvider>
       </body>
     </html>
   );

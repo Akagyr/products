@@ -89,7 +89,7 @@ export default function CheckoutForm() {
       build: (form.elements.namedItem('build') as HTMLInputElement).value,
       apart: (form.elements.namedItem('apart') as HTMLInputElement)?.value || '',
       postal: (form.elements.namedItem('postal') as HTMLInputElement).value,
-      deliveryMethod: deliveryMethod, // Use the state value
+      deliveryMethod: deliveryMethod,
       deliveryTypeDetails:
         (form.elements.namedItem('deliveryTypeDetails') as HTMLInputElement)?.value || '',
     };
