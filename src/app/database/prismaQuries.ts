@@ -1,5 +1,38 @@
 import { prisma } from '@/app/database/prisma';
 
+export async function createNewUser(name: string, email: string, password: string) {
+  try {
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        password,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error('Error creating user:', error);
+  }
+}
+
+export async function findExistingUser(email: string) {
+  try {
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+    return existingUser;
+  } catch (error) {
+    console.error('Error existing user:', error);
+  }
+}
+
 export async function getCategories() {
   try {
     const categories = await prisma.category.findMany();

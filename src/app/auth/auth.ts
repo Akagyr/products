@@ -1,13 +1,15 @@
 'use server';
 
-import { PrismaClient } from '@prisma/client';
 import { compare, hash } from 'bcrypt';
 import { sign, verify } from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { AuthResult, User } from '../types';
+import { createNewUser, findExistingUser } from '../database/prismaQuries';
 
-const prisma = new PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  console.error('WARNING: JWT_SECRET not set in environment variables!');
+}
 
 export async function hashPassword(password: string): Promise<string> {
   return hash(password, 10);
@@ -23,9 +25,7 @@ export async function createUser(
   password: string
 ): Promise<AuthResult> {
   try {
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
+    const existingUser = await findExistingUser(email);
 
     if (existingUser) {
       return { success: false, message: 'Користувач з такою електронною адресою вже існує' };
@@ -33,22 +33,13 @@ export async function createUser(
 
     const hashedPassword = await hashPassword(password);
 
-    const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
+    const user = await createNewUser(name, email, hashedPassword);
 
-    const token = sign({ userId: user.id, email: user.email, name: user.name }, JWT_SECRET, {
+    if (!user) {
+      return { success: false, message: 'Не вдалося створити користувача' };
+    }
+
+    const token = sign({ userId: user.id, email: user.email, name: user.name }, JWT_SECRET!, {
       expiresIn: '7d',
     });
 
@@ -57,6 +48,7 @@ export async function createUser(
       secure: process.env.NODE_ENV === 'production',
       maxAge: 60 * 60 * 24 * 7, // 1 week
       path: '/',
+      sameSite: 'strict',
     });
 
     return {
@@ -77,9 +69,7 @@ export async function createUser(
 
 export async function loginUser(email: string, password: string): Promise<AuthResult> {
   try {
-    const user = await prisma.user.findUnique({
-      where: { email },
-    });
+    const user = await findExistingUser(email);
 
     if (!user) {
       return { success: false, message: 'Невірна електронна адреса або пароль' };
@@ -91,7 +81,7 @@ export async function loginUser(email: string, password: string): Promise<AuthRe
       return { success: false, message: 'Невірна електронна адреса або пароль' };
     }
 
-    const token = sign({ userId: user.id, email: user.email, name: user.name }, JWT_SECRET, {
+    const token = sign({ userId: user.id, email: user.email, name: user.name }, JWT_SECRET!, {
       expiresIn: '7d',
     });
 
@@ -100,6 +90,7 @@ export async function loginUser(email: string, password: string): Promise<AuthRe
       secure: process.env.NODE_ENV === 'production',
       maxAge: 60 * 60 * 24 * 7, // 1 week
       path: '/',
+      sameSite: 'strict',
     });
 
     return {
@@ -131,19 +122,25 @@ export async function getCurrentUser(): Promise<User | null> {
       return null;
     }
 
-    const decoded = verify(token, JWT_SECRET) as {
-      userId: string;
-      email: string;
-      name: string;
-    };
+    try {
+      const decoded = verify(token, JWT_SECRET!) as {
+        userId: string;
+        email: string;
+        name: string;
+      };
 
-    return {
-      id: decoded.userId,
-      email: decoded.email,
-      name: decoded.name,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+      return {
+        id: decoded.userId,
+        email: decoded.email,
+        name: decoded.name,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+    } catch (verifyError) {
+      console.error('Token verification failed:', verifyError);
+      cookies().delete('token');
+      return null;
+    }
   } catch (error) {
     console.error('Error getting current user:', error);
     return null;
