@@ -61,7 +61,7 @@ export default function HeaderAccount() {
           href='/auth'
           className='hidden lg:flex flex-col items-center border-r-[1px] border-rose pr-[30px]'
         >
-          <div className='flex gap-[5px] text-sm text-rose'>
+          <div className='flex gap-[5px] text-rose'>
             Вхід
             <span>/</span>
             Реєстрація

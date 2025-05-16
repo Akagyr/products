@@ -6,6 +6,7 @@ import HeaderMenu from './HeaderMenu';
 import { getCategories } from '../../database/prismaQuries';
 import { Category } from '../../types';
 import HeaderSearch from './HeaderSearch';
+import Image from 'next/image';
 
 export default async function Header() {
   const categories = (await getCategories()) as Category[];
@@ -15,10 +16,14 @@ export default async function Header() {
       <div className='px-[20px] pt-[20px] 2xl:px-0 2xl:max-w-container 2xl:mx-auto'>
         <div className='flex lg:gap-[30px] xl:gap-[40px] items-center justify-between font-medium pb-[20px] lg:pb-0'>
           <Link href='/'>
-            <img
-              src='https://orchids-shop.com/cdn/shop/files/logo_claessen_orchids_and_plants_lang_since_2005_300x@2x.png?v=1678785046'
-              className='max-w-[180px] sm:max-w-[200px] md:max-w-[250px] xl:max-w-[300px]'
+            <Image
+              src='/logo.jpg'
+              width={686}
+              height={196}
+              className='max-w-[180px] sm:max-w-[200px] md:max-w-[245px] max-h-[70px]'
               alt='Logo'
+              quality={100}
+              priority
             />
           </Link>
           <div className='flex gap-[20px] lg:gap-[30px] xl:gap-[40px] items-center lg:w-full'>

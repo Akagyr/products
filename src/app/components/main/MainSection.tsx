@@ -20,7 +20,7 @@ export default function MainSection({
     loop: false,
     breakpoints: {
       '(min-width: 640px)': {
-        slides: { perView: 3, spacing: 20 },
+        slides: { perView: 3, spacing: 30 },
       },
       '(min-width: 1024px)': {
         slides: { perView: 4, spacing: 30 },
@@ -29,10 +29,10 @@ export default function MainSection({
         slides: { perView: 5, spacing: 30 },
       },
       '(min-width: 1536px)': {
-        slides: { perView: 6, spacing: 30 },
+        slides: { perView: 5, spacing: 30 },
       },
     },
-    slides: { perView: 2, spacing: 15 },
+    slides: { perView: 2, spacing: 30 },
   });
 
   return (
