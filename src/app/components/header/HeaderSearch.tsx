@@ -165,7 +165,7 @@ export default function HeaderSearch() {
                   />
                   <button
                     onClick={handleSubmit}
-                    className='absolute right-0 top-0 h-full bg-rose hover:bg-rose-hover text-white font-medium px-[15px] transition-colors rounded-e-xl'
+                    className='absolute right-0 top-0 h-full bg-rose lg:hover:bg-rose-hover text-white font-medium px-[15px] transition-colors rounded-e-xl'
                     aria-label='Шукати'
                   >
                     <SearchIcon styleClass='w-[22px] h-[22px]' />

@@ -28,7 +28,7 @@ export default function HeaderSearchListItems({
       {suggestions.length > 3 && (
         <Link
           href={`/products?query=${encodeURIComponent(searchTerm)}`}
-          className='block p-[10px] text-center text-rose hover:bg-gray-50 transition-colors font-medium'
+          className='block p-[10px] text-center text-rose lg:hover:bg-gray-50 transition-colors font-medium'
           onClick={() => setShowSuggestions(false)}
         >
           Показати всі результати ({suggestions.length}+)

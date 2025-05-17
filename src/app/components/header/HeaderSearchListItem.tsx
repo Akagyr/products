@@ -14,7 +14,7 @@ export default function HeaderSearchListItem({
     <li className='border-b border-gray-100 last:border-b-0' role='option'>
       <Link
         href={`/${product.id}`}
-        className='flex items-center p-[10px] hover:bg-gray-50 transition-colors'
+        className='flex items-center p-[10px] lg:hover:bg-gray-50 transition-colors'
         onClick={handleProductClick}
       >
         <div className='flex-shrink-0 w-[70px] h-[70px] mr-[15px]'>

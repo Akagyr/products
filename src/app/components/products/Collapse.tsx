@@ -17,16 +17,25 @@ export default function Collapse({
     <div className='w-full lg:hidden text-sm md:text-base'>
       <button
         onClick={() => setIsActive(!isActive)}
-        className='flex justify-between w-full font-medium rounded-full px-[15px] py-[10px] text-center bg-gray-200 relative'
+        className='flex justify-between items-center w-full font-medium rounded-xl px-[15px] py-[10px] text-center border border-rose transition-colors relative lg:hover:bg-rose lg:hover:text-white'
       >
         <p>Фільтр</p>
-        <span
-          className={`${
-            isActive ? 'rotate-180' : 'rotate-0'
-          } absolute right-[3%] top-[50%] translate-y-[-50%] font-bold duration-500`}
+        <svg
+          className={`w-[15px] h-[15px] transition-transform duration-300 ${
+            isActive ? 'transform rotate-180' : ''
+          }`}
+          fill='none'
+          stroke='currentColor'
+          viewBox='0 0 24 24'
+          xmlns='http://www.w3.org/2000/svg'
         >
-          ↓
-        </span>
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='2'
+            d='M19 9l-7 7-7-7'
+          ></path>
+        </svg>
       </button>
       <div
         className={`transition-all duration-500 ease-in-out overflow-hidden ${

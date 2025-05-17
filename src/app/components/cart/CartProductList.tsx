@@ -14,7 +14,7 @@ export default function CartProductList() {
       {cartItems.length === 0 ? (
         <CartEmpty />
       ) : (
-        <div className='flex flex-col xl:flex-row gap-[30px] xl:gap-[50px] justify-between'>
+        <div className='flex flex-col xl:flex-row gap-[30px] xl:gap-[50px] justify-between mt-[20px]'>
           <div className='border-[1px] rounded-2xl h-fit'>
             {cartItems.map((item) => (
               <CartProductListItem

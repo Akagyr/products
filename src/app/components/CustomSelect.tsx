@@ -59,7 +59,7 @@ export default function CustomSelect({
     <div ref={selectRef} className={`relative ${className}`}>
       <div
         className={`flex items-center justify-between py-[12px] px-[15px] text-sm border-2 rounded-xl w-full cursor-pointer transition-all duration-300 ${
-          isOpen ? 'border-rose shadow-md' : 'border-gray-300 hover:border-gray-400'
+          isOpen ? 'border-rose shadow-md' : 'border-gray-300 lg:hover:border-gray-400'
         }`}
         onClick={toggleDropdown}
       >
@@ -76,7 +76,7 @@ export default function CustomSelect({
       </div>
 
       {isOpen && (
-        <div className='absolute z-10 w-full mt-[5px] bg-white border border-gray-300 rounded-lg shadow-lg'>
+        <div className='absolute z-10 w-full mt-[5px] bg-white border border-gray-300 rounded-xl shadow-lg'>
           {options.length > 5 && (
             <div className='p-[10px] border-b border-gray-200'>
               <input
@@ -84,7 +84,7 @@ export default function CustomSelect({
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder='Пошук...'
-                className='w-full px-[15px] py-[10px] text-sm border border-gray-300 rounded-md focus:outline-none focus:border-rose'
+                className='w-full px-[15px] py-[10px] text-sm border border-gray-300 rounded-xl lg:focus:outline-none lg:focus:border-rose'
                 onClick={(e) => e.stopPropagation()}
               />
             </div>
@@ -94,9 +94,7 @@ export default function CustomSelect({
               filteredOptions.map((option) => (
                 <div
                   key={option.value}
-                  className={`px-[20px] py-[10px] text-sm cursor-pointer hover:bg-gray-100 transition-colors duration-150 ${
-                    option.value === value ? 'bg-rose/10 text-rose font-medium' : ''
-                  }`}
+                  className='px-[20px] py-[10px] text-sm cursor-pointer lg:hover:bg-rose lg:hover:text-white transition-colors border-b-[1px] border-gray-200 first:rounded-t-xl last:border-b-0 last:rounded-b-xl'
                   onClick={() => handleSelect(option.value)}
                 >
                   {option.label}

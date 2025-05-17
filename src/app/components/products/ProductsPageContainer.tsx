@@ -59,8 +59,8 @@ export default function ProductsPageContainer({ products }: { products: Product[
       <Sidebar products={products} setFilteredProducts={setFilteredProducts} />
       <div className='w-full products-container'>
         <Collapse products={products} setFilteredProducts={setFilteredProducts} />
-        <div className='flex items-start justify-between my-[10px] md:mb-[30px] md:mt-0 text-sm md:text-base'>
-          <div className='mt-[20px] lg:mt-0'>Знайдено: {localProducts.length}</div>
+        <div className='flex items-center justify-between my-[10px] md:mb-[30px] md:mt-0 text-sm md:text-base'>
+          <p>Знайдено: {localProducts.length}</p>
           <Sort currentSort={currentSort} setCurrentSort={setCurrentSort} />
         </div>
         <ProductsList products={getCurrentPageProducts()} />
