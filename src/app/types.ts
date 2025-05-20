@@ -4,17 +4,18 @@ export type User = {
   email: string;
   createdAt: Date;
   updatedAt: Date;
+  orders?: Order[];
 };
 
 export type AuthSuccess = {
   success: true;
   user: User;
-}
+};
 
 export type AuthError = {
   success: false;
   message: string;
-}
+};
 
 export type AuthResult = AuthSuccess | AuthError;
 
@@ -62,4 +63,23 @@ export type ProductSearchResult = {
   name: string;
   price: number;
   image: string;
+};
+
+export type Order = {
+  id: string;
+  number: number;
+  userId: string;
+  status: string;
+  total: number;
+  createdAt: Date;
+  updatedAt: Date;
+  items: OrderItem[];
+};
+
+export type OrderItem = {
+  id: string;
+  orderId: string;
+  productName: string;
+  productImage: string;
+  productPrice: number;
 };

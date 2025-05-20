@@ -232,3 +232,32 @@ export async function getSearchProducts(query: string) {
     return null;
   }
 }
+
+export async function getProductsByIds(productIds: string[]) {
+  try {
+    return await prisma.product.findMany({
+      where: {
+        id: {
+          in: productIds
+        }
+      },
+      include: {
+        species: true,
+        category: true,
+        description: true,
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching products by IDs:', error);
+    return null;
+  }
+}
+
+export async function getOrdersCount() {
+  try {
+    return await prisma.order.count();
+  } catch (error) {
+    console.error('Error get orders count:', error);
+    return null;
+  }
+}

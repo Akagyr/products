@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import ArrowDownIcon from '../icons/ArrowDownIcon';
 
 export default function Sort({
   currentSort,
@@ -55,20 +56,10 @@ export default function Sort({
           role='combobox'
         >
           <span>{getCurrentLabel()}</span>
-          <svg
-            className={`w-[15px] h-[15px] transition-transform duration-300 ${isOpen ? 'transform rotate-180' : ''}`}
-            fill='none'
-            stroke='currentColor'
-            viewBox='0 0 24 24'
-            xmlns='http://www.w3.org/2000/svg'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              d='M19 9l-7 7-7-7'
-            ></path>
-          </svg>
+          <ArrowDownIcon
+            styleClass='w-[15px] h-[15px] transition-transform duration-300'
+            isOpen={isOpen}
+          />
         </div>
 
         {isOpen && (
