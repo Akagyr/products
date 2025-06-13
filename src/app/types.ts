@@ -69,7 +69,7 @@ export type Order = {
   id: string;
   number: number;
   userId: string;
-  status: string;
+  status: any;
   total: number;
   createdAt: Date;
   updatedAt: Date;
@@ -82,4 +82,23 @@ export type OrderItem = {
   productName: string;
   productImage: string;
   productPrice: number;
+};
+
+export type CheckoutFormData = {
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  region: string;
+  city: string;
+  street: string;
+  build: string;
+  apart?: string;
+  postal: string;
+  deliveryMethod: string;
+  deliveryTypeDetails?: string;
+};
+
+export type CheckoutFormFieldValidation = {
+  [key in keyof CheckoutFormData]?: boolean;
 };

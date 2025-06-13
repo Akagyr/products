@@ -4,12 +4,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import ProfileIcon from '../icons/ProfileIcon';
 import { useAuth } from '@/app/context/authContext';
-import { useRouter } from 'next/navigation';
-import { logout } from '@/app/auth/actions/logout';
+import HeaderAccountMenu from './HeaderAccountMenu';
 
 export default function HeaderAccount() {
-  const { user, loading, setUser } = useAuth();
-  const router = useRouter();
+  const { user } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -26,46 +24,17 @@ export default function HeaderAccount() {
     };
   }, []);
 
-  const handleLogout = async () => {
-    setIsDropdownOpen(false);
-    await logout();
-    setUser(null);
-    router.push('/');
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  if (loading) {
-    return (
-      <>
-        <div className='lg:hidden'>
-          <ProfileIcon styleClass='w-[22px] h-[22px]' />
-        </div>
-        <div className='hidden lg:flex flex-col items-center border-r-[1px] border-rose pr-[30px]'>
-          <div className='flex gap-[5px] text-sm text-rose'>Завантаження...</div>
-          <p className='font-semibold'>Мій профіль</p>
-        </div>
-      </>
-    );
-  }
-
   if (!user) {
     return (
       <>
         <Link href='/auth' className='lg:hidden'>
-          <ProfileIcon styleClass='w-[22px] h-[22px]' />
+          <ProfileIcon stylesClass='w-[22px] h-[22px]' />
         </Link>
         <Link
           href='/auth'
-          className='hidden lg:flex flex-col items-center border-r-[1px] border-rose pr-[30px]'
+          className='hidden lg:flex flex-col items-center justify-center min-w-[200px] text-center lg:px-[15px] lg:py-[10px] rounded-2xl lg:hover:bg-gray-100 transition-all duration-200'
         >
-          <div className='flex gap-[5px] text-rose'>
-            Вхід
-            <span>/</span>
-            Реєстрація
-          </div>
+          <p className='text-rose font-medium'>Вхід / Реєстрація</p>
           <p className='font-semibold'>Мій профіль</p>
         </Link>
       </>
@@ -74,100 +43,19 @@ export default function HeaderAccount() {
 
   return (
     <div className='relative' ref={dropdownRef}>
-      <div className='lg:hidden relative'>
-        <button onClick={toggleDropdown}>
-          <ProfileIcon styleClass='w-[22px] h-[22px]' />
-        </button>
-
-        {isDropdownOpen && (
-          <>
-            <div
-              className='fixed inset-0 bg-black bg-opacity-30 z-40'
-              onClick={() => setIsDropdownOpen(false)}
-            />
-            <div className='fixed left-0 right-0 top-0 h-fit bg-white shadow-lg z-50 text-center pt-[20px]'>
-              <div className='p-[15px] border-b border-gray-300'>
-                <p className='font-semibold'>
-                  Вітаємо, <span className='text-rose'>{user.name}</span>
-                </p>
-              </div>
-              <ul className='text-sm'>
-                <li>
-                  <Link
-                    href='/profile'
-                    className='block p-[15px] border-b border-gray-200'
-                    onClick={() => setIsDropdownOpen(false)}
-                  >
-                    Мій профіль
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='/profile/orders'
-                    className='block p-[15px] border-b border-gray-200'
-                    onClick={() => setIsDropdownOpen(false)}
-                  >
-                    Мої замовлення
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    onClick={handleLogout}
-                    className='block w-full p-[15px] bg-rose text-white'
-                  >
-                    Вийти
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </>
-        )}
-      </div>
-
-      <div className='hidden lg:block'>
-        <button
-          onClick={toggleDropdown}
-          className='flex flex-col items-center border-r-[1px] border-rose pr-[30px] cursor-pointer'
-        >
-          <p className='font-semibold'>
-            Вітаємо, <span className='text-rose'>{user.name}</span>
-          </p>
-          <p className='font-semibold'>Мій профіль</p>
-        </button>
-
-        {isDropdownOpen && (
-          <div className='absolute right-0 top-full mt-[10px] w-full bg-white rounded-md shadow-lg z-50 border border-gray-200'>
-            <ul className='text-sm'>
-              <li>
-                <Link
-                  href='/profile'
-                  className='block px-[15px] py-[10px] hover:bg-gray-100'
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  Мій профіль
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href='/profile/orders'
-                  className='block px-[15px] py-[10px] hover:bg-gray-100'
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  Мої замовлення
-                </Link>
-              </li>
-              <li>
-                <button
-                  onClick={handleLogout}
-                  className='block w-full text-left px-[15px] py-[10px] text-rose hover:bg-gray-100'
-                >
-                  Вийти
-                </button>
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>
+      <button
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        className='flex items-center gap-[15px] lg:px-[15px] lg:py-[10px] rounded-2xl lg:hover:bg-gray-100 transition-all duration-200 group'
+      >
+        <div className='w-10 h-10 bg-rose rounded-full flex items-center justify-center text-white font-semibold shadow-lg'>
+          {user.name.charAt(0)}
+        </div>
+        <div className='hidden lg:block text-left'>
+          <p className='text-sm text-gray-600'>Вітаємо,</p>
+          <p className='font-semibold lg:group-hover:text-rose transition-colors'>{user.name}</p>
+        </div>
+      </button>
+      {isDropdownOpen && <HeaderAccountMenu setIsDropdownOpen={setIsDropdownOpen} />}
     </div>
   );
 }

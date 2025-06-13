@@ -57,7 +57,7 @@ export default function Sort({
         >
           <span>{getCurrentLabel()}</span>
           <ArrowDownIcon
-            styleClass='w-[15px] h-[15px] transition-transform duration-300'
+            stylesClass='w-[15px] h-[15px] transition-transform duration-300'
             isOpen={isOpen}
           />
         </div>

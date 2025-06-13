@@ -2,6 +2,7 @@ import React from 'react';
 import { useCart } from '../../context/cartContext';
 import { Product } from '@/app/types';
 import Link from 'next/link';
+import { formatPrice } from '@/app/helpers/formatPrice';
 
 export default function CartProductListItem({
   product,
@@ -27,7 +28,7 @@ export default function CartProductListItem({
         <Link href={`/${product.id}`} className='lg:hover:text-rose'>
           {product.category.name} {product.species.name} {product.name}
         </Link>
-        <p className='text-center'>{product.price.toFixed(2)} грн</p>
+        <p className='text-center'>{formatPrice(product.price)}</p>
         <button
           onClick={() => removeFromCart(product.id)}
           className='text-white px-[15px] py-[8px] rounded-xl bg-rose lg:hover:bg-rose-hover w-fit transition-colors'
@@ -50,7 +51,7 @@ export default function CartProductListItem({
             <p className='text-sm lg:text-base'>
               {product.category.name} {product.species.name} {product.name}
             </p>
-            <p className='text-sm mt-[10px]'>{product.price.toFixed(2)} грн</p>
+            <p className='text-sm mt-[10px]'>{formatPrice(product.price)}</p>
           </div>
           <button
             onClick={() => removeFromCart(product.id)}

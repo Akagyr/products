@@ -12,9 +12,9 @@ export default async function Header() {
   const categories = (await getCategories()) as Category[];
 
   return (
-    <header className='sticky z-10 bg-white top-0 left-0'>
+    <header className='sticky top-0 z-50 bg-white border-b border-gray-100'>
       <div className='px-[20px] pt-[20px] 2xl:px-0 2xl:max-w-container 2xl:mx-auto'>
-        <div className='flex lg:gap-[30px] xl:gap-[40px] items-center justify-between font-medium pb-[20px] lg:pb-0'>
+        <div className='flex justify-between items-center lg:gap-[30px] xl:gap-[40px] font-medium'>
           <Link href='/'>
             <Image
               src='/logo.jpg'
@@ -26,11 +26,10 @@ export default async function Header() {
               priority
             />
           </Link>
-          <div className='flex gap-[20px] lg:gap-[30px] xl:gap-[40px] items-center lg:w-full'>
-            <div className='flex-1'>
-              <HeaderSearch />
-            </div>
+          <HeaderSearch />
+          <div className='flex gap-[20px] items-center'>
             <HeaderAccount />
+            <div className='hidden lg:block h-[40px] w-[1px] bg-rose' />
             <HeaderCart />
           </div>
         </div>

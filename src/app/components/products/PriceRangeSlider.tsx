@@ -50,7 +50,7 @@ export default function PriceRangeSlider({
           type='number'
           value={minValue}
           onChange={handleMinChange}
-          className='w-[80px] px-[5px] py-[2px] border-2 rounded-lg text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
+          className='w-[80px] px-[5px] py-[2px] border-2 rounded-xl text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
           min={minPrice}
           max={maxPrice}
         />
@@ -59,7 +59,7 @@ export default function PriceRangeSlider({
           type='number'
           value={maxValue}
           onChange={handleMaxChange}
-          className='w-[80px] px-[5px] py-[2px] border-2 rounded-lg text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
+          className='w-[80px] px-[5px] py-[2px] border-2 rounded-xl text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
           min={minPrice}
           max={maxPrice}
         />

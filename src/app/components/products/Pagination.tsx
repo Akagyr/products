@@ -61,7 +61,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
             : 'bg-rose lg:hover:bg-rose-hover cursor-pointer'
         }`}
       >
-        <ArrowRightIcon styleClass='w-[20px] h-[20px] text-white' />
+        <ArrowRightIcon stylesClass='w-[20px] h-[20px] text-white' />
       </button>
       <div className='flex'>
         {pageNumbers.map((page, index) => (
@@ -89,7 +89,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
             : 'bg-rose lg:hover:bg-rose-hover cursor-pointer'
         }`}
       >
-        <ArrowRightIcon styleClass='w-[20px] h-[20px] text-white' />
+        <ArrowRightIcon stylesClass='w-[20px] h-[20px] text-white' />
       </button>
     </div>
   );

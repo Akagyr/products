@@ -1,11 +1,11 @@
 import React from 'react';
 
-export default function CartIcon({ styleClass = '' }: { styleClass?: string }) {
+export default function CartIcon({ stylesClass = '' }: { stylesClass?: string }) {
   return (
     <svg
       viewBox='0 0 48 48'
       xmlns='http://www.w3.org/2000/svg'
-      className={styleClass}
+      className={stylesClass}
     >
       <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
       <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>

@@ -119,15 +119,15 @@ export default function HeaderSearch() {
   };
 
   return (
-    <div className='relative' ref={searchContainerRef} onClick={handleSearchContainerClick}>
+    <div className='relative w-fit lg:w-full max-w-[700px]' ref={searchContainerRef} onClick={handleSearchContainerClick}>
+      {/* Mobile */}
       <button
         className='lg:hidden flex items-center justify-center'
         onClick={toggleMobileSearch}
         aria-label={isMobileSearchOpen ? 'Закрити пошук' : 'Відкрити пошук'}
       >
-        <SearchIcon styleClass='w-[22px] h-[22px] text-black' />
+        <SearchIcon stylesClass='w-[22px] h-[22px] text-black' />
       </button>
-
       {isMobileSearchOpen && (
         <>
           <div
@@ -140,7 +140,6 @@ export default function HeaderSearch() {
             }}
             aria-hidden='true'
           />
-
           <div
             className='lg:hidden fixed top-0 left-0 right-0 bg-white z-50 pt-4 shadow-lg h-fit'
             onClick={(e) => e.stopPropagation()}
@@ -168,11 +167,10 @@ export default function HeaderSearch() {
                     className='absolute right-0 top-0 h-full bg-rose lg:hover:bg-rose-hover text-white font-medium px-[15px] transition-colors rounded-e-xl'
                     aria-label='Шукати'
                   >
-                    <SearchIcon styleClass='w-[22px] h-[22px]' />
+                    <SearchIcon stylesClass='w-[22px] h-[22px]' />
                   </button>
                 </div>
               </div>
-
               {showSuggestions && searchTerm.length >= 2 && (
                 <div
                   id='mobile-search-suggestions'
@@ -198,6 +196,7 @@ export default function HeaderSearch() {
         </>
       )}
 
+      {/* Desktop */}
       <div className='hidden lg:flex w-full relative'>
         <input
           type='text'
@@ -218,13 +217,12 @@ export default function HeaderSearch() {
           className='bg-rose lg:hover:bg-rose-hover text-white font-medium px-[15px] transition-colors rounded-e-xl'
           aria-label='Шукати'
         >
-          <SearchIcon styleClass='w-[22px] h-[22px]' />
+          <SearchIcon stylesClass='w-[22px] h-[22px]' />
         </button>
-
         {showSuggestions && searchTerm.length >= 2 && (
           <div
             id='search-suggestions'
-            className='absolute top-full left-0 w-full bg-white mt-1 rounded-md shadow-lg border border-gray-200 z-20'
+            className='absolute top-full left-0 w-full bg-white mt-1 rounded-xl shadow-lg border border-gray-200 z-20'
             role='listbox'
           >
             {isLoading ? (

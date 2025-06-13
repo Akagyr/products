@@ -1,14 +1,14 @@
 import React from 'react';
 
 export default function QulityIcon({
-    styles,
+    stylesClass,
     secondColor = '#859c0e',
   }: {
-    styles?: string;
+    stylesClass?: string;
     secondColor?: string;
   }) {
   return (
-    <svg className={styles} focusable='false' viewBox='0 0 24 24' role='presentation'>
+    <svg className={stylesClass} focusable='false' viewBox='0 0 24 24' role='presentation'>
       <g strokeWidth='1.5' fill='none' fillRule='evenodd'>
         <path
           d='M11 13V1M17 2h-1c-2.76142 0-5 2.23858-5 5v2h1c2.76142 0 5-2.23858 5-5V2z'

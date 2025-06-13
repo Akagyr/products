@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default function ProfileIcon({ styleClass = '' }: { styleClass?: string }) {
+export default function ProfileIcon({ stylesClass = '' }: { stylesClass?: string }) {
   return (
     <svg
       focusable='false'
-      className={styleClass}
+      className={stylesClass}
       viewBox='0 0 20 22'
       role='presentation'
     >

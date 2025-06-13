@@ -1,8 +1,8 @@
 import React from 'react';
 import { Product } from '../../types';
-import ProductCartInfo from './ProductCartInfo';
 import ProductBuyBtn from '../ProductBuyBtn';
 import Link from 'next/link';
+import { formatPrice } from '@/app/helpers/formatPrice';
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
@@ -19,7 +19,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </h2>
       </Link>
       <div className='flex flex-col gap-[15px] px-[10px] py-[15px] mt-auto'>
-        <ProductCartInfo product={product} />
+        <p className='text-xl text-rose font-bold'>{formatPrice(product.price)}</p>
         <ProductBuyBtn product={product} />
       </div>
     </div>

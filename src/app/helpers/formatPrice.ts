@@ -1,3 +1,3 @@
 export function formatPrice(price: number): string {
-  return `${price.toLocaleString('uk-UA')} грн.`;
+  return `${price.toLocaleString('uk-UA')} ₴`;
 }

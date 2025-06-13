@@ -6,10 +6,10 @@ import { Product } from '../types';
 
 export default function ProductBuyBtn({
   product,
-  styleClasses,
+  stylesClass,
 }: {
   product: Product;
-  styleClasses?: string;
+  stylesClass?: string;
 }) {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const { addToCart, removeFromCart, getCart } = useCart();
@@ -33,7 +33,7 @@ export default function ProductBuyBtn({
           ? 'border-[2px] border-rose text-rose lg:hover:border-rose-hover font-medium'
           : 'border-[2px] border-rose bg-rose lg:hover:bg-rose-hover lg:hover:border-rose-hover text-white'
       } ${
-        styleClasses ? styleClasses : 'px-[10px] md:px-[30px] py-[8px] mt-[10px]'
+        stylesClass ? stylesClass : 'px-[10px] md:px-[30px] py-[8px] mt-[10px]'
       } text-sm md:text-base rounded-xl lg:hover:transition-colors lg:hover:duration-500 cursor-pointer`}
       onClick={() => onClick(product)}
     >

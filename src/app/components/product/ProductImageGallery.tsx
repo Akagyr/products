@@ -78,14 +78,14 @@ export default function ProductImageGallery({
           className='hidden lg:flex absolute left-[15px] top-1/2 -translate-y-1/2 w-[40px] h-[40px] justify-center items-center rounded-full bg-rose/80 lg:hover:bg-rose transition-colors rotate-180'
           aria-label='Previous image'
         >
-          <ArrowRightIcon styleClass='w-[20px] h-[20px] text-white' />
+          <ArrowRightIcon stylesClass='w-[20px] h-[20px] text-white' />
         </button>
         <button
           onClick={handleNext}
           className='hidden lg:flex absolute right-[15px] top-1/2 -translate-y-1/2 w-[40px] h-[40px] justify-center items-center rounded-full bg-rose/80 lg:hover:bg-rose transition-colors'
           aria-label='Next image'
         >
-          <ArrowRightIcon styleClass='w-[20px] h-[20px] text-white' />
+          <ArrowRightIcon stylesClass='w-[20px] h-[20px] text-white' />
         </button>
       </div>
     </div>

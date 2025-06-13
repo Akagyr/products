@@ -1,17 +1,17 @@
 import React from 'react';
 
 export default function ArrowDownIcon({
-  styleClass,
+  stylesClass,
   isOpen = false,
-  oppenedStyleClass = 'transform rotate-180',
+  oppenedStylesClass = 'transform rotate-180',
 }: {
-  styleClass?: string;
+  stylesClass?: string;
   isOpen?: boolean;
-  oppenedStyleClass?: string;
+  oppenedStylesClass?: string;
 }) {
   return (
     <svg
-      className={`${styleClass} ${isOpen ? oppenedStyleClass : ''}`}
+      className={`${stylesClass} ${isOpen ? oppenedStylesClass : ''}`}
       fill='none'
       stroke='currentColor'
       viewBox='0 0 24 24'

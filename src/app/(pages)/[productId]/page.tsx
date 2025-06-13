@@ -5,6 +5,7 @@ import { getProduct } from '@/app/database/prismaQuries';
 import { Product } from '@/app/types';
 import React from 'react';
 import ProductFeatures from '@/app/components/product/ProductFeatures';
+import { formatPrice } from '@/app/helpers/formatPrice';
 
 export default async function ProductPage({ params }: { params: { productId: string } }) {
   const product = (await getProduct(params.productId)) as Product;
@@ -26,10 +27,10 @@ export default async function ProductPage({ params }: { params: { productId: str
             <p className='text-rose mt-[10px]'>{product.species.name}</p>
           </div>
           <div className='flex flex-col gap-[20px] border-b pb-[20px] mb-[20px]'>
-            <p className='text-2xl text-rose'>{product.price} грн</p>
+            <p className='text-2xl text-rose'>{formatPrice(product.price)}</p>
             <ProductBuyBtn
               product={product}
-              styleClasses='px-[10px] md:px-[30px] py-[12px] md:py-[10px] w-full lg:w-fit text-base'
+              stylesClass='px-[10px] md:px-[30px] py-[12px] md:py-[10px] w-full lg:w-fit text-base'
             />
           </div>
           <ProductFeatures />

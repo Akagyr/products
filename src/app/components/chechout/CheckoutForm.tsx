@@ -1,104 +1,174 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import RadioButton from '../RadioButton';
-import CustomSelect from '../CustomSelect';
 import CheckoutFormInput from './CheckoutFormInput';
-
-type FormData = {
-  name: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  region: string;
-  city: string;
-  street: string;
-  build: string;
-  apart?: string;
-  postal: string;
-  deliveryMethod: string;
-  deliveryTypeDetails?: string;
-};
-
-type FormErrors = {
-  [key in keyof FormData]?: string;
-};
+import CheckoutFormDeliverySelect from './CheckoutFormDeliverySelect';
+import { CheckoutFormData, CheckoutFormFieldValidation, Order } from '@/app/types';
+import { useCart } from '@/app/context/cartContext';
+import { useAuth } from '@/app/context/authContext';
 
 export default function CheckoutForm() {
   const navigate = useRouter();
+  const { clearCart, cartItems, getCartTotal } = useCart();
+  const { user } = useAuth();
 
-  const [deliveryMethod, setDeliveryMethod] = useState<string>('');
+  const [formData, setFormData] = useState<CheckoutFormData>({
+    name: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    region: '',
+    city: '',
+    street: '',
+    build: '',
+    apart: '',
+    postal: '',
+    deliveryMethod: '',
+    deliveryTypeDetails: '',
+  });
+
+  const requiredFields = [
+    'name',
+    'lastName',
+    'email',
+    'phone',
+    'region',
+    'city',
+    'street',
+    'build',
+    'postal',
+  ] as (keyof CheckoutFormData)[];
+
   const [deliveryType, setDeliveryType] = useState<string>('depart');
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [fieldValidation, setFieldValidation] = useState<CheckoutFormFieldValidation>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [deliveryMethodError, setDeliveryMethodError] = useState<string>('');
+  const [forceShowErrors, setForceShowErrors] = useState(false);
+  const [shouldNavigate, setShouldNavigate] = useState(false);
 
-  const getDeliveryPlaceholder = () => {
-    switch (deliveryType) {
-      case 'depart':
-        return 'відділення';
-      case 'parcel':
-        return 'поштомат';
-      default:
-        return '';
+  useEffect(() => {
+    if (shouldNavigate) {
+      const timer = setTimeout(() => {
+        navigate.push('/');
+        setShouldNavigate(false);
+      }, 100);
+
+      return () => clearTimeout(timer);
     }
-  };
+  }, [shouldNavigate, navigate]);
 
-  const validateForm = (formData: FormData) => {
-    let newErrors: FormErrors = {};
+  const handleFieldChange = useCallback(
+    (fieldName: keyof CheckoutFormData) => (value: string, isValid: boolean) => {
+      setFormData((prev: CheckoutFormData) => ({
+        ...prev,
+        [fieldName]: value,
+      }));
 
-    if (!formData.name) newErrors.name = 'Імʼя обовʼязкове';
-    if (!formData.lastName) newErrors.lastName = 'Прізвище обовʼязкове';
-    if (!formData.email) newErrors.email = 'Вкажіть електронну адресу';
-    if (!formData.phone) newErrors.phone = 'Вкажіть номер телефону';
-    if (formData.phone && !/^0\d{9}$/.test(formData.phone))
-      newErrors.phone = 'Невірний номер телефону';
-    if (!formData.region) newErrors.region = 'Вкажіть область';
-    if (!formData.city) newErrors.city = 'Вкажіть місто';
-    if (!formData.street) newErrors.street = 'Вкажіть вулицю';
-    if (!formData.build) newErrors.build = 'Вкажіть номер будинку';
-    if (!formData.postal) newErrors.postal = 'Вкажіть поштовий індекс';
+      setFieldValidation((prev: CheckoutFormFieldValidation) => ({
+        ...prev,
+        [fieldName]: isValid,
+      }));
+    },
+    []
+  );
 
-    if (!formData.deliveryMethod) {
-      newErrors.deliveryMethod = 'Оберіть спосіб доставки';
+  const validateAllFields = useCallback((): void => {
+    setForceShowErrors(true);
+    const newFieldValidation: CheckoutFormFieldValidation = {};
+
+    requiredFields.forEach((field) => {
+      const value = formData[field];
+      const isEmpty = !value || !value.toString().trim();
+      newFieldValidation[field] = !isEmpty;
+    });
+
+    if (formData.deliveryMethod === 'novapost' && deliveryType !== 'courier') {
+      const deliveryDetailsValue = formData.deliveryTypeDetails;
+      const isEmpty = !deliveryDetailsValue || !deliveryDetailsValue.toString().trim();
+      newFieldValidation.deliveryTypeDetails = !isEmpty;
     }
 
-    if (
-      formData.deliveryMethod === 'novapost' &&
-      deliveryType !== 'courier' &&
-      !formData.deliveryTypeDetails
-    ) {
-      newErrors.deliveryTypeDetails = `Вкажіть ${getDeliveryPlaceholder()}`;
-    }
+    setFieldValidation((prev) => ({ ...prev, ...newFieldValidation }));
+  }, [formData, deliveryType, requiredFields]);
 
-    return newErrors;
-  };
+  const isFormValid = useCallback((): boolean => {
+    const requiredFieldsValid = requiredFields.every((field) => fieldValidation[field] === true);
+    const deliveryValid = !!formData.deliveryMethod;
+    const deliveryDetailsValid =
+      formData.deliveryMethod !== 'novapost' ||
+      deliveryType === 'courier' ||
+      fieldValidation.deliveryTypeDetails === true;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    return requiredFieldsValid && deliveryValid && deliveryDetailsValid;
+  }, [fieldValidation, formData.deliveryMethod, deliveryType, requiredFields]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    const form = e.currentTarget;
+    try {
+      if (!isFormValid()) {
+        validateAllFields();
+        setIsSubmitting(false);
 
-    const formDataObj: FormData = {
-      name: (form.elements.namedItem('name') as HTMLInputElement).value,
-      lastName: (form.elements.namedItem('lastName') as HTMLInputElement).value,
-      email: (form.elements.namedItem('email') as HTMLInputElement).value,
-      phone: (form.elements.namedItem('phone') as HTMLInputElement).value,
-      region: (form.elements.namedItem('region') as HTMLInputElement).value,
-      city: (form.elements.namedItem('city') as HTMLInputElement).value,
-      street: (form.elements.namedItem('street') as HTMLInputElement).value,
-      build: (form.elements.namedItem('build') as HTMLInputElement).value,
-      apart: (form.elements.namedItem('apart') as HTMLInputElement)?.value || '',
-      postal: (form.elements.namedItem('postal') as HTMLInputElement).value,
-      deliveryMethod: deliveryMethod,
-      deliveryTypeDetails:
-        (form.elements.namedItem('deliveryTypeDetails') as HTMLInputElement)?.value || '',
-    };
+        if (!formData.deliveryMethod) {
+          setDeliveryMethodError('Оберіть спосіб доставки');
+        }
+        return;
+      }
 
-    const validationErrors = validateForm(formDataObj);
-    setErrors(validationErrors);
+      if (!formData.deliveryMethod) {
+        setDeliveryMethodError('Оберіть спосіб доставки');
+        setIsSubmitting(false);
+        return;
+      }
 
-    if (Object.keys(validationErrors).length === 0) {
-      console.log(formDataObj);
+      const userId = user!.id;
+      const orderTotal = getCartTotal() as number;
+      const orderItems = cartItems.map((item) => ({
+        id: '',
+        orderId: '',
+        productName: item.name,
+        productImage: Array.isArray(item.images)
+          ? item.images[0] || ''
+          : item.images || item.images?.[0] || '',
+        productPrice: item.price,
+      }));
+
+      if (userId && orderTotal && orderItems) {
+        const orderData = {
+          id: '',
+          number: 0,
+          userId: userId,
+          status: 'PENDING',
+          total: orderTotal,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          items: orderItems,
+        };
+
+        const response = await fetch('/api/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(orderData),
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          clearCart();
+          setShouldNavigate(true);
+        } else {
+          console.error('Error creating order:', result.error);
+          setIsSubmitting(false);
+        }
+      }
+    } catch (error) {
+      console.error('Error sending form:', error);
+      setIsSubmitting(false);
     }
   };
 
@@ -110,56 +180,86 @@ export default function CheckoutForm() {
           <CheckoutFormInput
             type='text'
             name='name'
-            placeholder='Імʼя'
+            placeholder="Ваше ім'я"
             required={true}
-            error={errors.name}
+            value={formData.name}
+            onChange={handleFieldChange('name')}
+            validationRules={{ minLength: 2, requiredMessage: 'Імʼя обовʼязкове' }}
+            forceShowError={forceShowErrors}
           />
           <CheckoutFormInput
             type='text'
             name='lastName'
-            placeholder='Прізвище'
+            placeholder='Ваше прізвище'
             required={true}
-            error={errors.lastName}
+            value={formData.lastName}
+            onChange={handleFieldChange('lastName')}
+            validationRules={{ minLength: 2, requiredMessage: 'Прізвище обовʼязкове' }}
+            forceShowError={forceShowErrors}
           />
         </div>
         <CheckoutFormInput
           type='email'
           name='email'
-          placeholder='Електронна адреса'
+          placeholder='your@email.com'
           required={true}
-          error={errors.email}
+          value={formData.email}
+          onChange={handleFieldChange('email')}
+          validationRules={{ requiredMessage: 'Вкажіть електронну адресу' }}
+          forceShowError={forceShowErrors}
         />
         <CheckoutFormInput
           type='tel'
           name='phone'
-          pattern='^0\d{9}$'
-          placeholder='Номер телефону'
+          placeholder='+380 XX XXX XX XX'
           required={true}
-          error={errors.phone}
+          value={formData.phone}
+          onChange={handleFieldChange('phone')}
+          validationRules={{ requiredMessage: 'Вкажіть номер телефону' }}
+          forceShowError={forceShowErrors}
         />
       </section>
       <section className='flex flex-col gap-[20px]'>
         <h2 className='text-lg md:text-xl font-semibold'>Адреса доставки</h2>
         <CheckoutFormInput
           type='text'
+          name='postal'
+          placeholder='Поштовий індекс'
+          required={true}
+          value={formData.postal}
+          onChange={handleFieldChange('postal')}
+          validationRules={{ requiredMessage: 'Вкажіть поштовий індекс' }}
+          forceShowError={forceShowErrors}
+        />
+        <CheckoutFormInput
+          type='text'
           name='region'
           placeholder='Область'
           required={true}
-          error={errors.region}
+          value={formData.region}
+          onChange={handleFieldChange('region')}
+          validationRules={{ minLength: 2, requiredMessage: 'Вкажіть область' }}
+          forceShowError={forceShowErrors}
         />
         <CheckoutFormInput
           type='text'
           name='city'
           placeholder='Місто'
           required={true}
-          error={errors.city}
+          value={formData.city}
+          onChange={handleFieldChange('city')}
+          validationRules={{ minLength: 2, requiredMessage: 'Вкажіть місто' }}
+          forceShowError={forceShowErrors}
         />
         <CheckoutFormInput
           type='text'
           name='street'
           placeholder='Вулиця'
           required={true}
-          error={errors.street}
+          value={formData.street}
+          onChange={handleFieldChange('street')}
+          validationRules={{ minLength: 3, requiredMessage: 'Вкажіть вулицю' }}
+          forceShowError={forceShowErrors}
         />
         <div className='flex flex-col lg:flex-row gap-[20px]'>
           <CheckoutFormInput
@@ -167,94 +267,39 @@ export default function CheckoutForm() {
             name='build'
             placeholder='Номер будинку'
             required={true}
-            error={errors.build}
+            value={formData.build}
+            onChange={handleFieldChange('build')}
+            validationRules={{ minLength: 1, requiredMessage: 'Вкажіть номер будинку' }}
+            forceShowError={forceShowErrors}
           />
           <CheckoutFormInput
             type='text'
             name='apart'
-            placeholder={`Номер квартири (необов'язково)`}
+            placeholder='Номер квартири (за наявності)'
+            value={formData.apart}
+            onChange={handleFieldChange('apart')}
+            forceShowError={forceShowErrors}
           />
         </div>
-        <CheckoutFormInput
-          type='text'
-          name='postal'
-          placeholder='Поштовий індекс'
-          required={true}
-          error={errors.postal}
-        />
       </section>
-      <section className='flex flex-col gap-[20px]'>
-        <h2 className='text-lg md:text-xl font-semibold'>Вид доставки</h2>
-        <div>
-          <div className={errors.deliveryMethod ? 'border border-red-500 p-3 rounded-md' : ''}>
-            <div className='flex flex-col gap-[20px]'>
-              <RadioButton
-                id='novapost'
-                name='deliveryMethod'
-                value='novapost'
-                onChange={() => {
-                  setDeliveryMethod('novapost');
-                  setErrors({ ...errors, deliveryMethod: undefined });
-                }}
-                checked={deliveryMethod === 'novapost'}
-                label='Нова пошта'
-              />
-              <RadioButton
-                id='ukrpost'
-                name='deliveryMethod'
-                value='ukrpost'
-                onChange={() => {
-                  setDeliveryMethod('ukrpost');
-                  setErrors({ ...errors, deliveryMethod: undefined });
-                }}
-                checked={deliveryMethod === 'ukrpost'}
-                label='Укрпошта'
-              />
-            </div>
-
-            {errors.deliveryMethod && (
-              <p className='text-red-500 text-sm mt-[10px]'>{errors.deliveryMethod}</p>
-            )}
-          </div>
-
-          {deliveryMethod === 'novapost' && (
-            <>
-              <div className='mt-3'>
-                <CustomSelect
-                  options={[
-                    { value: 'depart', label: 'Відділення' },
-                    { value: 'parcel', label: 'Поштомат' },
-                    { value: 'courier', label: "Кур'єр" },
-                  ]}
-                  value={deliveryType}
-                  onChange={(value) => setDeliveryType(value)}
-                  placeholder='Оберіть тип доставки'
-                  required={deliveryMethod === 'novapost'}
-                />
-              </div>
-              {deliveryType !== 'courier' && (
-                <div className='mt-3'>
-                  <CheckoutFormInput
-                    type='text'
-                    name='deliveryTypeDetails'
-                    placeholder={`Вкажіть ${getDeliveryPlaceholder()}`}
-                    required={true}
-                    error={errors.deliveryTypeDetails}
-                  />
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </section>
-      <div className='text-right'>
-        <button
-          type='submit'
-          className='px-[10px] md:px-[20px] py-[12px] text-base text-center rounded-xl bg-rose lg:hover:bg-rose-hover text-white w-full transition-colors'
-        >
-          Оформити замовлення
-        </button>
-      </div>
+      <CheckoutFormDeliverySelect
+        formData={formData}
+        setFormData={setFormData}
+        deliveryType={deliveryType}
+        setDeliveryType={setDeliveryType}
+        setFieldValidation={setFieldValidation}
+        deliveryMethodError={deliveryMethodError}
+        setDeliveryMethodError={setDeliveryMethodError}
+      />
+      <button
+        type='submit'
+        disabled={isSubmitting}
+        className={`px-[10px] md:px-[20px] py-[12px] text-base text-center rounded-xl text-white w-full transition-colors ${
+          isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-rose lg:hover:bg-rose-hover'
+        }`}
+      >
+        {isSubmitting ? 'Оформлення...' : 'Оформити замовлення'}
+      </button>
     </form>
   );
 }

@@ -22,6 +22,24 @@ export async function createNewUser(name: string, email: string, password: strin
   }
 }
 
+export async function updateUserProfile(userId: string, data: { name: string; email: string }) {
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        name: data.name,
+        email: data.email,
+        updatedAt: new Date(),
+      },
+    });
+
+    return updatedUser;
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    throw error;
+  }
+}
+
 export async function findExistingUser(email: string) {
   try {
     const existingUser = await prisma.user.findUnique({
@@ -238,14 +256,14 @@ export async function getProductsByIds(productIds: string[]) {
     return await prisma.product.findMany({
       where: {
         id: {
-          in: productIds
-        }
+          in: productIds,
+        },
       },
       include: {
         species: true,
         category: true,
         description: true,
-      }
+      },
     });
   } catch (error) {
     console.error('Error fetching products by IDs:', error);
@@ -253,11 +271,93 @@ export async function getProductsByIds(productIds: string[]) {
   }
 }
 
+export async function createOrder(data: any) {
+  try {
+    const orderNum = await getOrdersCount();
+
+    if (orderNum === null) {
+      console.error('Failed to get order count');
+      return null;
+    }
+
+    const orderData = {
+      number: orderNum + 1,
+      userId: data.userId,
+      status: data.status || 'PENDING',
+      total: data.total,
+      items: {
+        create: data.items.map((item: any) => ({
+          productName: item.productName,
+          productImage: item.productImage || '',
+          productPrice: item.productPrice,
+        })),
+      },
+    };
+
+    const createdOrder = await prisma.order.create({
+      data: orderData,
+      include: {
+        items: true,
+        user: true,
+      },
+    });
+
+    return createdOrder;
+  } catch (error) {
+    console.error('Error in createOrder:', error);
+    return null;
+  }
+}
+
 export async function getOrdersCount() {
   try {
-    return await prisma.order.count();
+    const count = await prisma.order.count();
+    return count;
   } catch (error) {
     console.error('Error get orders count:', error);
     return null;
+  }
+}
+
+export async function getUserOrders(userId: string) {
+  try {
+    const orders = await prisma.order.findMany({
+      where: { userId },
+      include: {
+        items: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+    return orders;
+  } catch (error) {
+    console.error('Error getting user orders:', error);
+    return [];
+  }
+}
+
+export async function getUserStatistics(userId: string) {
+  try {
+    const statistics = await prisma.order.aggregate({
+      where: { userId },
+      _count: {
+        id: true,
+      },
+      _sum: {
+        total: true,
+      },
+    });
+
+    return {
+      ordersCount: statistics._count.id,
+      totalSpent: statistics._sum.total || 0,
+    };
+  } catch (error) {
+    console.error('Error getting user statistics:', error);
+    return {
+      ordersCount: 0,
+      totalSpent: 0,
+    };
   }
 }

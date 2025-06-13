@@ -94,7 +94,9 @@ export default function CustomSelect({
               filteredOptions.map((option) => (
                 <div
                   key={option.value}
-                  className='px-[20px] py-[10px] text-sm cursor-pointer lg:hover:bg-rose lg:hover:text-white transition-colors border-b-[1px] border-gray-200 first:rounded-t-xl last:border-b-0 last:rounded-b-xl'
+                  className={`px-[20px] py-[10px] text-sm cursor-pointer first:rounded-t-xl last:rounded-b-xl transition-colors duration-150 ${
+                    option.value === value ? 'bg-rose text-white' : 'lg:hover:bg-gray-100 lg:hover:text-rose'
+                  }`}
                   onClick={() => handleSelect(option.value)}
                 >
                   {option.label}

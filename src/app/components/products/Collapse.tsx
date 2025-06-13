@@ -22,7 +22,7 @@ export default function Collapse({
       >
         <p>Фільтр</p>
         <ArrowDownIcon
-          styleClass='w-[15px] h-[15px] transition-transform duration-300'
+          stylesClass='w-[15px] h-[15px] transition-transform duration-300'
           isOpen={isOpen}
         />
       </button>

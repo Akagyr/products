@@ -21,12 +21,12 @@ export default function HeaderSearchListItem({
           <img
             src={product.image}
             alt={product.name}
-            className='w-full h-full object-cover rounded-md'
+            className='w-full h-full object-cover rounded-xl'
             loading='lazy'
           />
         </div>
         <div className='flex-grow'>
-          <p className='font-medium text-gray-800'>
+          <p className='font-medium'>
             {product.species.name} {product.name}
           </p>
           <p className='text-rose'>{formatPrice(product.price)}</p>

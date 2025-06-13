@@ -1,19 +1,19 @@
 import React from 'react';
 
 export default function DeliveryIcon({
-  styles,
+  stylesClass,
   secondColor = '#859c0e',
   width = '30px', 
   height = '30px',
 }: {
-  styles?: string;
+  stylesClass?: string;
   secondColor?: string;
   width?: string;
   height?: string;
 }) {
   return (
     <svg
-      className={styles}
+      className={stylesClass}
       focusable='false'
       viewBox='0 0 24 24'
       role='presentation'

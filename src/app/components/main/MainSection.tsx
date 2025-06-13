@@ -44,7 +44,7 @@ export default function MainSection({
           className='text-rose lg:hover:text-rose-hover font-semibold flex items-center group transition-colors duration-300'
         >
           <span>{seeMoreText}</span>
-          <ArrowRightIcon styleClass='w-0 h-[16px] overflow-hidden transition-all duration-300 lg:group-hover:w-[16px] lg:group-hover:ml-[10px]' />
+          <ArrowRightIcon stylesClass='w-0 h-[16px] overflow-hidden transition-all duration-300 lg:group-hover:w-[16px] lg:group-hover:ml-[10px]' />
         </Link>
       </div>
       <div className='relative mt-[30px]'>
@@ -57,13 +57,13 @@ export default function MainSection({
           onClick={() => instanceRef.current?.prev()}
           className='hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 w-[40px] h-[40px] justify-center items-center rounded-full bg-rose/80 lg:hover:bg-rose rotate-180 transition-colors'
         >
-          <ArrowRightIcon styleClass='w-[20px] h-[20px] text-white' />
+          <ArrowRightIcon stylesClass='w-[20px] h-[20px] text-white' />
         </button>
         <button
           onClick={() => instanceRef.current?.next()}
           className='hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 w-[40px] h-[40px] justify-center items-center rounded-full bg-rose/80 lg:hover:bg-rose transition-colors'
         >
-          <ArrowRightIcon styleClass='w-[20px] h-[20px] text-white' />
+          <ArrowRightIcon stylesClass='w-[20px] h-[20px] text-white' />
         </button>
       </div>
     </section>

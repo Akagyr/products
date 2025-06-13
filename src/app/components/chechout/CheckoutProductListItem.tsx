@@ -1,3 +1,4 @@
+import { formatPrice } from '@/app/helpers/formatPrice';
 import { Product } from '@/app/types';
 import React from 'react';
 
@@ -12,7 +13,7 @@ export default function CheckoutProductListItem({ product }: { product: Product 
       <p className='text-left'>
         {product.category.name} {product.species.name} {product.name}
       </p>
-      <p>{product.price.toFixed(2)} грн</p>
+      <p>{formatPrice(product.price)}</p>
     </div>
   );
 }

@@ -24,7 +24,7 @@ export default function MainCardRounded({
       </div>
       <div className='mt-[10px] font-semibold flex justify-center items-center lg:transition-colors lg:duration-300 lg:group-hover:text-rose-hover'>
         <span>{name}</span>
-        <ArrowRightIcon styleClass='hidden lg:block w-0 h-[16px] overflow-hidden transition-all duration-300 group-hover:w-[16px] group-hover:ml-[10px]' />
+        <ArrowRightIcon stylesClass='hidden lg:block w-0 h-[16px] overflow-hidden transition-all duration-300 lg:group-hover:w-[16px] lg:group-hover:ml-[10px]' />
       </div>
     </Link>
   );
