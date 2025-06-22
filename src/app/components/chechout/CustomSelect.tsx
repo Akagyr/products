@@ -10,7 +10,7 @@ type CustomSelectProps = {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  className?: string;
+  stylesClass?: string;
   required?: boolean;
 };
 
@@ -19,7 +19,7 @@ export default function CustomSelect({
   value,
   onChange,
   placeholder = 'Виберіть опцію',
-  className = '',
+  stylesClass = '',
   required = false,
 }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +56,7 @@ export default function CustomSelect({
   );
 
   return (
-    <div ref={selectRef} className={`relative ${className}`}>
+    <div ref={selectRef} className={`relative ${stylesClass}`}>
       <div
         className={`flex items-center justify-between py-[12px] px-[15px] text-sm border-2 rounded-xl w-full cursor-pointer transition-all duration-300 ${
           isOpen ? 'border-rose shadow-md' : 'border-gray-300 lg:hover:border-gray-400'

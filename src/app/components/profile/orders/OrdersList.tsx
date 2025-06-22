@@ -2,16 +2,31 @@
 
 import { formatPrice } from '@/app/helpers/formatPrice';
 import { Order } from '@/app/types';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ArrowDownIcon from '../../icons/ArrowDownIcon';
 import OrdersListItems from './OrdersListItems';
 
 export function OrdersList({ orders }: { orders: Order[] }) {
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [heights, setHeights] = useState<Record<string, number>>({});
+  const contentRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const toggleExpand = (id: string) => {
     setExpanded((prev) => (prev === id ? null : id));
   };
+
+  useEffect(() => {
+    orders.forEach((order) => {
+      const contentEl = contentRefs.current[order.id];
+      if (contentEl) {
+        const height = contentEl.scrollHeight;
+        setHeights((prev) => ({
+          ...prev,
+          [order.id]: height,
+        }));
+      }
+    });
+  }, [orders, expanded]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -58,7 +73,7 @@ export function OrdersList({ orders }: { orders: Order[] }) {
       {orders.map((order) => (
         <div
           key={order.id}
-          className='border rounded-2xl shadow-sm transition-shadow lg:hover:shadow-md'
+          className='border rounded-2xl shadow-sm transition-shadow lg:hover:shadow-md overflow-hidden'
         >
           <div
             className='p-[15px] sm:p-[20px] lg:p-[25px] cursor-pointer lg:hover:bg-gray-50 transition-colors'
@@ -108,16 +123,25 @@ export function OrdersList({ orders }: { orders: Order[] }) {
               </div>
             </div>
           </div>
-          {expanded === order.id && (
-            <div className='border-t bg-gray-50'>
-              <div className='p-[15px] sm:p-[20px] lg:p-[25px]'>
-                <h3 className='text-base sm:text-lg font-semibold mb-[15px] sm:mb-[20px] flex items-center gap-[8px]'>
-                  Товари в замовленні
-                </h3>
-                <OrdersListItems orderItems={order.items} />
-              </div>
+          <div
+            className='overflow-hidden transition-all duration-700 ease-in-out border-t bg-gray-50'
+            style={{
+              maxHeight: expanded === order.id ? `${heights[order.id] || 0}px` : '0px',
+              opacity: expanded === order.id ? 1 : 0,
+            }}
+          >
+            <div
+              ref={(el) => {
+                contentRefs.current[order.id] = el;
+              }}
+              className='p-[15px] sm:p-[20px] lg:p-[25px]'
+            >
+              <h3 className='text-base sm:text-lg font-semibold mb-[15px] sm:mb-[20px] flex items-center gap-[8px]'>
+                Товари в замовленні
+              </h3>
+              <OrdersListItems orderItems={order.items} />
             </div>
-          )}
+          </div>
         </div>
       ))}
     </div>

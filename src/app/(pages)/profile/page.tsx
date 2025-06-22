@@ -8,7 +8,6 @@ export default function ProfilePage() {
     <div className='flex flex-col gap-[25px] sm:gap-[30px]'>
       <h1 className='text-xl sm:text-2xl font-bold'>Мій профіль</h1>
       <ProfileUserInfo />
-      <ProfileUserStatisticsSuspense />
       <Suspense fallback={<ProfileUserStatisticsSuspense />}>
         <ProfileUserStatisic />
       </Suspense>

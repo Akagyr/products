@@ -5,6 +5,8 @@ import { CartProvider } from './context/cartContext';
 import { Montserrat } from 'next/font/google';
 import Footer from './components/Footer';
 import { AuthProvider } from './context/authContext';
+import MainLayoutWrapper from './components/MainLayoutWrapper';
+import Loading from './loading';
 
 const montserrat = Montserrat({
   subsets: ['cyrillic'],
@@ -28,11 +30,13 @@ export default function RootLayout({
         className={`${montserrat.variable} font-montserrat antialiased flex flex-col min-h-screen`}
       >
         <AuthProvider>
-          <CartProvider>
-            <Header />
-            <main className='flex-grow'>{children}</main>
-            <Footer />
-          </CartProvider>
+          <MainLayoutWrapper fallback={<Loading />}>
+            <CartProvider>
+              <Header />
+              <main className='flex-grow'>{children}</main>
+              <Footer />
+            </CartProvider>
+          </MainLayoutWrapper>
         </AuthProvider>
       </body>
     </html>

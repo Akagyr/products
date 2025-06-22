@@ -4,7 +4,7 @@ import { useAuth } from '@/app/context/authContext';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, ReactNode } from 'react';
 
-export default function AuthWrapper({
+export default function ProfileLayoutWrapper({
   children,
   fallback,
   redirectTo = '/',

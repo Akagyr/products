@@ -4,7 +4,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import CheckoutFormInput from './CheckoutFormInput';
 import CheckoutFormDeliverySelect from './CheckoutFormDeliverySelect';
-import { CheckoutFormData, CheckoutFormFieldValidation, Order } from '@/app/types';
+import { CheckoutFormData, CheckoutFormFieldValidation } from '@/app/types';
 import { useCart } from '@/app/context/cartContext';
 import { useAuth } from '@/app/context/authContext';
 
@@ -40,10 +40,12 @@ export default function CheckoutForm() {
     'postal',
   ] as (keyof CheckoutFormData)[];
 
-  const [deliveryType, setDeliveryType] = useState<string>('depart');
+  const [deliveryType, setDeliveryType] = useState<string>('');
   const [fieldValidation, setFieldValidation] = useState<CheckoutFormFieldValidation>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [deliveryMethodError, setDeliveryMethodError] = useState<string>('');
+  const [deliveryTypeError, setDeliveryTypeError] = useState<string>('');
+  const [deliveryDetailsError, setDeliveryDetailsError] = useState<string>('');
   const [forceShowErrors, setForceShowErrors] = useState(false);
   const [shouldNavigate, setShouldNavigate] = useState(false);
 
@@ -92,15 +94,49 @@ export default function CheckoutForm() {
     setFieldValidation((prev) => ({ ...prev, ...newFieldValidation }));
   }, [formData, deliveryType, requiredFields]);
 
+  const validateDelivery = useCallback((): boolean => {
+    let hasErrors = false;
+
+    if (!formData.deliveryMethod) {
+      setDeliveryMethodError('Оберіть спосіб доставки');
+      hasErrors = true;
+    } else {
+      setDeliveryMethodError('');
+    }
+
+    if (formData.deliveryMethod === 'novapost' && !deliveryType) {
+      setDeliveryTypeError('Оберіть тип доставки');
+      hasErrors = true;
+    } else {
+      setDeliveryTypeError('');
+    }
+
+    if (
+      formData.deliveryMethod === 'novapost' &&
+      deliveryType &&
+      deliveryType !== 'courier' &&
+      (!formData.deliveryTypeDetails || !formData.deliveryTypeDetails.trim())
+    ) {
+      const placeholder = deliveryType === 'depart' ? 'відділення' : 'поштомат';
+      setDeliveryDetailsError(`Вкажіть ${placeholder}`);
+      hasErrors = true;
+    } else {
+      setDeliveryDetailsError('');
+    }
+
+    return !hasErrors;
+  }, [formData.deliveryMethod, formData.deliveryTypeDetails, deliveryType]);
+
   const isFormValid = useCallback((): boolean => {
     const requiredFieldsValid = requiredFields.every((field) => fieldValidation[field] === true);
     const deliveryValid = !!formData.deliveryMethod;
+    const deliveryTypeValid = formData.deliveryMethod !== 'novapost' || !!deliveryType;
     const deliveryDetailsValid =
       formData.deliveryMethod !== 'novapost' ||
       deliveryType === 'courier' ||
       fieldValidation.deliveryTypeDetails === true;
 
-    return requiredFieldsValid && deliveryValid && deliveryDetailsValid;
+    return requiredFieldsValid && deliveryValid && deliveryTypeValid && deliveryDetailsValid;
   }, [fieldValidation, formData.deliveryMethod, deliveryType, requiredFields]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -108,18 +144,10 @@ export default function CheckoutForm() {
     setIsSubmitting(true);
 
     try {
-      if (!isFormValid()) {
+      const isDeliveryValid = validateDelivery();
+
+      if (!isFormValid() || !isDeliveryValid) {
         validateAllFields();
-        setIsSubmitting(false);
-
-        if (!formData.deliveryMethod) {
-          setDeliveryMethodError('Оберіть спосіб доставки');
-        }
-        return;
-      }
-
-      if (!formData.deliveryMethod) {
-        setDeliveryMethodError('Оберіть спосіб доставки');
         setIsSubmitting(false);
         return;
       }
@@ -290,6 +318,10 @@ export default function CheckoutForm() {
         setFieldValidation={setFieldValidation}
         deliveryMethodError={deliveryMethodError}
         setDeliveryMethodError={setDeliveryMethodError}
+        deliveryTypeError={deliveryTypeError}
+        setDeliveryTypeError={setDeliveryTypeError}
+        deliveryDetailsError={deliveryDetailsError}
+        setDeliveryDetailsError={setDeliveryDetailsError}
       />
       <button
         type='submit'

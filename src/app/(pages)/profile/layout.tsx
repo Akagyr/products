@@ -1,4 +1,4 @@
-import AuthWrapper from '@/app/components/profile/AuthWrrapper';
+import ProfileLayoutWrapper from '@/app/components/profile/ProfileLayotWrapper';
 import ProfileSidebar from '@/app/components/profile/sidebar/ProfileSidebar';
 import Loading from '@/app/loading';
 import React from 'react';
@@ -9,7 +9,7 @@ export default function ProfileLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <AuthWrapper fallback={<Loading />}>
+    <ProfileLayoutWrapper fallback={<Loading />}>
       <div className='py-[40px] px-[20px] 2xl:px-0 max-w-[450px] md:max-w-[700px] lg:max-w-[750px] xl:max-w-[1200px] 2xl:max-w-container mx-auto'>
         <div className='flex flex-col lg:flex-row gap-[30px]'>
           <ProfileSidebar />
@@ -18,6 +18,6 @@ export default function ProfileLayout({
           </main>
         </div>
       </div>
-    </AuthWrapper>
+    </ProfileLayoutWrapper>
   );
 }

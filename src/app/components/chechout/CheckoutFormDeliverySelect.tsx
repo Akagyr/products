@@ -14,6 +14,10 @@ export default function CheckoutFormDeliverySelect({
   setFieldValidation,
   deliveryMethodError,
   setDeliveryMethodError,
+  deliveryTypeError,
+  setDeliveryTypeError,
+  deliveryDetailsError,
+  setDeliveryDetailsError,
 }: {
   formData: CheckoutFormData;
   setFormData: React.Dispatch<React.SetStateAction<CheckoutFormData>>;
@@ -22,6 +26,10 @@ export default function CheckoutFormDeliverySelect({
   setFieldValidation: React.Dispatch<React.SetStateAction<CheckoutFormFieldValidation>>;
   deliveryMethodError: string;
   setDeliveryMethodError: React.Dispatch<React.SetStateAction<string>>;
+  deliveryTypeError: string;
+  setDeliveryTypeError: React.Dispatch<React.SetStateAction<string>>;
+  deliveryDetailsError: string;
+  setDeliveryDetailsError: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const getDeliveryPlaceholder = () => {
     switch (deliveryType) {
@@ -42,6 +50,8 @@ export default function CheckoutFormDeliverySelect({
     }));
 
     setDeliveryMethodError('');
+    setDeliveryTypeError('');
+    setDeliveryDetailsError('');
 
     setFieldValidation((prev: CheckoutFormFieldValidation) => ({
       ...prev,
@@ -50,11 +60,15 @@ export default function CheckoutFormDeliverySelect({
 
     if (method !== 'novapost') {
       setDeliveryType('depart');
+    } else {
+      setDeliveryType('');
     }
   };
 
   const handleDeliveryTypeChange = (type: string) => {
     setDeliveryType(type);
+    setDeliveryTypeError('');
+    setDeliveryDetailsError('');
 
     setFormData((prev: CheckoutFormData) => ({
       ...prev,
@@ -78,7 +92,32 @@ export default function CheckoutFormDeliverySelect({
         ...prev,
         [fieldName]: isValid,
       }));
+
+      if (fieldName === 'deliveryTypeDetails' && value.trim()) {
+        setDeliveryDetailsError('');
+      }
     };
+
+  React.useEffect(() => {
+    if (formData.deliveryMethod === 'novapost' && deliveryTypeError && deliveryType) {
+      setDeliveryTypeError('');
+    }
+    if (
+      formData.deliveryMethod === 'novapost' &&
+      deliveryDetailsError &&
+      formData.deliveryTypeDetails?.trim()
+    ) {
+      setDeliveryDetailsError('');
+    }
+  }, [
+    deliveryType,
+    formData.deliveryMethod,
+    formData.deliveryTypeDetails,
+    deliveryTypeError,
+    deliveryDetailsError,
+    setDeliveryTypeError,
+    setDeliveryDetailsError,
+  ]);
 
   return (
     <section className='flex flex-col gap-[20px]'>
@@ -111,7 +150,11 @@ export default function CheckoutFormDeliverySelect({
 
       {formData.deliveryMethod === 'novapost' && (
         <>
-          <div className='mt-[10px]'>
+          <div
+            className={`mt-[10px] ${
+              deliveryTypeError ? 'border border-red-500 p-[10px] rounded-xl' : ''
+            }`}
+          >
             <CustomSelect
               options={[
                 { value: 'depart', label: 'Відділення' },
@@ -123,21 +166,26 @@ export default function CheckoutFormDeliverySelect({
               placeholder='Оберіть тип доставки'
               required={formData.deliveryMethod === 'novapost'}
             />
+            {deliveryTypeError && (
+              <p className='text-red-500 text-sm mt-[10px]'>{deliveryTypeError}</p>
+            )}
           </div>
-          {deliveryType !== 'courier' && (
-            <div className='mt-[10px]'>
+          {deliveryType !== 'courier' && deliveryType !== '' && (
+            <div
+              className={`mt-[10px] ${
+                deliveryDetailsError ? 'border border-red-500 p-[10px] rounded-xl' : ''
+              }`}
+            >
               <CheckoutFormInput
                 type='text'
                 name='deliveryTypeDetails'
                 placeholder={`Вкажіть ${getDeliveryPlaceholder()}`}
-                required={true}
                 value={formData.deliveryTypeDetails || ''}
                 onChange={handleFieldChange('deliveryTypeDetails')}
-                validationRules={{
-                  minLength: 3,
-                  customMessage: `Вкажіть ${getDeliveryPlaceholder()}`,
-                }}
               />
+              {deliveryDetailsError && (
+                <p className='text-red-500 text-sm mt-[10px]'>{deliveryDetailsError}</p>
+              )}
             </div>
           )}
         </>
